@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="node," />
 
 
 
@@ -79,11 +79,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="chenleno&#39;s">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="使用Node编写pdf导出脚本项目心得背景这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野 项目介绍使用node编写命令行脚本，通过输入语句获取基本信息，核心是通过无头浏览器puppeteer自动访问网页，导出为pdf，重命名并保存到本地 核心模块 readline">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用node编写pdf导出脚本及心得">
+<meta property="og:url" content="http://yoursite.com/2020/04/03/%E4%BD%BF%E7%94%A8node%E7%BC%96%E5%86%99pdf%E5%AF%BC%E5%87%BA%E8%84%9A%E6%9C%AC%E5%8F%8A%E5%BF%83%E5%BE%97/index.html">
 <meta property="og:site_name" content="chenleno&#39;s">
+<meta property="og:description" content="使用Node编写pdf导出脚本项目心得背景这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野 项目介绍使用node编写命令行脚本，通过输入语句获取基本信息，核心是通过无头浏览器puppeteer自动访问网页，导出为pdf，重命名并保存到本地 核心模块 readline">
+<meta property="article:published_time" content="2020-04-03T08:45:33.000Z">
+<meta property="article:modified_time" content="2020-04-03T08:46:26.529Z">
 <meta property="article:author" content="chenleno">
+<meta property="article:tag" content="node">
 <meta name="twitter:card" content="summary">
 
 
@@ -114,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/03/使用node编写pdf导出脚本及心得/"/>
 
 
 
 
 
-  <title>chenleno's</title>
+  <title>使用node编写pdf导出脚本及心得 | chenleno's</title>
   
 
 
@@ -139,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -233,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -265,9 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/%E4%BD%BF%E7%94%A8node%E7%BC%96%E5%86%99pdf%E5%AF%BC%E5%87%BA%E8%84%9A%E6%9C%AC%E5%8F%8A%E5%BF%83%E5%BE%97/" itemprop="url">使用node编写pdf导出脚本及心得</a></h1>
+          <h1 class="post-title" itemprop="name headline">使用node编写pdf导出脚本及心得</h1>
         
 
         <div class="post-meta">
@@ -339,9 +341,7 @@
       
 
       
-        
-          
-            <h1 id="使用Node编写pdf导出脚本项目心得"><a href="#使用Node编写pdf导出脚本项目心得" class="headerlink" title="使用Node编写pdf导出脚本项目心得"></a>使用Node编写pdf导出脚本项目心得</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野</p>
+        <h1 id="使用Node编写pdf导出脚本项目心得"><a href="#使用Node编写pdf导出脚本项目心得" class="headerlink" title="使用Node编写pdf导出脚本项目心得"></a>使用Node编写pdf导出脚本项目心得</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野</p>
 <h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>使用node编写命令行脚本，通过输入语句获取基本信息，核心是通过无头浏览器puppeteer自动访问网页，导出为pdf，重命名并保存到本地</p>
 <h2 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h2><ul>
 <li><a href="http://nodejs.cn/api/readline.html" target="_blank" rel="noopener">readline</a></li>
@@ -379,8 +379,6 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
 </li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -395,240 +393,36 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/vue%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E7%A0%94%E7%A9%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/vue%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E7%A0%94%E7%A9%B6/" itemprop="url">vue权限控制研究</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T16:23:27+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/node/" rel="tag"># node</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="VUE系统权限控制"><a href="#VUE系统权限控制" class="headerlink" title="VUE系统权限控制"></a>VUE系统权限控制</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://refined-x.com/2017/08/29/%E5%9F%BA%E4%BA%8EVue%E5%AE%9E%E7%8E%B0%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/" target="_blank" rel="noopener">基于Vue实现后台系统权限控制</a></p>
-<p><a href="https://refined-x.com/2017/09/01/%E7%94%A8addRoutes%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/" target="_blank" rel="noopener">用addRoutes实现动态路由</a></p>
-<p><a href="https://refined-x.com/2017/11/28/Vue2.0%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank" rel="noopener">Vue2.0用户权限控制解决方案</a></p>
-<p><a href="https://github.com/tower1229/Vue-Access-Control" target="_blank" rel="noopener">git 项目地址</a></p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>目的：（请求拦截，视图控制，路由控制）</p>
-<p>方法：</p>
-<p><img src="https://raw.githubusercontent.com/chenleno/picture/master/design.png" alt="Image text"></p>
-<h2 id="流程分析"><a href="#流程分析" class="headerlink" title="流程分析"></a>流程分析</h2><p><img src="https://raw.githubusercontent.com/chenleno/picture/master/%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90.png" alt=""></p>
-<h2 id="请求拦截"><a href="#请求拦截" class="headerlink" title="请求拦截"></a>请求拦截</h2><p>在请求发起前集中拦截，这时可以直接根据请求方法和请求地址来校验权限</p>
-<p>示例：<br>后端返回的用户权限</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"id"</span>: <span class="string">"cba62955646c4a489e2ca1442c786270"</span>,</span><br><span class="line">                    <span class="string">"name"</span>: <span class="string">"获取基础数据"</span>,</span><br><span class="line">                    <span class="string">"summary"</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">"url"</span>: <span class="string">"/base"</span>,           <span class="comment">//重要，对应api</span></span><br><span class="line">                    <span class="string">"method"</span>: <span class="string">"GET"</span>           <span class="comment">//重要</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"id"</span>: <span class="string">"daweqeqeqwrerettewrewrew"</span>,</span><br><span class="line">                    <span class="string">"name"</span>: <span class="string">"获取top10数据"</span>,</span><br><span class="line">                    <span class="string">"summary"</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">"url"</span>: <span class="string">"/goods/**"</span>,</span><br><span class="line">                    <span class="string">"method"</span>: <span class="string">"GET"</span></span><br><span class="line">                &#125;...</span><br><span class="line">            ]</span><br></pre></td></tr></table></figure>
-<p>本地维护的接口</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getBaseData = &#123;</span><br><span class="line">    p: [<span class="string">`get,<span class="subst">$&#123;preUrlPath&#125;</span>/base`</span>],     <span class="comment">// p 属性用于视图控制元素显隐</span></span><br><span class="line">    r: <span class="function"><span class="params">params</span> =&gt;</span> &#123;                     <span class="comment">// r 属性用户实际请求，实际上是对axios请求的封装</span></span><br><span class="line">        <span class="keyword">return</span> instance.get(<span class="string">`<span class="subst">$&#123;preUrlPath&#125;</span>/base`</span>, &#123;params&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//获取top10</span></span><br><span class="line"><span class="keyword">const</span> getTopData = &#123;</span><br><span class="line">    p: [<span class="string">`get,<span class="subst">$&#123;preUrlPath&#125;</span>/goods/**`</span>],</span><br><span class="line">    r: <span class="function">(<span class="params">id , params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> instance.get(<span class="string">`<span class="subst">$&#123;preUrlPath&#125;</span>/goods/<span class="subst">$&#123;id&#125;</span>`</span>,&#123;params&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>验证核心逻辑：</p>
-<p>主要是将 后端提供的用户权限的method 和 url 处理成 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"get,/base"</span>:<span class="literal">true</span> || <span class="string">"get,/goods/**"</span>:<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>格式的键值对，然后放进resourcePermission 对象中 （处理方式见 getPermission 方法）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resourcePermission = &#123;</span><br><span class="line">  <span class="string">"get,/base"</span>:<span class="literal">true</span> , </span><br><span class="line">  <span class="string">"get,/goods/**"</span>:<span class="literal">true</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>在请求时将请求实例对象中的 r 对应的 url 转化成对应格式</p>
-<p>然后与 resourcePermission 对象中的每一个键名作比较，不匹配则拦截（转化方式见 setInterceptor 方法）</p>
-<h2 id="视图控制"><a href="#视图控制" class="headerlink" title="视图控制"></a>视图控制</h2><p>将权限跟请求同时维护，验证方法接收请求对象数组为参数，返回是否具有权限的布尔值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v-<span class="keyword">if</span>=<span class="string">''</span> 方法 , 为<span class="literal">true</span>时显示，为fasle时隐藏</span><br></pre></td></tr></table></figure>
-<p>思路</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> permissions = &#123;</span><br><span class="line">  <span class="string">"get,/resources"</span>:<span class="literal">true</span>,</span><br><span class="line">  <span class="string">"delete,/resources"</span>:<span class="literal">true</span>,</span><br><span class="line">  <span class="string">"post,/resources"</span>:<span class="literal">true</span>,</span><br><span class="line">  <span class="string">"put,/resources"</span>:<span class="literal">true</span>,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> has = <span class="function"><span class="keyword">function</span>(<span class="params">permission</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!permissions[permission])&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;div v-<span class="keyword">if</span>=<span class="string">"has('get,/sources') &amp;&amp; something"</span>&gt;</span><br><span class="line">    一个需要同时具备<span class="string">'get,/sources'</span>权限和somthing为真值才显示的div</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
-<p>实现</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求对象格式</span></span><br><span class="line"><span class="comment">//获取账户列表</span></span><br><span class="line"><span class="keyword">const</span> getBaseData = &#123;</span><br><span class="line">    p: [<span class="string">`get,<span class="subst">$&#123;preUrlPath&#125;</span>/base`</span>],     <span class="comment">// p 属性用于视图控制元素显隐</span></span><br><span class="line">    r: <span class="function"><span class="params">params</span> =&gt;</span> &#123;                     <span class="comment">// r 属性用户实际请求，实际上是对axios请求的封装</span></span><br><span class="line">        <span class="keyword">return</span> instance.get(<span class="string">`<span class="subst">$&#123;preUrlPath&#125;</span>/base`</span>, &#123;params&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//调用格式</span></span><br><span class="line">v-<span class="keyword">if</span>=<span class="string">"$_has([getBaseData])"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//$_has 方法</span></span><br><span class="line">Vue.prototype.$_has = <span class="function"><span class="keyword">function</span> (<span class="params">rArray</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> resources = [];</span><br><span class="line">    <span class="keyword">let</span> permission = <span class="literal">true</span>;</span><br><span class="line"><span class="comment">//提取权限数组</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(rArray)) &#123;</span><br><span class="line">        rArray.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line"><span class="comment">//对api表中的param参数进行处理，去掉前缀</span></span><br><span class="line">            <span class="keyword">let</span> newE = e.p[<span class="number">0</span>].replace(<span class="string">'/api/udcp-base'</span>, <span class="string">''</span>)</span><br><span class="line">            resources = resources.concat(newE);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         resources = resources.concat(rArray.p);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//校验权限</span></span><br><span class="line">      resources.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">p</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (!resourcePermission[p]) &#123;</span><br><span class="line">              <span class="keyword">return</span> permission = <span class="literal">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span> permission;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>拓展———— v-has 指令，防止频繁检查变量</p>
-<h2 id="RESTful-接口要求"><a href="#RESTful-接口要求" class="headerlink" title="RESTful 接口要求"></a>RESTful 接口要求</h2><p>验证的核心是将请求api按照一定的规则转化成规定格式，因此api在定义时应遵守一定的规范</p>
-<p>接口定义时应注意安全性和幂等性</p>
-<ul>
-<li><p>安全性 ：不会改变资源状态，可以理解为只读的；</p>
-</li>
-<li><p>幂等性 ：执行1次和执行N次，对资源状态改变的效果是等价的。</p>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/chenleno/picture/master/%E5%AE%89%E5%85%A8%E5%B9%82%E7%AD%89.png" alt="安全性幂等性"></p>
-<p>参考文档：</p>
-<p><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api" target="_blank" rel="noopener">阮一峰 RESTful设计指南</a></p>
-<p><a href="https://blog.csdn.net/chasel_s/article/details/78075762" target="_blank" rel="noopener">一些RESTful架构的理解</a></p>
-<p><a href="https://blog.csdn.net/u013731455/article/details/56278168" target="_blank" rel="noopener">关于RESTful的一些注意事项</a></p>
-<p>接口格式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">静态资源请求需要 <span class="string">"/"</span> 在结尾封闭</span><br><span class="line">如：/base/sc/cs/</span><br><span class="line"></span><br><span class="line">对于带子资源的资源</span><br><span class="line"><span class="number">1.</span> 格式：/resources/:id</span><br><span class="line">   示例：/resources/<span class="number">1</span></span><br><span class="line">   url: <span class="regexp">/resources/</span>**</span><br><span class="line">   解释：一个名词后跟一个参数，参数通常表示名词的id</span><br><span class="line">   </span><br><span class="line"><span class="number">2.</span> 格式：/store/:id/member</span><br><span class="line">   示例：/store/<span class="number">1</span>/member</span><br><span class="line">   url：/store<span class="comment">/*/member</span></span><br><span class="line"><span class="comment">   解释：两个名词之间夹带一个参数，参数通常表示第一个名词的id</span></span><br></pre></td></tr></table></figure>
-<p>接口处理方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">例： <span class="comment">//config.url = "/api/udcp-base/base"</span></span><br><span class="line">    <span class="comment">//config.url = "/api/udcp-base/goods/offline"</span></span><br><span class="line">    <span class="comment">//config.url = "/api/udcp-base/goods/1/cup"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> perName = config.url.replace(config.baseURL, <span class="string">''</span>).replace(<span class="string">'/api/udcp-base'</span>, <span class="string">''</span>).split(<span class="string">'?'</span>)[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//preName = /base</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">//权限格式1 /path/$&#123;param&#125;</span></span><br><span class="line">                    <span class="keyword">let</span> reg1 = perName.match(<span class="regexp">/^(\/[^\/]+\/)[^\/]+$/</span>);</span><br><span class="line">                    <span class="keyword">if</span> (reg1) &#123;</span><br><span class="line">                        perName = reg1[<span class="number">1</span>] + <span class="string">'**'</span>;</span><br><span class="line">                        <span class="comment">// preName = /goods/**</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//权限格式2 /path/$&#123;param&#125;/path</span></span><br><span class="line">                    <span class="keyword">let</span> reg2 = perName.match(<span class="regexp">/^\/[^\/]+\/([^\/]+)\/[^\/]+$/</span>);</span><br><span class="line">                    <span class="keyword">if</span> (reg2) &#123;</span><br><span class="line">                        perName = perName.replace(reg2[<span class="number">1</span>], <span class="string">'*'</span>);</span><br><span class="line">                        <span class="comment">// preName = /goods/*/cup</span></span><br><span class="line">                    &#125;</span><br></pre></td></tr></table></figure>
-<p>后端api要求示例 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">旧：</span><br><span class="line">用户(平台使用者)登录</span><br><span class="line">POST: <span class="regexp">/api/u</span>dcp-base/session/create             <span class="comment">//create为动词，不符合规范</span></span><br><span class="line"></span><br><span class="line">新：</span><br><span class="line">POST: <span class="regexp">/api/u</span>dcp-base/session                    <span class="comment">//对session资源进行post操作</span></span><br><span class="line"></span><br><span class="line">旧：</span><br><span class="line">修改密码</span><br><span class="line">POST: <span class="regexp">/api/u</span>dcp-base/session/change             <span class="comment">//change为动词，不符合规范</span></span><br><span class="line"></span><br><span class="line">新：</span><br><span class="line">PUT: <span class="regexp">/api/u</span>dcp-base/session                     <span class="comment">//对session资源进行put操作</span></span><br><span class="line"></span><br><span class="line">旧：</span><br><span class="line">查询用户群中的用户</span><br><span class="line">POST: <span class="regexp">/api/u</span>dcp-base/users/&#123;pageNo&#125;/&#123;pageSize&#125;  <span class="comment">//查询应使用get,pageNo和pageSize为过滤条件，不是资源，应作为参数</span></span><br><span class="line"></span><br><span class="line">新：</span><br><span class="line">GET: <span class="regexp">/api/u</span>dcp-base/users?pageNo=&amp;pageSize=</span><br><span class="line"></span><br><span class="line">旧：</span><br><span class="line">畅销商品列表</span><br><span class="line">GET: <span class="regexp">/api/u</span>dcp-base/goods/sales/&#123;deviceType&#125;/&#123;timeSlot&#125;     <span class="comment">//goods后存在无关修饰，timeSlot为过滤条件，不是资源，应作为参数</span></span><br><span class="line">新：</span><br><span class="line">GET: <span class="regexp">/api/u</span>dcp-base/goods/&#123;deviceType&#125;?timeSlot=</span><br></pre></td></tr></table></figure>
-
-<p>根据修改后的api,后端给出的用户权限数据示例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">                    <span class="string">"id"</span>: <span class="string">"cba62955646c4a489e2ca1442c786270"</span>,</span><br><span class="line">                    <span class="string">"name"</span>: <span class="string">"登录"</span>,</span><br><span class="line">                    <span class="string">"summary"</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">"url"</span>: <span class="string">"/session"</span>,          </span><br><span class="line">                    <span class="string">"method"</span>: <span class="string">"POST"</span>           </span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"id"</span>: <span class="string">"daweqeqeqwrerettewrewrew"</span>,</span><br><span class="line">                    <span class="string">"name"</span>: <span class="string">"修改密码"</span>,</span><br><span class="line">                    <span class="string">"summary"</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">"url"</span>: <span class="string">"/session"</span>,</span><br><span class="line">                    <span class="string">"method"</span>: <span class="string">"PUT"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">"id"</span>: <span class="string">"ytjyhshfgfgd"</span>,</span><br><span class="line">                    <span class="string">"name"</span>: <span class="string">"查询用户群中的用户"</span>,</span><br><span class="line">                    <span class="string">"summary"</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">"url"</span>: <span class="string">"/users"</span>,</span><br><span class="line">                    <span class="string">"method"</span>: <span class="string">"GET"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                  <span class="string">"id"</span>: <span class="string">"ptorejfklvxnksldfk"</span>,</span><br><span class="line">                    <span class="string">"name"</span>: <span class="string">"畅销商品列表"</span>,</span><br><span class="line">                    <span class="string">"summary"</span>: <span class="literal">null</span>,</span><br><span class="line">                    <span class="string">"url"</span>: <span class="string">"/goods/**"</span>,</span><br><span class="line">                    <span class="string">"method"</span>: <span class="string">"GET"</span></span><br><span class="line">                &#125;</span><br></pre></td></tr></table></figure>
-
-<p>局限性：</p>
-<p>无法解析 /path/path1/${param} 这样的格式，会解析为 /path/*/${param}</p>
-<p>无法解析 /path/${param1}/path1/${param2}这样的格式，会解析为 /path/*/path1/${param2} </p>
-<p>解决方法：</p>
-<ol>
-<li>采用 ? 后接参数形式</li>
-<li>新正则</li>
-</ol>
-<h2 id="路由控制"><a href="#路由控制" class="headerlink" title="路由控制"></a>路由控制</h2><blockquote>
-<p>动态注册路由</p>
-</blockquote>
-<p>事先在本地存一份完整的路由数据，然后根据用户权限对完整路由进行筛选<br>需先将后台返回的路由数据处理成</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hashMenus = &#123;</span><br><span class="line">   <span class="string">"/route1"</span>:<span class="literal">true</span>,</span><br><span class="line">   <span class="string">"/route1/route1-1"</span>:<span class="literal">true</span>,</span><br><span class="line">   <span class="string">"/route1/route1-2"</span>:<span class="literal">true</span>,</span><br><span class="line">   <span class="string">"/route2"</span>:<span class="literal">true</span>,</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<blockquote>
-<p>动态生成菜单</p>
-</blockquote>
-<blockquote>
-<p>配置目录结构</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src/</span><br><span class="line">  |-- api/                  <span class="comment">//接口文件</span></span><br><span class="line">  |     |-- index.js             <span class="comment">//输出通用axios实例</span></span><br><span class="line">  |     |-- account.js           <span class="comment">//按业务模块组织的接口文件，所有接口都引用./index提供的axios实例</span></span><br><span class="line">  |-- router/</span><br><span class="line">  |     |-- fullpath.js         <span class="comment">//完整路由数据，用于匹配用户的路由权限得到实际路由</span></span><br><span class="line">  |     |-- index.js            <span class="comment">//输出基础路由实例</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>数据格式约定</p>
-</blockquote>
-<ul>
-<li>路由权限数据（前端提供，从后端请求）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="string">"1"</span>,</span><br><span class="line">      <span class="string">"name"</span>: <span class="string">"菜单1"</span>,</span><br><span class="line">      <span class="string">"parent_id"</span>: <span class="literal">null</span>,</span><br><span class="line">      <span class="string">"route"</span>: <span class="string">"route1"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="string">"2"</span>,</span><br><span class="line">      <span class="string">"name"</span>: <span class="string">"菜单1-1"</span>,</span><br><span class="line">      <span class="string">"parent_id"</span>: <span class="string">"1"</span>,</span><br><span class="line">      <span class="string">"route"</span>: <span class="string">"route2"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure></li>
-<li>资源权限数据（后端提供，格式固定）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="string">"2c9180895e172348015e1740805d000d"</span>,</span><br><span class="line">      <span class="string">"name"</span>: <span class="string">"账号-获取"</span>,</span><br><span class="line">      <span class="string">"url"</span>: <span class="string">"/accounts"</span>,</span><br><span class="line">      <span class="string">"method"</span>: <span class="string">"GET"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"id"</span>: <span class="string">"2c9180895e172348015e1740c30f000e"</span>,</span><br><span class="line">      <span class="string">"name"</span>: <span class="string">"账号-删除"</span>,</span><br><span class="line">      <span class="string">"url"</span>: <span class="string">"/account/**"</span>,</span><br><span class="line">      <span class="string">"method"</span>: <span class="string">"DELETE"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-
-
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/vue%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E7%A0%94%E7%A9%B6/" rel="next" title="vue权限控制研究">
+                <i class="fa fa-chevron-left"></i> vue权限控制研究
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -638,10 +432,11 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -649,6 +444,10 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
 
 
           
+
+  
+
+
 
         </div>
         
@@ -669,8 +468,17 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -730,6 +538,22 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Node编写pdf导出脚本项目心得"><span class="nav-number">1.</span> <span class="nav-text">使用Node编写pdf导出脚本项目心得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">1.2.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心模块"><span class="nav-number">1.3.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程分析"><span class="nav-number">1.4.</span> <span class="nav-text">流程分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">1.5.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">1.6.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#入口index"><span class="nav-number">1.6.1.</span> <span class="nav-text">入口index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readline"><span class="nav-number">1.6.2.</span> <span class="nav-text">readline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#puppeteer"><span class="nav-number">1.6.3.</span> <span class="nav-text">puppeteer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pdf模块"><span class="nav-number">1.6.4.</span> <span class="nav-text">pdf模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经验总结"><span class="nav-number">1.7.</span> <span class="nav-text">经验总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -870,6 +694,10 @@ env 函数将用户输入的值结合对应环境生成实际数据传递给pupp
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
