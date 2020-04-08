@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="TypeScript," />
+  <meta name="keywords" content="QA,React," />
 
 
 
@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="TypeScriptTypeScript作为今年的重点学习对象，在此记录学习过程和总结。参考资料：从JS到TS 基础类型 string number boolean underfined null any symbol接口 interfaceinterface 常用来描述一个对象有哪些类型的属性123456interface Ifoo &amp;#123;  name: string  age?: num">
+<meta name="description" content="QA归档归档总结常见的QA问题，问题驱动学习他不香吗~ 谈谈React fiber架构fiber(协程)react 执行数据更新需要递归遍历VDOM树，将需要变动的节点收集起来，然后同步更新他们，过程称为reconcilation（协调）。在reconcilation期间，react会霸占浏览器资源，导致卡顿或掉帧。 react通过fiber,让reconcilation变得可以中断，适时的让出c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TS学习手记">
-<meta property="og:url" content="http://yoursite.com/2020/04/04/TS%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/index.html">
+<meta property="og:title" content="QA归档.md">
+<meta property="og:url" content="http://yoursite.com/2020/04/08/QA%E5%BD%92%E6%A1%A3-md/index.html">
 <meta property="og:site_name" content="chenleno&#39;s">
-<meta property="og:description" content="TypeScriptTypeScript作为今年的重点学习对象，在此记录学习过程和总结。参考资料：从JS到TS 基础类型 string number boolean underfined null any symbol接口 interfaceinterface 常用来描述一个对象有哪些类型的属性123456interface Ifoo &amp;#123;  name: string  age?: num">
-<meta property="article:published_time" content="2020-04-04T07:18:47.000Z">
-<meta property="article:modified_time" content="2020-04-06T02:06:04.903Z">
+<meta property="og:description" content="QA归档归档总结常见的QA问题，问题驱动学习他不香吗~ 谈谈React fiber架构fiber(协程)react 执行数据更新需要递归遍历VDOM树，将需要变动的节点收集起来，然后同步更新他们，过程称为reconcilation（协调）。在reconcilation期间，react会霸占浏览器资源，导致卡顿或掉帧。 react通过fiber,让reconcilation变得可以中断，适时的让出c">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/7/14/164974fb89da87c5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/7/14/164974fa4b42e4af?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="article:published_time" content="2020-04-08T03:19:02.000Z">
+<meta property="article:modified_time" content="2020-04-08T09:41:20.082Z">
 <meta property="article:author" content="chenleno">
-<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="QA">
+<meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/7/14/164974fb89da87c5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/04/04/TS学习手记/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/04/08/QA归档-md/"/>
 
 
 
 
 
-  <title>TS学习手记 | chenleno's</title>
+  <title>QA归档.md | chenleno's</title>
   
 
 
@@ -252,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/04/TS%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/QA%E5%BD%92%E6%A1%A3-md/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="chenleno">
@@ -269,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">TS学习手记</h1>
+          <h1 class="post-title" itemprop="name headline">QA归档.md</h1>
         
 
         <div class="post-meta">
@@ -281,8 +285,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-04T15:18:47+08:00">
-                2020-04-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-08T11:19:02+08:00">
+                2020-04-08
               </time>
             
 
@@ -306,6 +310,17 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
                     <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
                   </a>
                 </span>
 
@@ -341,32 +356,47 @@
       
 
       
-        <h1 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h1><p>TypeScript作为今年的重点学习对象，在此记录学习过程和总结。<br>参考资料：<br><a href="https://github.com/xcatliu/typescript-tutorial" target="_blank" rel="noopener">从JS到TS</a></p>
-<h2 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h2><ul>
-<li>string</li>
-<li>number</li>
-<li>boolean</li>
-<li>underfined</li>
-<li>null</li>
-<li>any</li>
-<li>symbol<h2 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口 interface"></a>接口 interface</h2>interface 常用来描述一个对象有哪些类型的属性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface Ifoo &#123;</span><br><span class="line">  name: string</span><br><span class="line">  age?: number</span><br><span class="line">  sayHello(props: string | number): <span class="keyword">void</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>: <span class="title">Ifoo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型 "></a>泛型 <T></h2><blockquote>
-<p>在定义函数或者接口或者类时，不预先定义具体的类型，而是在使用时再定义的一种特性<br>比如一个函数接收的参数即可能是字符串数组也可能是数字数组时</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface Ibar&lt;T&gt; &#123;</span><br><span class="line">  props: T[]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> bar: Ibar&lt;string | number&gt; = <span class="function"><span class="params">props</span> =&gt;</span> <span class="built_in">console</span>.log(props)</span><br></pre></td></tr></table></figure>
-<h2 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h2><blockquote>
-<p>可以用来手动指定一个类型的值<br>常用在，当ts不知道某个值的类型，而却要使用这种类型的值才有的方法的时候</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">props: string | []</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(props <span class="keyword">as</span> [].map(<span class="function"><span class="params">i</span> =&gt;</span> <span class="built_in">console</span>.log(i)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-两种写法：</li>
-<li>值 as 类型 (tsx中只能用这种)</li>
-<li>&lt;类型&gt;值<h2 id="声明文件x-d-ts"><a href="#声明文件x-d-ts" class="headerlink" title="声明文件x.d.ts"></a>声明文件x.d.ts</h2>想要在别的项目上开发时，也拥有方法，校验提示，就需要在项目内编写声明文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// xxx.d.ts</span></span><br><span class="line">declare namespace &lt;object&gt; &#123;</span><br><span class="line">  a: string</span><br><span class="line">  b: string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-使用webpack打包时，package.json 中要指明 types 属性的入口，该属性用于引入声明文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;...</span><br><span class="line">  types: <span class="string">'dist/index.d.ts'</span></span><br><span class="line">...&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="type-定义类型别名和字符串字面量约束"><a href="#type-定义类型别名和字符串字面量约束" class="headerlink" title="type 定义类型别名和字符串字面量约束"></a>type 定义类型别名和字符串字面量约束</h2>可以用type 来定义类型别名<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type Tstring = string</span><br><span class="line"><span class="keyword">const</span> a: Tstring = <span class="string">'hhh'</span></span><br></pre></td></tr></table></figure>
-也可以定义字符串约束<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type Tstring = <span class="string">'click'</span> | <span class="string">'dbclick'</span> | <span class="string">'move'</span></span><br><span class="line"><span class="keyword">const</span> b: Tstring = <span class="string">'hhh'</span> <span class="comment">// 错，b只能是约束中的一种</span></span><br></pre></td></tr></table></figure>
-
-
+        <h1 id="QA归档"><a href="#QA归档" class="headerlink" title="QA归档"></a>QA归档</h1><p>归档总结常见的QA问题，问题驱动学习他不香吗~</p>
+<h2 id="谈谈React-fiber架构"><a href="#谈谈React-fiber架构" class="headerlink" title="谈谈React fiber架构"></a>谈谈React fiber架构</h2><p>fiber(协程)<br>react 执行数据更新需要递归遍历VDOM树，将需要变动的节点收集起来，然后同步更新他们，过程称为reconcilation（协调）。<br>在reconcilation期间，react会霸占浏览器资源，导致卡顿或掉帧。</p>
+<p>react通过fiber,让reconcilation变得可以中断，适时的让出cpu执行权，可以让浏览器及时响应用户，体验更好.</p>
+<p>确定是否有高优先级任务的api: requestIdleCallback<br>通过<strong>超时检查</strong>机制来确认，即确认一个超时时间，如果任务执行时间超过了，则暂停执行<br>为了避免任务被饿死，react定义了一个超时时间，低优先级可以慢慢等待，高优先级要立刻执行</p>
+<p>fiber另一种解读是（纤维）,这是一种数据结构或者说执行单元，react每次执行完一个执行单元，就会看看还有没有时间，如果没有时间了，就将执行权让出去<br>fiber将调用栈转换为链表结构，这样即使中断了也能在下一次执行时继续<br>fiber的协调阶段和提交阶段<br>协调阶段会找到所有节点变更，可以被中断<br>提交阶段会将找到的变更一次执行了，必须同步执行，不能被中断(不能中断是因为要保证任务只执行一次)</p>
+<p>fiber 的实现是非常复杂的东西。</p>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><p>参考资料：<br><a href="http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html" target="_blank" rel="noopener">阮一峰的宏任务微任务介绍</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/14/164974fb89da87c5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="js同步异步任务图"><br>宏任务和微任务都属于异步任务，它们都属于一个队列，主要区别于它们的执行顺序<br><img src="https://user-gold-cdn.xitu.io/2018/7/14/164974fa4b42e4af?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="宏任务微任务图"><br>执行描述</p>
+<ol>
+<li>主线程执行栈执行完了</li>
+<li>event loop 去查看微任务队列，如果有，就把它们全<strong>执行完</strong></li>
+<li>event loop 去查看宏任务队列，如果有，就拿出一个放到主线程执行栈执行</li>
+<li>重复123…</li>
+</ol>
+<p>总结:</p>
+<ul>
+<li>所有会进入的异步都是事件回调中的那部分代码（如：new Promise()在实例化的过程中是同步的，之后的then中注册的回调是异步的）</li>
+<li>所有同步任务执行完后才会去执行当前已注册的微任务，所有微任务都执行完后才会去执行一个新的宏任务</li>
+</ul>
+<h3 id="如何界定宏任务和微任务"><a href="#如何界定宏任务和微任务" class="headerlink" title="如何界定宏任务和微任务"></a>如何界定宏任务和微任务</h3><p>宏任务：</p>
+<ul>
+<li>I/O</li>
+<li>setTimeout, setInterval, setImmediate</li>
+<li>requestAnimationFrame<br>微任务：</li>
+<li>process.nextTick, promise.then, catch finally</li>
+</ul>
+<p><strong>process.nextTick追加在其他微任务之前</strong></p>
+<h3 id="node中的-event-loop和宏微任务之间的关系"><a href="#node中的-event-loop和宏微任务之间的关系" class="headerlink" title="node中的 event loop和宏微任务之间的关系"></a>node中的 event loop和宏微任务之间的关系</h3><p>node的event loop依赖libuv调度<br>node 事件循环的六个阶段</p>
+<ul>
+<li>timers (处理 setTimeout 和 setInterval的回调，是否执行根据当前时间是否满足回调条件)</li>
+<li>I/O callbacks (除了以下操作的回调，其他的都在这里执行)<ul>
+<li>setTimeout和setInterval</li>
+<li>setImmediate</li>
+<li>用于关闭请求的回调（如：socket.on(‘close’, …）</li>
+<li><strong>Tip:执行I/O回调时可能会遇到定时器到时了，但也必须执行完当前回调后才会去执行定时器的，这也是为什么有时候定时器回调执行时间会晚于定时时间的原因</strong></li>
+</ul>
 </li>
+<li>idle, prepare (libuv内部调用，可以忽略)</li>
+<li>poll (轮询时间，用于等待还未返回的I/O事件或定时器)</li>
+<li>check (执行setImmediate回调)</li>
+<li>close callbacks （执行关闭请求的回调，如：socket.on(‘close’, …)）<br>每个阶段都有一个先进先出的回调函数队列，只有一个阶段的回调函数队列清空了，该执行的回调函数都执行了，事件循环才会进入下一个阶段<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 思考题</span></span><br><span class="line">fs.readFile(<span class="string">'test.js'</span>, () =&gt; &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'timeout'</span>))</span><br><span class="line">  setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'immediate'</span>))</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 该代码一定会先输出 immediate, 后输出timeout</span></span><br><span class="line"><span class="comment">// 解析：</span></span><br><span class="line"><span class="comment">// 第一轮loop, 解析到I/O操作，在poll状态等待I/O执行完毕，I/O执行完毕，进行第二轮loop</span></span><br><span class="line"><span class="comment">// 第二轮loop, 在 I/O阶段执行回调，检测到setTimeout和setImmediate, 在check阶段执行 setImmediate的回调，输出"immediate",进入第三轮</span></span><br><span class="line"><span class="comment">// 第三轮loop, 在timer处处理setTimeout的回调，输出"timeout"</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -385,7 +415,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+            <a href="/tags/QA/" rel="tag"># QA</a>
+          
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -398,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/04/03/ES6%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" rel="next" title="ES6学习手记">
-                <i class="fa fa-chevron-left"></i> ES6学习手记
+              <a href="/2020/04/04/TS%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" rel="next" title="TS学习手记">
+                <i class="fa fa-chevron-left"></i> TS学习手记
               </a>
             
           </div>
@@ -407,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/04/08/QA%E5%BD%92%E6%A1%A3-md/" rel="prev" title="QA归档.md">
-                QA归档.md <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -542,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TypeScript"><span class="nav-number">1.</span> <span class="nav-text">TypeScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础类型"><span class="nav-number">1.1.</span> <span class="nav-text">基础类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口-interface"><span class="nav-number">1.2.</span> <span class="nav-text">接口 interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型"><span class="nav-number">1.3.</span> <span class="nav-text">泛型 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言"><span class="nav-number">1.4.</span> <span class="nav-text">类型断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明文件x-d-ts"><span class="nav-number">1.5.</span> <span class="nav-text">声明文件x.d.ts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type-定义类型别名和字符串字面量约束"><span class="nav-number">1.6.</span> <span class="nav-text">type 定义类型别名和字符串字面量约束</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#QA归档"><span class="nav-number">1.</span> <span class="nav-text">QA归档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#谈谈React-fiber架构"><span class="nav-number">1.1.</span> <span class="nav-text">谈谈React fiber架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏任务和微任务"><span class="nav-number">1.2.</span> <span class="nav-text">宏任务和微任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何界定宏任务和微任务"><span class="nav-number">1.2.1.</span> <span class="nav-text">如何界定宏任务和微任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node中的-event-loop和宏微任务之间的关系"><span class="nav-number">1.2.2.</span> <span class="nav-text">node中的 event loop和宏微任务之间的关系</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
