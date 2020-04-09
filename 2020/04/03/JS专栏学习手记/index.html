@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype3.png">
 <meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png">
 <meta property="article:published_time" content="2020-04-03T10:40:11.000Z">
-<meta property="article:modified_time" content="2020-04-03T10:40:50.598Z">
+<meta property="article:modified_time" content="2020-04-09T08:59:02.891Z">
 <meta property="article:author" content="chenleno">
 <meta property="article:tag" content="JS基础">
 <meta name="twitter:card" content="summary">
@@ -350,7 +350,7 @@
 <h2 id="原型到原型链"><a href="#原型到原型链" class="headerlink" title="原型到原型链"></a><a href="https://github.com/mqyqingfeng/Blog/issues/2" target="_blank" rel="noopener">原型到原型链</a></h2><p>都除了null, null表示“此处没有对象”，即不应该有值<br>只有函数才有prototype<br>原型是一个对象(每个javascript 对象在创建时都会关联另一个对象，这个对象就叫原型，每个对象都会从原型继承属性)<br>函数的 prototype 指向 =&gt; 这个构造函数所构造实例的原型对象<br><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype1.png" alt="原型和实例的关系"><br><strong>proto</strong><br>每一个javascript对象都会有一个<strong>proto</strong>属性,这个属性指向该对象的原型 (函数也是对象！！！)<br><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype2.png" alt="__propo__关系"><br>constructor<br>每个原型都有一个属性constructor 指向该原型的构造函数<br><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype3.png" alt="constructor关系"></p>
 <p>实例和原型<br>读取实例属性时，如果找不到，会去找实例原型的属性，如果找不到，会去找原型的原型…<br><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/prototype5.png" alt="原型和Object和null"><br>原型链是<strong>对象</strong>的指向链 实例.<strong>proto</strong> =&gt; xxx.prototype .<strong>proto</strong> =&gt; Object.prototype .<strong>proto</strong> =&gt; null<br><strong>proto</strong> 实际上来源于 Object.prototype<br>相当于一个getter/setter,即只要访问 obj.<strong>proto</strong> 都会 返回 Object.getPrototypeOf(obj)<br>实例的constructor是从原型上继承过来的</p>
 <h2 id="词法-静态-作用域和动态作用域"><a href="#词法-静态-作用域和动态作用域" class="headerlink" title="词法(静态)作用域和动态作用域"></a><a href="https://github.com/mqyqingfeng/Blog/issues/3" target="_blank" rel="noopener">词法(静态)作用域和动态作用域</a></h2><p>js是词法作用域<br>作用域就是定义变量的区域,规定了对变量的访问权限<br>词法作用域：函数定义时确定的<br>动态作用域：函数调用时确定的<br>(一个是书写位置，一个是调用位置)<br><strong>作用域链是在函数定义时确定的,函数的作用域基于函数创建时的位置</strong></p>
-<h2 id="执行上下文栈（ECS"><a href="#执行上下文栈（ECS" class="headerlink" title="执行上下文栈（ECS)"></a><a href="https://github.com/mqyqingfeng/Blog/issues/4" target="_blank" rel="noopener">执行上下文栈（ECS)</a></h2><p>js引擎是一段一段解析代码的<br>段包括三种： 全局代码，函数代码，eval代码<br>执行栈[]最底层永远是个globalContext<br>js解析代码时，遇到函数调用，就会压入执行栈[].push(FuncContext)<br>[].pop()</p>
+<h2 id="执行上下文栈（ECS"><a href="#执行上下文栈（ECS" class="headerlink" title="执行上下文栈（ECS)"></a><a href="https://github.com/mqyqingfeng/Blog/issues/4" target="_blank" rel="noopener">执行上下文栈（ECS)</a></h2><p>js引擎是一段一段解析代码的<br>段包括三种： 全局代码，函数代码，eval代码<br>执行栈[]最底层永远是个globalContext<br>js解析代码时，遇到函数调用，就会压入执行栈[].push(FuncContext)<br>[].pop()<br>函数<strong>执行</strong>的时候，创建执行上下文，压入执行上下文栈，函数<strong>执行完毕</strong>的时候，该执行上下文从栈中弹出</p>
 <h2 id="变量对象-VO"><a href="#变量对象-VO" class="headerlink" title="变量对象(VO)"></a><a href="https://github.com/mqyqingfeng/Blog/issues/5" target="_blank" rel="noopener">变量对象(VO)</a></h2><p>对于每个执行上下文，都有三个重要属性 <strong>变量对象，作用域链，this</strong><br>变量对象是与执行上下文相关的数据作用域，存储了在上下文中定义的变量和函数声明<br>全局上下文中的变量对象就是全局对象<br>函数上下文中用活动对象（AO）表示变量对象<br><strong>VO和AO是同一对象处于执行上下文的不同周期</strong><br>活动对象是在进入执行上下文中时创建的,他通过函数的arguments属性初始化，arguments的属性值是Arguments对象</p>
 <ul>
 <li>全局上下文的变量对象初始化就是全局对象</li>
