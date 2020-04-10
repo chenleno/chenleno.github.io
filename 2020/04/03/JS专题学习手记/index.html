@@ -86,8 +86,9 @@
 <meta property="og:site_name" content="chenleno&#39;s">
 <meta property="og:description" content="JS专题学习手记同样源自冴羽大大的blog系列，JS专题相对增加了更多对算法和方法实现上的思考，值得细细品味，目前专题还在持续学习中，具体的练习代码就不放在这里了。blog将分阶段更新。同样是宝库链接：冴羽’s blog 防抖debounce防抖和节流都是为了解决频繁事件触发例如 lodash.debounce()  防抖即你随便触发事件，我只在你不再触发事件的n时间后执行事件Tip: setTi">
 <meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/insertion.gif">
+<meta property="og:image" content="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/quicksort.gif">
 <meta property="article:published_time" content="2020-04-03T10:44:45.000Z">
-<meta property="article:modified_time" content="2020-04-09T10:23:06.047Z">
+<meta property="article:modified_time" content="2020-04-10T09:03:29.747Z">
 <meta property="article:author" content="chenleno">
 <meta property="article:tag" content="JS基础">
 <meta property="article:tag" content="算法">
@@ -391,7 +392,7 @@
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 尾调用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> g(x)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行栈：</span></span><br><span class="line"><span class="comment">// globalContext.push(fContext)</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br><span class="line"><span class="comment">// globalContext.push(gContext)</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br><span class="line"><span class="comment">// 非尾调用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> g(x) + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行栈</span></span><br><span class="line"><span class="comment">// globalContext.push(fContext)</span></span><br><span class="line"><span class="comment">// globalContext.push(gContext) 多创建了一个执行栈</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br></pre></td></tr></table></figure>
 <h2 id="v8排序解析"><a href="#v8排序解析" class="headerlink" title="v8排序解析"></a><a href="https://github.com/mqyqingfeng/Blog/issues/52" target="_blank" rel="noopener">v8排序解析</a></h2><p>v8对数组的排序是纯js实现的<br>数组小于10用插排，大于10用快排（这种说法不太严谨）</p>
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/insertion.gif" alt="插入排序图"></p>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/insertion.gif" alt="插入排序图"><br><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/quicksort.gif" alt="原地快排"></p>
 
       
     </div>
