@@ -385,7 +385,39 @@
 <h2 id="代码不写-会导致的问题"><a href="#代码不写-会导致的问题" class="headerlink" title="代码不写;会导致的问题"></a>代码不写;会导致的问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 乱序方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shuffle</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=arr.length;i;i--) &#123;</span><br><span class="line">    <span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i)</span><br><span class="line">    [arr[i<span class="number">-1</span>], arr[j]] = [arr[j], arr[i<span class="number">-1</span>]]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">shuffle([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="comment">// Uncaught ReferenceError: Cannot access 'j' before initialization</span></span><br></pre></td></tr></table></figure>
 代码执行会报错，变量j进入了临时死区报错<br>经分析，问题出在这里<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i) </span><br><span class="line">[arr[i<span class="number">-1</span>], arr[j]] = [arr[j], arr[i<span class="number">-1</span>]] <span class="comment">// 新行以 ( [ / + - * % , . 开始,会与上一行未加;的代码拼在一起解析</span></span><br></pre></td></tr></table></figure>
 因此需要在<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i); <span class="comment">// 需要在这里加个;</span></span><br></pre></td></tr></table></figure>
-真坑爹，原本以为js加不加;只是代码风格问题，没想到这里也有坑，真是学到了学到了…</li>
+真坑爹，原本以为js加不加;只是代码风格问题，没想到这里也有坑，真是学到了学到了…<h2 id="session-cookie和token"><a href="#session-cookie和token" class="headerlink" title="session, cookie和token"></a>session, cookie和token</h2>session和cookie都是为了弥补http协议的无状态性<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3>客户端访问服务端时，服务端在内存上开辟一块空间，这个对象便是session对象</li>
+</ul>
+<ol>
+<li>服务端第一次收到请求，创建session对象，并生成一个sessionId</li>
+<li>通过响应头的set-cookie: JSESSIONID=xxxx,向客户端发送要求设置cookie的响应</li>
+<li>客户端收到响应后，在本机客户端设置了一个JSESSIONID=xxx的cookie信息，过期时间为会话结束</li>
+<li>接下来客户端向同一个站点发送请求，请求头上都会带上该cookie信息，服务端通过读取cookie信息得到本次请求的sessionId<br><img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2020%2F0405%2F19c183f7p00q8b9mk001md200u000aog015w00ew.png&thumbnail=690x2147483647&quality=75&type=png" alt="set-cookie要求"><br>session的缺点：<br>假如只有a服务器存储了session,负载均衡转发到b服务器，b服务器无法访问到a的sessionId,会导致session失效<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3>包括web cookie和浏览器cookie，他是服务器发到浏览器的一小块数据，浏览器进行存储，并与下一个请求一起发送到服务器，cookie通常用来判断两个请求是否来源于同一个浏览器<br>cookie有两种类型，分别是<strong>session cookie</strong>和<strong>persistant cookie</strong></li>
+</ol>
+<ul>
+<li>session cookie<ul>
+<li>不会写入磁盘，没有过期时间，会在会话结束后删除</li>
+</ul>
+</li>
+<li>persistant cookie<ul>
+<li>会写入磁盘，有expires或者max-age过期时间，并在到期后删除<br>cookie的http-only属性指定该cookie是否可以通过客户端脚本访问,为true时可能导致cookie被窃取<br>cookie的domain和path属性指定该cookie应该发送给哪些url<h3 id="token"><a href="#token" class="headerlink" title="token"></a>token</h3>token 和session cookie就是用来保证用户在不同页面间切换，保存登录信息的机制<br>token 由三部分组成</li>
+</ul>
+</li>
+<li>uid 用户唯一身份标识</li>
+<li>time 时间戳</li>
+<li>sign + [固定参数]<br>token认证流程</li>
+</ul>
+<ol>
+<li>用户登录，成功后服务器返回token给客户端</li>
+<li>客户端收到数据后保存在客户端</li>
+<li>客户端再次访问服务器，token放在header中</li>
+<li>服务器校验，校验成功返回数据，不成功返回错误码</li>
+</ol>
+<p>token可以抵抗csrf,session+cookie不行<br>客户端登录将身份信息发给服务端，服务端把信息加密（token）传给客户端，客户端将token存放于localStorage中，客户端每次访问都传递token给服务端，服务端解密token获取用户身份，这种方法叫做jwt(JSON web token)</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>session存放于服务端，可以理解为一个状态列表，拥有一个唯一识别符合sessionId，通常存放于cookie中。服务端收到cookie后解析出sessionId,再去session列表中查找，找到相应session。依赖cookie</li>
+<li>cookie类似一个令牌，拥有sessionId,存放于客户端，浏览器通常会自动添加</li>
+<li>token也类似一个令牌，无状态，用户信息被加密到token中，服务端收到后解密就可以知道哪个用户，需要手动添加</li>
+<li>jwt只是一个跨域认证方案</li>
 </ul>
 
           
