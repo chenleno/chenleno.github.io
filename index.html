@@ -248,6 +248,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/16/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact-app/" itemprop="url">从零搭建react app</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-16T15:01:03+08:00">
+                2020-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="从零搭建react-app"><a href="#从零搭建react-app" class="headerlink" title="从零搭建react app"></a>从零搭建react app</h1><h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>使用react开发项目一年有余，我也从一个react小白成长为了一名react开发者（笑）。期间基本是问题驱动学习，因为要学的太多所以指哪打哪，缺乏一个对react技术栈的系统归纳与总结。所以在疫情期间趁此机会从头搭建了一个基于react全家桶的仿后台管理项目，一套下来，感触多多，行文一篇，聊表初心。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>使用React开发的类后台管理app。<br>基于create-react-app脚手架构建项目，渐进引入react-router, react-redux, redux-thunk, antd等。<br>并在后期进行了 <strong>路由懒加载</strong>， <strong>redux懒加载</strong> 的功能实践。后续还会基于需求驱动加入webpack优化相关的内容。<br><a href="https://github.com/chenleno/react-app" target="_blank" rel="noopener">项目github: react-app</a></p>
+<h2 id="功能及结构说明"><a href="#功能及结构说明" class="headerlink" title="功能及结构说明"></a>功能及结构说明</h2><p>项目的基本功能包含一个登陆页面，登陆后主页面包含Header,SideBar和Content部分，对应显示 人员信息，侧边栏菜单和内容部分。<br>页面之间的跳转基于react-router,同时在登录后初始化 redux, store可以被任意页面引用。<br>User模块包含一个嵌套路由，用以跳转至用户详情。</p>
+<h3 id="结构信息"><a href="#结构信息" class="headerlink" title="结构信息"></a>结构信息</h3><pre><code>|-- index.js              // 项目主入口
+|-- App.jsx               // render App
+|-- components            // 公共组件
+|-- conf                  // 配置目录，存放API等
+|-- layout                // 布局
+|    |-- Header.jsx       // 头部导航
+|    |-- Sidebar.jsx      // 侧边导航
+|-- modules               // 业务模块
+|    |-- dashbard         // 工作台
+|    |-- login            // 登录页
+|    |-- setting          // 设置页
+|    |-- user             // 人员管理
+|    |    |-- detail      // 人员详情
+|-- reducers              // redux相关
+|-- utils                 // 工具函数
+|-- routers.js            // router集合
+|-- store.js              // redux store</code></pre><h2 id="搭建流程介绍"><a href="#搭建流程介绍" class="headerlink" title="搭建流程介绍"></a>搭建流程介绍</h2><h3 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h3><p>基础搭建部分可以参考官网实例和相关资料，如：<br><a href="https://segmentfault.com/a/1190000015301231" target="_blank" rel="noopener">通过create-react-app 从零搭建react环境</a></p>
+<ol>
+<li>安装 create-react-app 脚手架，按官网实例操作即可。</li>
+<li>尝试引入antd<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add antd</span><br><span class="line"><span class="comment">// app.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'antd'</span></span><br><span class="line">&lt;Button /&gt;...</span><br></pre></td></tr></table></figure>
+此时发现了问题，引入的antd组件样式没有生效。<br>解决： </li>
+</ol>
+<ul>
+<li>运行 npm run eject 命令，分离配置文件</li>
+<li>安装 babel-plugin-import （一个用于按需加载组件代码和样式的 babel 插件）</li>
+<li>修改package.json,添加如下代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123; ...,</span><br><span class="line">  <span class="string">"babel"</span>: &#123;</span><br><span class="line">    <span class="string">"presets"</span>: [</span><br><span class="line">      <span class="string">"react-app"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">      [<span class="string">"import"</span>, &#123; <span class="string">"libraryName"</span>: <span class="string">"antd"</span>, <span class="string">"libraryDirectory"</span>: <span class="string">"es"</span>, <span class="string">"style"</span>: <span class="string">"css"</span> &#125;]</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+现在就可以看到正常样式的antd组件了<h3 id="引入react-router"><a href="#引入react-router" class="headerlink" title="引入react-router"></a>引入react-router</h3><a href="https://reacttraining.com/react-router/web/example/basic" target="_blank" rel="noopener">react-router 4.x文档</a><br>安装新版react-router及react-router-dom<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-router react-router-dom</span><br></pre></td></tr></table></figure>
+项目安装的react-router是最新的5.x 版本，react-router 4x版本上下使用时有较大区别，主要体现在：</li>
+<li>旧版本的Router组件集成在react-router中，新版本则要导入 react-router-dom, 并且 组件还分为 <code>&lt;Browserrouter/&gt;</code>, <code>&lt;NativeRouter/&gt;</code>等.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.x</span></span><br><span class="line"><span class="keyword">import</span> &#123; Router &#125; <span class="keyword">from</span> <span class="string">'react-router'</span></span><br><span class="line">&lt;Router&gt;...&lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 4.x</span></span><br><span class="line"><span class="regexp">import &#123; BrowserRouter, Route &#125; from 'react-router-dom'</span></span><br><span class="line"><span class="regexp">&lt;BrowserRouter&gt;...&lt;/</span>BrowserRouter&gt;</span><br></pre></td></tr></table></figure></li>
+<li>新版本react-router 采用<strong>组件化</strong>的方式设置路由，路由组件<Route/>就像react组件一样包裹在外层就可以</li>
+</ul>
+<ol>
+<li>首先在App最外层外包BrowserRouter<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;Route path=&#123;<span class="string">'/'</span>&#125; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">, </span></span><br><span class="line"><span class="regexp">document.getElementById('root'));</span></span><br></pre></td></tr></table></figure></li>
+<li>然后在App中注册路由及组件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Route, Switch, Redirect &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">get</span> isLogin() &#123; <span class="comment">// 根据isLogin参数来判断登录状态，isLogin来源于redux和localStorage是否存有登录信息</span></span><br><span class="line">    <span class="keyword">return</span> localStorage.getItem(<span class="string">'profile'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;React.Fragment&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.isLogin ?</span><br><span class="line">          &lt;MainView &gt;</span><br><span class="line">            &lt;Header <span class="class"><span class="keyword">class</span>/&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">MainContent</span>&gt;</span></span><br><span class="line"><span class="class">              &lt;<span class="title">SideBar</span> <span class="title">className</span></span>=<span class="string">'sidebar'</span>/&gt;</span><br><span class="line">              &lt;Content&gt;</span><br><span class="line">                &lt;Switch&gt;</span><br><span class="line">                  &#123;<span class="comment">/* &lt;Redirect path=&#123;'/'&#125; to=&#123;'/dashboard'&#125;/&gt; */</span>&#125;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'/dashboard'</span>&#125; exact component=&#123;Dashboard&#125;/&gt;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'/user'</span>&#125; exact component=&#123;User&#125;/&gt;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'*'</span>&#125; component=&#123;NotFoundPage&#125;/&gt;</span><br><span class="line">                &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">              &lt;/</span>Content&gt;</span><br><span class="line">            &lt;<span class="regexp">/MainContent&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>MainView&gt; </span><br><span class="line">        : </span><br><span class="line">        &lt;React.Fragment&gt;</span><br><span class="line">          &lt;Route path=&#123;<span class="string">'/login'</span>&#125; render=&#123;() =&gt; <span class="xml"><span class="tag">&lt;<span class="name">Login</span> &#123;<span class="attr">...this.props</span>&#125;/&gt;</span></span>&#125;/&gt;</span><br><span class="line">          &lt;Redirect to=&#123;&#123; <span class="attr">pathname</span>: <span class="string">'/login'</span>, <span class="attr">from</span>: <span class="keyword">this</span>.props.location &#125;&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/React.Fragment&gt;</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>React.Fragment&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在使用层添加跳转逻辑即可<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sidebar.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; useHistory &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span> </span><br><span class="line"><span class="comment">// 新版react-router使用history替代旧版的router, 提供了hooks，可以用来获取history,params,location等</span></span><br><span class="line">  <span class="keyword">const</span> history = useHistory()</span><br><span class="line">&#123;</span><br><span class="line">  &lt;Menu.Item onClick=&#123;() =&gt; history.push(<span class="string">'/dashboard'</span>)&#125; key=<span class="string">"1"</span>&gt;dashboard&lt;<span class="regexp">/Menu.Item&gt;</span></span><br><span class="line"><span class="regexp">  &lt;Menu.Item onClick=&#123;() =&gt; history.push('/u</span>ser<span class="string">')&#125; key="2"&gt;setting&lt;/Menu.Item&gt;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="引入react-redux"><a href="#引入react-redux" class="headerlink" title="引入react-redux"></a>引入react-redux</h3><a href="https://cn.redux.js.org/" target="_blank" rel="noopener">redux文档</a><br>redux是一套数据管理方案，react-redux是该方案同react结合的具体实现。</li>
+<li>安装redux, react-redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux react-redux</span><br></pre></td></tr></table></figure></li>
+<li>各模块编写reducer<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">  profile: &#123;&#125;,</span><br><span class="line">  isLogin: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state = initState, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'LOGIN'</span>:</span><br><span class="line">      localStorage.setItem(<span class="string">'profile'</span>, action.data)</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...initState,</span><br><span class="line">        profile: action.data,</span><br><span class="line">        isLogin: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'LOGOUT'</span>:</span><br><span class="line">      localStorage.clear()</span><br><span class="line">      <span class="keyword">return</span> initState</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> initState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> reducer</span><br><span class="line"><span class="comment">// reducers/index.js</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./login'</span></span><br><span class="line"><span class="keyword">import</span> user <span class="keyword">from</span> <span class="string">'./user'</span></span><br><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">const</span> rootReducers = combineReducers(&#123;</span><br><span class="line">  login,</span><br><span class="line">  user</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> rootReducers</span><br></pre></td></tr></table></figure></li>
+<li>创建store文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> rootReducers <span class="keyword">from</span> <span class="string">'./reducers/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></li>
+<li>在App最外层外包store,这样项目便受控于redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js </span></span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line">&lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;Route path=&#123;<span class="string">'/'</span>&#125; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>Provider&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用 connect 链接组件与redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">&#123; profile &#125;</span>) =&gt;</span> (&#123; profile &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loginData = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; dispatch &#125; = props</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    $axios.post(<span class="string">'/api/xxx'</span>, &#123; <span class="attr">data</span>: loginData &#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'LOGIN'</span>,</span><br><span class="line">        data: resp</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      ...</span><br><span class="line">      &lt;Button onClick=&#123;() =&gt; handleClick()&#125;&gt;登录&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps)(Login)</span><br></pre></td></tr></table></figure>
+实际项目中会将dispatch(action) 进行进一步的抽象<h3 id="引入redux-thunk处理异步action"><a href="#引入redux-thunk处理异步action" class="headerlink" title="引入redux-thunk处理异步action"></a>引入redux-thunk处理异步action</h3><a href="https://zhuanlan.zhihu.com/p/85403048" target="_blank" rel="noopener">redux-thunk使用介绍</a><br>redux模型中，由事件源dispatch一个action,reducer捕获到对应的action之后进行处理，更新redux.state。此处的action必须是一个plain-object。而redux-thunk的作用就是允许我们dispatch一个function,这就给了我们很大的操作空间。</li>
+<li>安装redux-thunk<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux-thunk</span><br></pre></td></tr></table></figure></li>
+<li>store 中使用redux-thunk<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store.js</span></span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></span><br><span class="line"><span class="keyword">import</span> &#123; applyMiddleWare &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers, </span><br><span class="line"><span class="comment">// redux-thunk是作为redux的中间件使用的</span></span><br><span class="line">  applyMiddleWare(thunk)</span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li>编写action，并使用redux-thunk的特性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> login = <span class="function"><span class="params">data</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  $axios.post(<span class="string">'/api/xxx'</span>, &#123; data &#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">'LOGIN'</span>, <span class="attr">data</span>: resp &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+这样就可以将异步逻辑封装在action中，上层无感知<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; login &#125; <span class="keyword">from</span> <span class="string">'reducers/login'</span></span><br><span class="line"><span class="keyword">const</span> loginData = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; login &#125; = props</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    login(loginData)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, &#123;</span><br><span class="line">  login</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="项目优化"><a href="#项目优化" class="headerlink" title="项目优化"></a>项目优化</h2><h3 id="编写-httpMiddleWare-进一步封装异步action"><a href="#编写-httpMiddleWare-进一步封装异步action" class="headerlink" title="编写 httpMiddleWare 进一步封装异步action"></a>编写 httpMiddleWare 进一步封装异步action</h3><p>仅适用redux-thunk编写的action还无法满足我们的要求，比如他没有基于promise封装，不能单独拿来接收返回值等。因此我们需要编写一个我们自己的中间件来处理这些事。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 改写后的期望的action范式</span></span><br><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> login = <span class="function"><span class="params">data</span> =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'LOGIN'</span>,</span><br><span class="line">  promise: <span class="function"><span class="params">client</span> =&gt;</span> client.post(<span class="string">'api/xxx'</span>, &#123; data &#125;),</span><br><span class="line">  args: data</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; login &#125; <span class="keyword">from</span> <span class="string">'reducer/login'</span></span><br><span class="line">&#123;...</span><br><span class="line">  <span class="keyword">const</span> handleLogin = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> resp = <span class="keyword">await</span> <span class="keyword">this</span>.props.login(data) <span class="comment">// 可以接收到异步action的值</span></span><br><span class="line">  &#125;</span><br><span class="line">...&#125;</span><br></pre></td></tr></table></figure>
+<p>编写 httpMiddleWare.js 中间件,通讯模块基于axios</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/httpMiddleWare.js</span></span><br><span class="line">  <span class="keyword">import</span> $axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line">  <span class="keyword">const</span> httpMiddleWare = <span class="function">(<span class="params">&#123; dispatch, getState &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!action) <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">      <span class="keyword">const</span> &#123; promise, type, args &#125; = action</span><br><span class="line">      <span class="comment">// promise参数传入的是一个 function </span></span><br><span class="line">      <span class="comment">// promise: client =&gt; client.post('api/xxx')</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> promise !== <span class="string">'function'</span>) <span class="keyword">return</span> next(action)</span><br><span class="line">      <span class="keyword">return</span> promise($axios).then(<span class="function">(<span class="params">&#123; data &#125;</span>) =&gt;</span> &#123; <span class="comment">// promise是函数则把$axios实例传进去构成promise查询</span></span><br><span class="line">        dispatch(&#123; type, data, arg &#125;) <span class="comment">// 接口返回的data对应action.data, 然后触发redux的dispatch(action)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(data) <span class="comment">// resolve结果并返回，外界可以直接拿到返回值</span></span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(data) <span class="comment">// 错误reject</span></span><br><span class="line">      &#125;) </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> httpMiddleWare</span><br><span class="line"><span class="comment">// store.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> httpMiddleWare <span class="keyword">from</span> <span class="string">'utils/httpMiddleWare'</span></span><br><span class="line"><span class="keyword">const</span> middleWares = [thunk, httpMiddleWare]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers, </span><br><span class="line">  applyMiddleWare(...middleWares) <span class="comment">// 应用httpMiddleWare中间件</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="react-router-懒加载模块"><a href="#react-router-懒加载模块" class="headerlink" title="react-router 懒加载模块"></a>react-router 懒加载模块</h3><p><a href="https://blog.whezh.com/react-redux-code-splitting/" target="_blank" rel="noopener">react-router 4.x路由懒加载方案</a><br>react-router 懒加载在 4.x 以前只需要运用 <code>router.getComponent()</code> 方法范式即可，该范式可以在访问到当前路由时才加载路由文件。</p>
+<p>在4.x 之后由于取消了<code>router.getComponent()</code>方法，需要借助一个<code>AsyncComponent</code>组件和 webpack的 动态 <code>import()</code> 方法来实现</p>
+<ol>
+<li>编写一个AsyncComponet wrap组件（也可以直接使用 <a href="https://github.com/jamiebuilds/react-loadable" target="_blank" rel="noopener">react-loadble</a>这个库）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component/AsyncComponent.js</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (loader) =&gt; &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">AsyncComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      component: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentWillMount() &#123;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.state.component) &#123;</span><br><span class="line">        loader().then(<span class="function"><span class="params">module</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.setState(&#123; <span class="attr">component</span>: <span class="built_in">module</span>.default &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> Comp = <span class="keyword">this</span>.state.component;</span><br><span class="line">      <span class="keyword">return</span> Comp ? <span class="xml"><span class="tag">&lt;<span class="name">Comp</span> &#123;<span class="attr">...this.props</span>&#125; /&gt;</span></span> : <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>loading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> AsyncComponent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在路由组件导入处包装即可<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> AsyncComponent <span class="keyword">from</span> <span class="string">'components/AsyncComponent'</span></span><br><span class="line"><span class="keyword">const</span> Dashboard = AsyncComponent(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./Dashboard.jsx'</span>))</span><br><span class="line"><span class="keyword">const</span> Login = AsyncComponent(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./Login.jsx'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用处不变</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+之后打开控制台查看资源加载情况就可以看见文件是随路由分开加载的了。<br><img src="https://s1.ax1x.com/2020/04/16/JA0LLQ.jpg" alt="文件加载情况"><br>Tips:<br>新版React内部支持<code>React.lazy</code>和<code>Suspense</code>，可以完成同样的事<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; lazy, Suspense &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Dashboard = <span class="xml"><span class="tag">&lt;<span class="name">Suspense</span>&gt;</span>&#123;lazy(() =&gt; import('./Dashboard.jsx'))&#125;<span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 使用处不变</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="react-redux-懒加载redux模块"><a href="#react-redux-懒加载redux模块" class="headerlink" title="react-redux 懒加载redux模块"></a>react-redux 懒加载redux模块</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/QA%E5%BD%92%E6%A1%A3-md/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -475,12 +681,36 @@ View 通过事件绑定操作 Model<br>Model 通过数据绑定操作 View<br>�
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(List, &#123;<span class="attr">data</span>: <span class="keyword">this</span>.state.list&#125;)</span><br><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> List(&#123; <span class="attr">data</span>: <span class="keyword">this</span>.state.list &#125;)</span><br><span class="line"><span class="keyword">var</span> vnode = list.render()</span><br></pre></td></tr></table></figure>
 
 <h2 id="前端路由原理"><a href="#前端路由原理" class="headerlink" title="前端路由原理"></a>前端路由原理</h2><ul>
-<li>hash (hashchange函数)</li>
-<li>history (pushState, replaceState这两个方法改变url的path部分不会引起刷新)<ul>
-<li>popState 只有在浏览器前进后退时才会使用</li>
+<li><p>hash (hashchange函数)</p>
+</li>
+<li><p>history (pushState, replaceState这两个方法改变url的path部分不会引起刷新)</p>
+<ul>
+<li>popState 只有在浏览器前进后退时才会使用<h2 id="浏览器缓存策略"><a href="#浏览器缓存策略" class="headerlink" title="浏览器缓存策略"></a>浏览器缓存策略</h2><blockquote>
+<p>浏览器每次发起请求，都会先在浏览器缓存中查询结果和缓存表示<br>浏览器每次拿到返回的请求结果都会将该结果和标识存入浏览器缓存中</p>
+</blockquote>
+<h3 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h3>缓存格式由response响应报头中的<code>cache-control</code>和<code>expires</code>控制<br>cache-control 的值：</li>
 </ul>
 </li>
+<li><p>public: 所有内容都可被缓存（包括客户端和代理服务器）</p>
+</li>
+<li><p>private: 只有客户端可以缓存（默认值）</p>
+</li>
+<li><p>no-cache: 客户端缓存内容，但是否使用由协商缓存结果决定</p>
+</li>
+<li><p>no-store: 所有内容都不会被缓存</p>
+</li>
+<li><p>max-age=xxx: 缓存内容在xxx s后失效（是一个相对值）<br>expires 是一个绝对值</p>
+</li>
+<li><p>memory-cache：存在内存中，读取快无需编译，关闭浏览器就会清空</p>
+</li>
+<li><p>disk-cache：存在硬盘中，读取慢需要编译<br>浏览器会将js和图片等文件解析后存在内存中，css文件则会存在硬盘中</p>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>强制缓存失效后，浏览器带着缓存标识请求服务器，服务器检查标识，若资源未改变，则返回304 not modified,浏览器继续使用该缓存。如果变化了，则返回200，浏览器使用返回的新资源</p>
+</li>
 </ul>
+<p>总结：</p>
+<blockquote>
+<p>强制缓存优先于协商缓存进行，若强制缓存(Expires和Cache-Control)生效则直接使用缓存，若不生效则进行协商缓存(Last-Modified / If-Modified-Since和Etag / If-None-Match)，协商缓存由服务器决定是否使用缓存，若协商缓存失效，那么代表该请求的缓存失效，重新获取请求结果，再存入浏览器缓存中；生效则返回304，继续使用缓存</p>
+</blockquote>
 
           
         
@@ -1241,208 +1471,6 @@ View 通过事件绑定操作 Model<br>Model 通过数据绑定操作 View<br>�
           
             <h1 id="宠爱"><a href="#宠爱" class="headerlink" title="宠爱"></a>宠爱</h1><p><img src="https://s1.ax1x.com/2020/04/20/JMxkfP.md.jpg" alt="宠爱"></p>
 
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact-app/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/16/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact-app/" itemprop="url">从零搭建react app</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-16T15:01:03+08:00">
-                2020-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="从零搭建react-app"><a href="#从零搭建react-app" class="headerlink" title="从零搭建react app"></a>从零搭建react app</h1><h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>使用react开发项目一年有余，我也从一个react小白成长为了一名react开发者（笑）。期间基本是问题驱动学习，因为要学的太多所以指哪打哪，缺乏一个对react技术栈的系统归纳与总结。所以在疫情期间趁此机会从头搭建了一个基于react全家桶的仿后台管理项目，一套下来，感触多多，行文一篇，聊表初心。</p>
-<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>使用React开发的类后台管理app。<br>基于create-react-app脚手架构建项目，渐进引入react-router, react-redux, redux-thunk, antd等。<br>并在后期进行了 <strong>路由懒加载</strong>， <strong>redux懒加载</strong> 的功能实践。后续还会基于需求驱动加入webpack优化相关的内容。<br><a href="https://github.com/chenleno/react-app" target="_blank" rel="noopener">项目github: react-app</a></p>
-<h2 id="功能及结构说明"><a href="#功能及结构说明" class="headerlink" title="功能及结构说明"></a>功能及结构说明</h2><p>项目的基本功能包含一个登陆页面，登陆后主页面包含Header,SideBar和Content部分，对应显示 人员信息，侧边栏菜单和内容部分。<br>页面之间的跳转基于react-router,同时在登录后初始化 redux, store可以被任意页面引用。<br>User模块包含一个嵌套路由，用以跳转至用户详情。</p>
-<h3 id="结构信息"><a href="#结构信息" class="headerlink" title="结构信息"></a>结构信息</h3><pre><code>|-- index.js              // 项目主入口
-|-- App.jsx               // render App
-|-- components            // 公共组件
-|-- conf                  // 配置目录，存放API等
-|-- layout                // 布局
-|    |-- Header.jsx       // 头部导航
-|    |-- Sidebar.jsx      // 侧边导航
-|-- modules               // 业务模块
-|    |-- dashbard         // 工作台
-|    |-- login            // 登录页
-|    |-- setting          // 设置页
-|    |-- user             // 人员管理
-|    |    |-- detail      // 人员详情
-|-- reducers              // redux相关
-|-- utils                 // 工具函数
-|-- routers.js            // router集合
-|-- store.js              // redux store</code></pre><h2 id="搭建流程介绍"><a href="#搭建流程介绍" class="headerlink" title="搭建流程介绍"></a>搭建流程介绍</h2><h3 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h3><p>基础搭建部分可以参考官网实例和相关资料，如：<br><a href="https://segmentfault.com/a/1190000015301231" target="_blank" rel="noopener">通过create-react-app 从零搭建react环境</a></p>
-<ol>
-<li>安装 create-react-app 脚手架，按官网实例操作即可。</li>
-<li>尝试引入antd<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add antd</span><br><span class="line"><span class="comment">// app.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'antd'</span></span><br><span class="line">&lt;Button /&gt;...</span><br></pre></td></tr></table></figure>
-此时发现了问题，引入的antd组件样式没有生效。<br>解决： </li>
-</ol>
-<ul>
-<li>运行 npm run eject 命令，分离配置文件</li>
-<li>安装 babel-plugin-import （一个用于按需加载组件代码和样式的 babel 插件）</li>
-<li>修改package.json,添加如下代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123; ...,</span><br><span class="line">  <span class="string">"babel"</span>: &#123;</span><br><span class="line">    <span class="string">"presets"</span>: [</span><br><span class="line">      <span class="string">"react-app"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">      [<span class="string">"import"</span>, &#123; <span class="string">"libraryName"</span>: <span class="string">"antd"</span>, <span class="string">"libraryDirectory"</span>: <span class="string">"es"</span>, <span class="string">"style"</span>: <span class="string">"css"</span> &#125;]</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-现在就可以看到正常样式的antd组件了<h3 id="引入react-router"><a href="#引入react-router" class="headerlink" title="引入react-router"></a>引入react-router</h3><a href="https://reacttraining.com/react-router/web/example/basic" target="_blank" rel="noopener">react-router 4.x文档</a><br>安装新版react-router及react-router-dom<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-router react-router-dom</span><br></pre></td></tr></table></figure>
-项目安装的react-router是最新的5.x 版本，react-router 4x版本上下使用时有较大区别，主要体现在：</li>
-<li>旧版本的Router组件集成在react-router中，新版本则要导入 react-router-dom, 并且 组件还分为 <code>&lt;Browserrouter/&gt;</code>, <code>&lt;NativeRouter/&gt;</code>等.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.x</span></span><br><span class="line"><span class="keyword">import</span> &#123; Router &#125; <span class="keyword">from</span> <span class="string">'react-router'</span></span><br><span class="line">&lt;Router&gt;...&lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 4.x</span></span><br><span class="line"><span class="regexp">import &#123; BrowserRouter, Route &#125; from 'react-router-dom'</span></span><br><span class="line"><span class="regexp">&lt;BrowserRouter&gt;...&lt;/</span>BrowserRouter&gt;</span><br></pre></td></tr></table></figure></li>
-<li>新版本react-router 采用<strong>组件化</strong>的方式设置路由，路由组件<Route/>就像react组件一样包裹在外层就可以</li>
-</ul>
-<ol>
-<li>首先在App最外层外包BrowserRouter<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;Route path=&#123;<span class="string">'/'</span>&#125; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">, </span></span><br><span class="line"><span class="regexp">document.getElementById('root'));</span></span><br></pre></td></tr></table></figure></li>
-<li>然后在App中注册路由及组件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Route, Switch, Redirect &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">get</span> isLogin() &#123; <span class="comment">// 根据isLogin参数来判断登录状态，isLogin来源于redux和localStorage是否存有登录信息</span></span><br><span class="line">    <span class="keyword">return</span> localStorage.getItem(<span class="string">'profile'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;React.Fragment&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.isLogin ?</span><br><span class="line">          &lt;MainView &gt;</span><br><span class="line">            &lt;Header <span class="class"><span class="keyword">class</span>/&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">MainContent</span>&gt;</span></span><br><span class="line"><span class="class">              &lt;<span class="title">SideBar</span> <span class="title">className</span></span>=<span class="string">'sidebar'</span>/&gt;</span><br><span class="line">              &lt;Content&gt;</span><br><span class="line">                &lt;Switch&gt;</span><br><span class="line">                  &#123;<span class="comment">/* &lt;Redirect path=&#123;'/'&#125; to=&#123;'/dashboard'&#125;/&gt; */</span>&#125;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'/dashboard'</span>&#125; exact component=&#123;Dashboard&#125;/&gt;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'/user'</span>&#125; exact component=&#123;User&#125;/&gt;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'*'</span>&#125; component=&#123;NotFoundPage&#125;/&gt;</span><br><span class="line">                &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">              &lt;/</span>Content&gt;</span><br><span class="line">            &lt;<span class="regexp">/MainContent&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>MainView&gt; </span><br><span class="line">        : </span><br><span class="line">        &lt;React.Fragment&gt;</span><br><span class="line">          &lt;Route path=&#123;<span class="string">'/login'</span>&#125; render=&#123;() =&gt; <span class="xml"><span class="tag">&lt;<span class="name">Login</span> &#123;<span class="attr">...this.props</span>&#125;/&gt;</span></span>&#125;/&gt;</span><br><span class="line">          &lt;Redirect to=&#123;&#123; <span class="attr">pathname</span>: <span class="string">'/login'</span>, <span class="attr">from</span>: <span class="keyword">this</span>.props.location &#125;&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/React.Fragment&gt;</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>React.Fragment&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在使用层添加跳转逻辑即可<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sidebar.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; useHistory &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span> </span><br><span class="line"><span class="comment">// 新版react-router使用history替代旧版的router, 提供了hooks，可以用来获取history,params,location等</span></span><br><span class="line">  <span class="keyword">const</span> history = useHistory()</span><br><span class="line">&#123;</span><br><span class="line">  &lt;Menu.Item onClick=&#123;() =&gt; history.push(<span class="string">'/dashboard'</span>)&#125; key=<span class="string">"1"</span>&gt;dashboard&lt;<span class="regexp">/Menu.Item&gt;</span></span><br><span class="line"><span class="regexp">  &lt;Menu.Item onClick=&#123;() =&gt; history.push('/u</span>ser<span class="string">')&#125; key="2"&gt;setting&lt;/Menu.Item&gt;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-<h3 id="引入react-redux"><a href="#引入react-redux" class="headerlink" title="引入react-redux"></a>引入react-redux</h3><a href="https://cn.redux.js.org/" target="_blank" rel="noopener">redux文档</a><br>redux是一套数据管理方案，react-redux是该方案同react结合的具体实现。</li>
-<li>安装redux, react-redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux react-redux</span><br></pre></td></tr></table></figure></li>
-<li>各模块编写reducer<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">  profile: &#123;&#125;,</span><br><span class="line">  isLogin: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state = initState, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'LOGIN'</span>:</span><br><span class="line">      localStorage.setItem(<span class="string">'profile'</span>, action.data)</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...initState,</span><br><span class="line">        profile: action.data,</span><br><span class="line">        isLogin: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'LOGOUT'</span>:</span><br><span class="line">      localStorage.clear()</span><br><span class="line">      <span class="keyword">return</span> initState</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> initState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> reducer</span><br><span class="line"><span class="comment">// reducers/index.js</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./login'</span></span><br><span class="line"><span class="keyword">import</span> user <span class="keyword">from</span> <span class="string">'./user'</span></span><br><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">const</span> rootReducers = combineReducers(&#123;</span><br><span class="line">  login,</span><br><span class="line">  user</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> rootReducers</span><br></pre></td></tr></table></figure></li>
-<li>创建store文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> rootReducers <span class="keyword">from</span> <span class="string">'./reducers/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></li>
-<li>在App最外层外包store,这样项目便受控于redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js </span></span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line">&lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;Route path=&#123;<span class="string">'/'</span>&#125; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>Provider&gt;</span><br></pre></td></tr></table></figure></li>
-<li>使用 connect 链接组件与redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">&#123; profile &#125;</span>) =&gt;</span> (&#123; profile &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loginData = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; dispatch &#125; = props</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    $axios.post(<span class="string">'/api/xxx'</span>, &#123; <span class="attr">data</span>: loginData &#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'LOGIN'</span>,</span><br><span class="line">        data: resp</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      ...</span><br><span class="line">      &lt;Button onClick=&#123;() =&gt; handleClick()&#125;&gt;登录&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps)(Login)</span><br></pre></td></tr></table></figure>
-实际项目中会将dispatch(action) 进行进一步的抽象<h3 id="引入redux-thunk处理异步action"><a href="#引入redux-thunk处理异步action" class="headerlink" title="引入redux-thunk处理异步action"></a>引入redux-thunk处理异步action</h3><a href="https://zhuanlan.zhihu.com/p/85403048" target="_blank" rel="noopener">redux-thunk使用介绍</a><br>redux模型中，由事件源dispatch一个action,reducer捕获到对应的action之后进行处理，更新redux.state。此处的action必须是一个plain-object。而redux-thunk的作用就是允许我们dispatch一个function,这就给了我们很大的操作空间。</li>
-<li>安装redux-thunk<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux-thunk</span><br></pre></td></tr></table></figure></li>
-<li>store 中使用redux-thunk<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store.js</span></span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></span><br><span class="line"><span class="keyword">import</span> &#123; applyMiddleWare &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers, </span><br><span class="line"><span class="comment">// redux-thunk是作为redux的中间件使用的</span></span><br><span class="line">  applyMiddleWare(thunk)</span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>编写action，并使用redux-thunk的特性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> login = <span class="function"><span class="params">data</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  $axios.post(<span class="string">'/api/xxx'</span>, &#123; data &#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">'LOGIN'</span>, <span class="attr">data</span>: resp &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-这样就可以将异步逻辑封装在action中，上层无感知<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; login &#125; <span class="keyword">from</span> <span class="string">'reducers/login'</span></span><br><span class="line"><span class="keyword">const</span> loginData = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; login &#125; = props</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    login(loginData)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, &#123;</span><br><span class="line">  login</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="项目优化"><a href="#项目优化" class="headerlink" title="项目优化"></a>项目优化</h2><h3 id="编写-httpMiddleWare-进一步封装异步action"><a href="#编写-httpMiddleWare-进一步封装异步action" class="headerlink" title="编写 httpMiddleWare 进一步封装异步action"></a>编写 httpMiddleWare 进一步封装异步action</h3><h3 id="react-router-懒加载模块"><a href="#react-router-懒加载模块" class="headerlink" title="react-router 懒加载模块"></a>react-router 懒加载模块</h3><p><a href="https://blog.whezh.com/react-redux-code-splitting/" target="_blank" rel="noopener">react-router 4.x路由懒加载方案</a><br>react-router 懒加载在 4.x 以前只需要运用 <code>router.getComponent()</code> 方法范式即可，该范式可以在访问到当前路由时才加载路由文件。</p>
-<p>在4.x 之后由于取消了<code>router.getComponent()</code>方法，需要借助一个<code>AsyncComponent</code>组件和 webpack的 动态 <code>import()</code> 方法来实现</p>
-<ol>
-<li>编写一个AsyncComponet wrap组件（也可以直接使用 <a href="https://github.com/jamiebuilds/react-loadable" target="_blank" rel="noopener">react-loadble</a>这个库）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component/AsyncComponent.js</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (loader) =&gt; &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">AsyncComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      component: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentWillMount() &#123;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.state.component) &#123;</span><br><span class="line">        loader().then(<span class="function"><span class="params">module</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.setState(&#123; <span class="attr">component</span>: <span class="built_in">module</span>.default &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> Comp = <span class="keyword">this</span>.state.component;</span><br><span class="line">      <span class="keyword">return</span> Comp ? <span class="xml"><span class="tag">&lt;<span class="name">Comp</span> &#123;<span class="attr">...this.props</span>&#125; /&gt;</span></span> : <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>loading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> AsyncComponent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>在路由组件导入处包装即可<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> AsyncComponent <span class="keyword">from</span> <span class="string">'components/AsyncComponent'</span></span><br><span class="line"><span class="keyword">const</span> Dashboard = AsyncComponent(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./Dashboard.jsx'</span>))</span><br><span class="line"><span class="keyword">const</span> Login = AsyncComponent(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./Login.jsx'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用处不变</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-之后打开控制台查看资源加载情况就可以看见文件是随路由分开加载的了。<br><img src="https://s1.ax1x.com/2020/04/16/JA0LLQ.jpg" alt="文件加载情况"><br>Tips:<br>新版React内部支持<code>React.lazy</code>和<code>Suspense</code>，可以完成同样的事<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; lazy, Suspense &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Dashboard = <span class="xml"><span class="tag">&lt;<span class="name">Suspense</span>&gt;</span>&#123;lazy(() =&gt; import('./Dashboard.jsx'))&#125;<span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 使用处不变</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="react-redux-懒加载redux模块"><a href="#react-redux-懒加载redux模块" class="headerlink" title="react-redux 懒加载redux模块"></a>react-redux 懒加载redux模块</h3>
           
         
       
