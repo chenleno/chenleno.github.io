@@ -248,6 +248,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/12/%E4%BB%A3%E7%A0%81pr%E5%AE%A1%E6%A0%B8%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/12/%E4%BB%A3%E7%A0%81pr%E5%AE%A1%E6%A0%B8%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E/" itemprop="url">代码pr审核流程说明</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-12T22:21:09+08:00">
+                2020-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E4%BD%9C%E6%B5%81/" itemprop="url" rel="index">
+                    <span itemprop="name">工作流</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="代码pr审核流程说明"><a href="#代码pr审核流程说明" class="headerlink" title="代码pr审核流程说明"></a>代码pr审核流程说明</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>pr (pull request)或称 mr（merge request）是一种git代码合并工作流程。意即将分支代码合并过程放在远端，藉由提交者发起pr的形式，由协作者共同进行代码评审，评审通过后由合并者在远端进行分支合并操作的流程。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>优点：</p>
+<ul>
+<li>代码变动和更新公开透明，规避了本地合并提交的黑盒操作</li>
+<li>代码合并质量有保障，每个协作者都可以查看提交内容并给出建议</li>
+<li>提高开发者的代码优化意识，对每次提交保持敬畏之心</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>涉及多人评审时会略微占用开发时间，影响工作节奏<h2 id="提交，审核及合并规范"><a href="#提交，审核及合并规范" class="headerlink" title="提交，审核及合并规范"></a>提交，审核及合并规范</h2></li>
+<li>pr审核至少要有两人参与（发起者和一名协作者）</li>
+<li>原则上pr发起者<strong>不能</strong><code>Merge</code>自己的pr，特殊情况下除外，但也需要通知其他协作者并得到同意</li>
+<li>所有pr提交均需要通知到所有相关协作者并视情况同步本地代码</li>
+</ul>
+<p>Tips: git 暂存操作 git stash</p>
+<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2><p>以gitlab为例，进行一次完整的模拟pr提交过程</p>
+<h3 id="clone远端仓库"><a href="#clone远端仓库" class="headerlink" title="clone远端仓库"></a>clone远端仓库</h3><blockquote>
+<p>$ git clone git@origin/pr-example.git</p>
+</blockquote>
+<p>假定项目主分支为 <strong>master</strong> 分支</p>
+<h3 id="建立本地个人开发分支"><a href="#建立本地个人开发分支" class="headerlink" title="建立本地个人开发分支"></a>建立本地个人开发分支</h3><p>pr提交要求每个开发者都有基于主分支的个人开发分支，开发者在个人开发分支开发功能需求</p>
+<blockquote>
+<p>$ git checkout -b private_dev(开发分支名自取)</p>
+</blockquote>
+<h3 id="在个人分支开发功能需求"><a href="#在个人分支开发功能需求" class="headerlink" title="在个人分支开发功能需求"></a>在个人分支开发功能需求</h3><p>some coding…</p>
+<blockquote>
+<p>$ git add .</p>
+</blockquote>
+<blockquote>
+<p>$ git commit -m ‘feat: something new’</p>
+</blockquote>
+<h3 id="推送本地个人开发分支至远端"><a href="#推送本地个人开发分支至远端" class="headerlink" title="推送本地个人开发分支至远端"></a>推送本地个人开发分支至远端</h3><blockquote>
+<p>$ git push</p>
+</blockquote>
+<p>如果是第一次提交分支到远端git会有提示<br><a href="https://imgchr.com/i/YUYUud" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUYUud.md.jpg" alt="YUYUud.md.jpg"></a><br>照做即可</p>
+<blockquote>
+<p>$ git push –set-upstream origin private_dev</p>
+</blockquote>
+<h3 id="查看远端仓库个人分支"><a href="#查看远端仓库个人分支" class="headerlink" title="查看远端仓库个人分支"></a>查看远端仓库个人分支</h3><p>此时可以在远程仓库分支列表中查看到自己刚刚推送的个人分支<br><a href="https://imgchr.com/i/YUtjyQ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUtjyQ.md.jpg" alt="YUtjyQ.md.jpg"></a></p>
+<h3 id="发起pr"><a href="#发起pr" class="headerlink" title="发起pr"></a>发起pr</h3><ol>
+<li>点击图示按钮<br><a href="https://imgchr.com/i/YUNkSU" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUNkSU.md.png" alt="YUNkSU.md.png"></a></li>
+<li>选择 Source branch (即提交分支 private_dev) 和 Target branch (即目标分支 master),点击下方按钮<br><a href="https://imgchr.com/i/YUNGOH" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUNGOH.md.png" alt="YUNGOH.md.png"></a></li>
+<li>检查source和target 分支是否正确，可以在changes中查看当前提交的git diff，作最后走查。确认无误点击按钮提交。<br><a href="https://imgchr.com/i/YUUegS" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUUegS.md.png" alt="YUUegS.md.png"></a><h3 id="查看pr"><a href="#查看pr" class="headerlink" title="查看pr"></a>查看pr</h3>提交后的pr会出现在<code>Merge Requests</code>页面中，届时所有项目协作者均可点击该pr查看pr内容<br><a href="https://imgchr.com/i/YUURDH" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUURDH.md.png" alt="YUURDH.md.png"></a><h3 id="pr审核"><a href="#pr审核" class="headerlink" title="pr审核"></a>pr审核</h3>pr查看者可以在<code>changes</code>页签中查看完整提交内容和变动项。如果对某块代码持有建议可以通过点击对应行数前的评论图标，在输入框中进行评论。<br><a href="https://imgchr.com/i/YUaSP0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUaSP0.md.png" alt="YUaSP0.md.png"></a><br>评论后的内容会显示在对应代码行数下方供pr发起者参考修改。如无异议则可点击<code>Merge</code>按钮合并pr<br><a href="https://imgchr.com/i/YUanG6" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUanG6.md.png" alt="YUanG6.md.png"></a><br>pr合并后可以看到master分支已经应用了该change<br><a href="https://imgchr.com/i/YUaIeJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2020/05/12/YUaIeJ.md.png" alt="YUaIeJ.md.png"></a><h3 id="协作者分支同步"><a href="#协作者分支同步" class="headerlink" title="协作者分支同步"></a>协作者分支同步</h3>假设有A,B两个协作者，此时远端仓库的master分支已经包含了A的提交代码，则B需要将他的个人开发分支同远端同步<br>B:<blockquote>
+<p>$ git stash (暂存当前未add的代码)（视情况使用）</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>$ git checkout master</p>
+</blockquote>
+<blockquote>
+<p>$ git pull（拉取包含最新change的master分支）</p>
+</blockquote>
+<blockquote>
+<p>$ git checkout b_dev(b的个人开发分支)</p>
+</blockquote>
+<blockquote>
+<p>$ git rebase master（变基操作）</p>
+</blockquote>
+<blockquote>
+<p>$ git stash pop (释放之前暂存的代码)（视情况使用）</p>
+</blockquote>
+<p>通过将个人分支变基到master上的形式来进行代码merge<br>Tips:</p>
+<ol>
+<li>如果两人修改了同一文件，则此时会发生代码冲突，B需要在本地解决冲突</li>
+<li>参考资料：<a href="https://www.jianshu.com/p/c17472d704a0" target="_blank" rel="noopener">git rebase和git merge</a><br>git merge的commit流：<br><img src="https://upload-images.jianshu.io/upload_images/305877-c4ddfcf679821e2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="git merge"><br>git rebase 的 commit 流<br><img src="https://upload-images.jianshu.io/upload_images/305877-467ba180733adca1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="git rebase"></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/06/%E6%8C%91%E6%88%98%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1903,195 +2111,6 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/JS%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/JS%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" itemprop="url">JS专题学习手记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T18:44:45+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JS专题学习手记"><a href="#JS专题学习手记" class="headerlink" title="JS专题学习手记"></a>JS专题学习手记</h1><p>同样源自冴羽大大的blog系列，JS专题相对增加了更多对算法和方法实现上的思考，值得细细品味，目前专题还在持续学习中，具体的练习代码就不放在这里了。blog将分阶段更新。<br>同样是宝库链接：<br><a href="https://github.com/mqyqingfeng/Blog" target="_blank" rel="noopener">冴羽’s blog</a></p>
-<h2 id="防抖debounce"><a href="#防抖debounce" class="headerlink" title="防抖debounce"></a><a href="https://github.com/mqyqingfeng/Blog/issues/22" target="_blank" rel="noopener">防抖debounce</a></h2><p>防抖和节流都是为了解决频繁事件触发<br>例如 lodash.debounce()</p>
-<blockquote>
-<p>防抖即你随便触发事件，我只在你不再触发事件的n时间后执行事件<br>Tip: setTimeout 和 setInterval的返回值都是一个正整数，用来表示该计时器的编号，<br>使用 clearTimeout和clearInterval 方法不会清空返回值</p>
-</blockquote>
-<h2 id="节流throttle"><a href="#节流throttle" class="headerlink" title="节流throttle"></a><a href="https://github.com/mqyqingfeng/Blog/issues/26" target="_blank" rel="noopener">节流throttle</a></h2><blockquote>
-<p>如果你持续触发事件,每隔一段时间，只执行一次事件<br>两种主流实现方式，一种是时间戳，一种是定时器<br>时间戳：第一次触发时立即执行，停止触发后不会再执行<br>定时器：不会马上执行，最后一次停止触发后wait后会再执行一次<br>Tip: 定时器的延时如果是一个负值时，他会忽略并使用最小延时,HTML5规格4ms（有浏览器差异）<br>TODO: 双剑合璧和options方式还需要理解</p>
-</blockquote>
-<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><a href="https://github.com/mqyqingfeng/Blog/issues/27" target="_blank" rel="noopener">数组去重</a></h2><p><strong>sort()方法改变原数组</strong></p>
-<ul>
-<li>双层去重</li>
-<li>排序后去重（先将数组sort排序，排序后相同的值就会被挤在一起，然后只用判断当前值与前一个值是否相等即可）</li>
-<li>对象去重 （obj.getOwnProperty 方法判断属性）<h2 id="类型判断上"><a href="#类型判断上" class="headerlink" title="类型判断上"></a><a href="https://github.com/mqyqingfeng/Blog/issues/28" target="_blank" rel="noopener">类型判断上</a></h2></li>
-<li>Object.prototype.toString()<br>调用 Object.prototype.toString 会返回一个由 “[object “ 和 class 和 “]” 组成的字符串，而 class 是要判断的对象的<strong>内部属性</strong><br>Tips: 判断数组是否是数组的四种方法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.isArray([]) <span class="comment">// true</span></span><br><span class="line">[] <span class="keyword">instanceof</span> <span class="built_in">Array</span> <span class="comment">// true</span></span><br><span class="line">[].constructor === <span class="built_in">Array</span> <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([]) <span class="comment">// [object Array]</span></span><br></pre></td></tr></table></figure>
-<h2 id="类型判断下"><a href="#类型判断下" class="headerlink" title="类型判断下"></a><a href="https://github.com/mqyqingfeng/Blog/issues/30" target="_blank" rel="noopener">类型判断下</a></h2></li>
-<li>plainObject<blockquote>
-<p>纯粹的对象，有内部的键值对，和null,[],document等同样判断是对象的东西作区分</p>
-</blockquote>
-</li>
-<li>window 对象<br>window对象是javascript客户端的全局对象，有一个window属性指向自身。</li>
-</ul>
-<p><strong>window === window</strong>，全等于，客户端只有一个window的引用地址<br>Tips: for…in… 会遍历原型上的属性， Object.keys不会</p>
-<h2 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a><a href="https://github.com/mqyqingfeng/Blog/issues/32" target="_blank" rel="noopener">深浅拷贝</a></h2><p>数组浅拷贝<br>[].concat(), [].slice()都可以实现浅拷贝<br>问题是如果数组内都是基本类型，则拷贝值，数组内存在引用类型，只会拷贝引用<br><strong>即只拷贝栈上的东西</strong><br>深拷贝<br>一个简单粗暴的方法，不仅能拷贝数组还能拷贝对象 (但是不能拷贝函数)<br>Tips: 不安全的JSON值</p>
-<blockquote>
-<p>为了简单起见， 我们来看看什么是 不安全的 JSON 值 。 undefined 、 function 、 symbol （ES6+）和包含循环引用（对象之间相互引用，形成一个无限循环）的 对象 都不符合 JSON 结构标准，支持 JSON 的语言无法处理它们。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringfy(item)) <span class="comment">// 有问题的，JSON.stringfy()调用底层也会调用toString,结果有时会不符合预期</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Tips: 还有ES6的...操作符</span></span><br><span class="line">&#123;...item&#125;, [...item]</span><br><span class="line"><span class="comment">// 不安全的操作：</span></span><br><span class="line"><span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify([<span class="number">1</span>, <span class="literal">undefined</span>, symbol, <span class="number">2</span>])) <span class="comment">// [1, null, null, 2]</span></span><br></pre></td></tr></table></figure>
-<h2 id="JQuery-extend"><a href="#JQuery-extend" class="headerlink" title="JQuery extend"></a><a href="https://github.com/mqyqingfeng/Blog/issues/33" target="_blank" rel="noopener">JQuery extend</a></h2><p>第一遍看不动了，回头再看</p>
-<h2 id="求数组最大和最小值"><a href="#求数组最大和最小值" class="headerlink" title="求数组最大和最小值"></a><a href="https://github.com/mqyqingfeng/Blog/issues/35" target="_blank" rel="noopener">求数组最大和最小值</a></h2><p>Math.min() Infinity<br>Math.max() -Infinity<br>Math.min() &gt; Math.max() // true<br>Tips: [1,2,3,4]+’’ 会隐式类型转换成 1,2,3,4</p>
-<h2 id="数组扁平化"><a href="#数组扁平化" class="headerlink" title="数组扁平化"></a><a href="https://github.com/mqyqingfeng/Blog/issues/36" target="_blank" rel="noopener">数组扁平化</a></h2><p>Tips: Array.concat(item) concat操作实际上添加的都是值，如果item是数组，则会添加数组中的值而不是数组</p>
-<ul>
-<li>基础循环</li>
-<li>reduce方法</li>
-<li>while循环和…展开方法<h2 id="实现findIndex方法"><a href="#实现findIndex方法" class="headerlink" title="实现findIndex方法"></a><a href="https://github.com/mqyqingfeng/Blog/issues/37" target="_blank" rel="noopener">实现findIndex方法</a></h2>es6新增的Array.findIndex方法，他会返回符合回调函数条件的第一个元素的索引，没有则返回-1<br>Array.findeIndex(function(item, i, array))<br>技能点：通过传参的方式，在一个循环中实现正序和倒序查找<br>二分查找: high, mid, low 二分区间<br>Tips: splice方法，</li>
-</ul>
-<p><strong>splice(start, deleteCount, val1, val2…),从指定位置start起删除deleteCount项，并插入val1,val2…</strong><br><strong>splice会改变原数组，返回值是被删除的元素组成的数组</strong></p>
-<h2 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a><a href="https://github.com/mqyqingfeng/Blog/issues/42" target="_blank" rel="noopener">柯里化</a></h2><p>一句话解释柯里化：</p>
-<blockquote>
-<p>用闭包把参数保存起来，等到参数攒够了，再执行</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 易懂的柯里化</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span>(<span class="params">fn, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> length = fn.length</span><br><span class="line">  <span class="keyword">var</span> args = args || []</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _args = args.slice(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">arguments</span>.length;i++) &#123;</span><br><span class="line">      _args.push(<span class="built_in">arguments</span>[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(_args.length &lt; fn.length) &#123;</span><br><span class="line">      <span class="keyword">return</span> curry.call(<span class="keyword">this</span>, fn, _args)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, _args)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> newCurry = curry(<span class="function"><span class="keyword">function</span>(<span class="params">a,b,c</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log([a,b,c])</span><br><span class="line">&#125;)</span><br><span class="line">newCurry(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>) <span class="comment">// [1,2,3]</span></span><br></pre></td></tr></table></figure>
-<h2 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a><a href="https://github.com/mqyqingfeng/Blog/issues/43" target="_blank" rel="noopener">偏函数</a></h2><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a><a href="https://github.com/mqyqingfeng/Blog/issues/49" target="_blank" rel="noopener">递归</a></h2><p>递归条件：<br>一个递归需具备返回条件，递归前进段和递归返回段<br>递归函数会不断的创造执行上下文栈，优化方式就是<strong>尾调用</strong><br>尾调用不会创建多个执行上下文</p>
-<blockquote>
-<p>尾调用：即函数的最后一个执行结果为函数调用，并且该调用的返回值返回给该函数<br>注意：只有不再用到外层函数的内部变量，内层函数的执行上下文栈才会替代外层函数的执行上下文栈，否则不会产生“尾调用优化”<br>函数调用自身，称为递归<br>尾调用自身，称为尾递归<br>优化方式：<br>把所有用到的内部变量改写成函数的<strong>参数</strong></p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 尾调用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> g(x)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行栈：</span></span><br><span class="line"><span class="comment">// globalContext.push(fContext)</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br><span class="line"><span class="comment">// globalContext.push(gContext)</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br><span class="line"><span class="comment">// 非尾调用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> g(x) + <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行栈</span></span><br><span class="line"><span class="comment">// globalContext.push(fContext)</span></span><br><span class="line"><span class="comment">// globalContext.push(gContext) 多创建了一个执行栈</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br><span class="line"><span class="comment">// globalContext.pop()</span></span><br></pre></td></tr></table></figure>
-<h2 id="v8排序解析"><a href="#v8排序解析" class="headerlink" title="v8排序解析"></a><a href="https://github.com/mqyqingfeng/Blog/issues/52" target="_blank" rel="noopener">v8排序解析</a></h2><p>v8对数组的排序是纯js实现的<br>数组小于10用插排，大于10用快排（这种说法不太严谨）</p>
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/insertion.gif" alt="插入排序图"><br><img src="https://github.com/mqyqingfeng/Blog/raw/master/Images/sort/quicksort.gif" alt="原地快排"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2142,7 +2161,7 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2153,7 +2172,7 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2164,7 +2183,7 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
