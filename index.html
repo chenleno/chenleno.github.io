@@ -339,24 +339,6 @@
 <p>我们可以利用以上优化思想进行逻辑拆分，优化我们的判断条件</p>
 <p>通过抽出公共逻辑，归类身份逻辑，分别列出老师的判断逻辑和学生的判断逻辑，分别写出不同身份对应的业务逻辑判断。这样后期如果要修改的话可以很快定位，也不会有身份混乱的问题。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isMySelf = ServiceRoom.getTkRoom().getMySelf().id === fromID || fromID === <span class="string">'__TKServer'</span></span><br><span class="line"><span class="comment">// 老师的课件添加事件响应逻辑,不管上下课,是自己添加的就打开</span></span><br><span class="line"><span class="keyword">const</span> teacherCtrl = !TkConstant.hasRole.roleStudent &amp;&amp; isMySelf</span><br><span class="line"><span class="comment">// 学生的课件添加事件响应逻辑, 学生课前扫码上传，不同步</span></span><br><span class="line"><span class="keyword">const</span> studentCtrl = !TkGlobal.classBegin &amp;&amp; TkConstant.hasRole.roleStudent &amp;&amp; isMySelf</span><br><span class="line"><span class="keyword">if</span> (teacherCtrl || studentCtrl) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="项目相关"><a href="#项目相关" class="headerlink" title="项目相关"></a>项目相关</h3><p>以下内容为当前项目相关注意事项，旨在提高大家开发时的项目结构意识，欢迎补充</p>
-<h4 id="身份判断"><a href="#身份判断" class="headerlink" title="身份判断"></a>身份判断</h4><p>项目目前有一套身份判断系统，具体代码可见 <code>TkConstant</code> 文件。在开发时应尽量使用已有的身份系统，避免编写 <code>role === 0</code> 之类的硬判断。<br>常用身份常量，用于条件判断</p>
-<ul>
-<li>TkConstant.role.roleChairman                老师</li>
-<li>TkConstant.role.roleStudent                 学生</li>
-<li>TkConstant.role.roleTeachingAssistant       助教</li>
-<li>TkConstant.role.rolePatrol                  巡课</li>
-<li>TkConstant.role.roleLiveWatcher             直播观看者</li>
-</ul>
-<p>常用当前用户身份判断，可以直接用，等效于 <code>ServiceRoom.getTkRoom().getMySelf().role === TkConstant.role.xxx</code></p>
-<ul>
-<li>TkConstant.hasRole.roleChairman             我是老师</li>
-<li>TkConstant.hasRole.roleTeachingAssistant    我是助教</li>
-<li>TkConstant.hasRole.roleStudent              我是学生</li>
-<li>TkConstant.hasRole.rolePatrol               我是巡课</li>
-<li>TkConstant.hasRole.roleLiveWatcher          我是直播观看者</li>
-</ul>
-
           
         
       
