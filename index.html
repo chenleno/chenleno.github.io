@@ -248,6 +248,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%EF%BC%9A%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/05/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%EF%BC%9A%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D/" itemprop="url">代码规范：变量命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T17:56:14+08:00">
+                2020-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="变量命名规范"><a href="#变量命名规范" class="headerlink" title="变量命名规范"></a>变量命名规范</h1><p>项目中目前存在变量命名模糊，不规范的问题，实际开发时会带来一些困扰。此版为初版变量命名方案，有想法的欢迎提交修改。</p>
+<h2 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h2><p>与变量相对的是常量，项目中目前存在很多的常量如：<code>host</code>, <code>pageSize</code>等。为了能在开发时能直观的区分变量和常量，推荐使用 <code>大写单词</code> + <code>_</code> 命名常量。例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HOST = <span class="string">'www.global.com'</span></span><br><span class="line"><span class="keyword">const</span> FILE_TYPE_LIST = [<span class="string">'mp3'</span>, <span class="string">'mp4'</span>, <span class="string">'jpg'</span>]</span><br><span class="line"><span class="keyword">const</span> PAGE_SIZE = <span class="number">20</span></span><br></pre></td></tr></table></figure>
+<h2 id="变量命名思想"><a href="#变量命名思想" class="headerlink" title="变量命名思想"></a>变量命名思想</h2><p>变量命名采用驼峰命名，变量命名的理想情况是：变量名能直观的反应数据类型，并且可以一定程度上反应该变量对应的业务逻辑。如：<code>upStageStudentList</code> (上台的学生列表，数组类型)。因此，只要能够合理的反映变量作用和类型，一定程度上的长变量名也是可以接受的。</p>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>单数名词，如：<code>file</code>, <code>user</code>, <code>room</code>等，如存在命名冲突问题，可用 <code>fileInfo</code>, <code>fileObj</code> 等替代</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>一般由 名词 + <code>List</code> 组成，如：<code>userList</code>, <code>fileList</code>, 也可使用 <code>userArr</code>等表明变量属性的组合词或者 <code>users</code> 复数名词</p>
+<h3 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h3><p>表 <code>true</code> 的单词一般由 <code>is</code> + <code>业务单词</code> 组成，如：<code>isOpen</code>, <code>isStudent</code>。</p>
+<p>表 <code>false</code> 的单词一般由 <code>not</code> + <code>业务单词</code> 组成，如：<code>notOpen</code>, <code>notStudent</code>。</p>
+<h3 id="hashMap"><a href="#hashMap" class="headerlink" title="hashMap"></a>hashMap</h3><p><code>hashMap</code>表示一个对象集合，集合中对象的<code>key</code>为<code>业务key</code>, <code>value</code>为对应的<code>集合对象</code>。<br>因此 <code>hashMap</code> 在命名时可以通过 <code>集合名词</code> + <code>By</code> + <code>key</code> 来命名。如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> userListById = &#123;</span><br><span class="line">  <span class="string">'qwe'</span>: &#123;<span class="attr">id</span>: <span class="string">'qwe'</span>, <span class="attr">name</span>: <span class="string">'哈哈'</span>&#125;,</span><br><span class="line">  <span class="string">'asd'</span>: &#123;<span class="attr">id</span>: <span class="string">'asd'</span>, <span class="attr">name</span>: <span class="string">'嘻嘻'</span>&#125;,</span><br><span class="line">  <span class="string">'zxc'</span>: &#123;<span class="attr">id</span>: <span class="string">'zxc'</span>, <span class="attr">name</span>: <span class="string">'呵呵'</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> userListByName = &#123;</span><br><span class="line">  <span class="string">'哈哈'</span>: &#123;<span class="attr">id</span>: <span class="string">'qwe'</span>, <span class="attr">name</span>: <span class="string">'哈哈'</span>&#125;,</span><br><span class="line">  <span class="string">'嘻嘻'</span>: &#123;<span class="attr">id</span>: <span class="string">'asd'</span>, <span class="attr">name</span>: <span class="string">'嘻嘻'</span>&#125;,</span><br><span class="line">  <span class="string">'呵呵'</span>: &#123;<span class="attr">id</span>: <span class="string">'zxc'</span>, <span class="attr">name</span>: <span class="string">'呵呵'</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="文件命名"><a href="#文件命名" class="headerlink" title="文件命名"></a>文件命名</h3><p>文件名称建议和文件内部的组件名或者service名称保持一致。在React中，组件均使用 <code>.jsx</code> 后缀，service类型使用 <code>.js</code> 后缀。</p>
+<p>补充：<br><code>lodash</code>中有很方便的将 <code>数组</code> 转化为 <code>hashMap</code> 的方法 <code>keyBy</code>, 使用方法为: <code>_.keyBy(arr, key)</code>, 返回值为对应key的 <code>hashMap</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span></span><br><span class="line"><span class="keyword">const</span> userList = [</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="string">'qwe'</span>, <span class="attr">name</span>: <span class="string">'哈哈'</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="string">'asd'</span>, <span class="attr">name</span>: <span class="string">'嘻嘻'</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="string">'zxc'</span>, <span class="attr">name</span>: <span class="string">'呵呵'</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">const</span> userListById = _.keyBy(userList, <span class="string">'id'</span>)</span><br><span class="line"><span class="comment">// userListById: &#123;</span></span><br><span class="line"><span class="comment">//   'qwe': &#123;id: 'qwe', name: '哈哈'&#125;,</span></span><br><span class="line"><span class="comment">//   'asd': &#123;id: 'asd', name: '嘻嘻'&#125;,</span></span><br><span class="line"><span class="comment">//   'zxc': &#123;id: 'zxc', name: '呵呵'&#125;,</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -339,137 +471,6 @@
 <p>我们可以利用以上优化思想进行逻辑拆分，优化我们的判断条件</p>
 <p>通过抽出公共逻辑，归类身份逻辑，分别列出老师的判断逻辑和学生的判断逻辑，分别写出不同身份对应的业务逻辑判断。这样后期如果要修改的话可以很快定位，也不会有身份混乱的问题。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> isMySelf = ServiceRoom.getTkRoom().getMySelf().id === fromID || fromID === <span class="string">'__TKServer'</span></span><br><span class="line"><span class="comment">// 老师的课件添加事件响应逻辑,不管上下课,是自己添加的就打开</span></span><br><span class="line"><span class="keyword">const</span> teacherCtrl = !TkConstant.hasRole.roleStudent &amp;&amp; isMySelf</span><br><span class="line"><span class="comment">// 学生的课件添加事件响应逻辑, 学生课前扫码上传，不同步</span></span><br><span class="line"><span class="keyword">const</span> studentCtrl = !TkGlobal.classBegin &amp;&amp; TkConstant.hasRole.roleStudent &amp;&amp; isMySelf</span><br><span class="line"><span class="keyword">if</span> (teacherCtrl || studentCtrl) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/05/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%EF%BC%9A%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/08/05/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%EF%BC%9A%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D/" itemprop="url">代码规范：变量命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-05T17:56:14+08:00">
-                2020-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="变量命名规范"><a href="#变量命名规范" class="headerlink" title="变量命名规范"></a>变量命名规范</h1><p>项目中目前存在变量命名模糊，不规范的问题，实际开发时会带来一些困扰。此版为初版变量命名方案，有想法的欢迎提交修改。</p>
-<h2 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h2><p>与变量相对的是常量，项目中目前存在很多的常量如：<code>host</code>, <code>pageSize</code>等。为了能在开发时能直观的区分变量和常量，推荐使用 <code>大写单词</code> + <code>_</code> 命名常量。例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HOST = <span class="string">'www.global.com'</span></span><br><span class="line"><span class="keyword">const</span> FILE_TYPE_LIST = [<span class="string">'mp3'</span>, <span class="string">'mp4'</span>, <span class="string">'jpg'</span>]</span><br><span class="line"><span class="keyword">const</span> PAGE_SIZE = <span class="number">20</span></span><br></pre></td></tr></table></figure>
-<h2 id="变量命名思想"><a href="#变量命名思想" class="headerlink" title="变量命名思想"></a>变量命名思想</h2><p>变量命名采用驼峰命名，变量命名的理想情况是：变量名能直观的反应数据类型，并且可以一定程度上反应该变量对应的业务逻辑。如：<code>upStageStudentList</code> (上台的学生列表，数组类型)。因此，只要能够合理的反映变量作用和类型，一定程度上的长变量名也是可以接受的。</p>
-<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><p>单数名词，如：<code>file</code>, <code>user</code>, <code>room</code>等，如存在命名冲突问题，可用 <code>fileInfo</code>, <code>fileObj</code> 等替代</p>
-<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>一般由 名词 + <code>List</code> 组成，如：<code>userList</code>, <code>fileList</code>, 也可使用 <code>userArr</code>等表明变量属性的组合词或者 <code>users</code> 复数名词</p>
-<h3 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h3><p>表 <code>true</code> 的单词一般由 <code>is</code> + <code>业务单词</code> 组成，如：<code>isOpen</code>, <code>isStudent</code>。</p>
-<p>表 <code>false</code> 的单词一般由 <code>not</code> + <code>业务单词</code> 组成，如：<code>notOpen</code>, <code>notStudent</code>。</p>
-<h3 id="hashMap"><a href="#hashMap" class="headerlink" title="hashMap"></a>hashMap</h3><p><code>hashMap</code>表示一个对象集合，集合中对象的<code>key</code>为<code>业务key</code>, <code>value</code>为对应的<code>集合对象</code>。<br>因此 <code>hashMap</code> 在命名时可以通过 <code>集合名词</code> + <code>By</code> + <code>key</code> 来命名。如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> userListById = &#123;</span><br><span class="line">  <span class="string">'qwe'</span>: &#123;<span class="attr">id</span>: <span class="string">'qwe'</span>, <span class="attr">name</span>: <span class="string">'哈哈'</span>&#125;,</span><br><span class="line">  <span class="string">'asd'</span>: &#123;<span class="attr">id</span>: <span class="string">'asd'</span>, <span class="attr">name</span>: <span class="string">'嘻嘻'</span>&#125;,</span><br><span class="line">  <span class="string">'zxc'</span>: &#123;<span class="attr">id</span>: <span class="string">'zxc'</span>, <span class="attr">name</span>: <span class="string">'呵呵'</span>&#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> userListByName = &#123;</span><br><span class="line">  <span class="string">'哈哈'</span>: &#123;<span class="attr">id</span>: <span class="string">'qwe'</span>, <span class="attr">name</span>: <span class="string">'哈哈'</span>&#125;,</span><br><span class="line">  <span class="string">'嘻嘻'</span>: &#123;<span class="attr">id</span>: <span class="string">'asd'</span>, <span class="attr">name</span>: <span class="string">'嘻嘻'</span>&#125;,</span><br><span class="line">  <span class="string">'呵呵'</span>: &#123;<span class="attr">id</span>: <span class="string">'zxc'</span>, <span class="attr">name</span>: <span class="string">'呵呵'</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>补充：<br><code>lodash</code>中有很方便的将 <code>数组</code> 转化为 <code>hashMap</code> 的方法 <code>keyBy</code>, 使用方法为: <code>_.keyBy(arr, key)</code>, 返回值为对应key的 <code>hashMap</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span></span><br><span class="line"><span class="keyword">const</span> userList = [</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="string">'qwe'</span>, <span class="attr">name</span>: <span class="string">'哈哈'</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="string">'asd'</span>, <span class="attr">name</span>: <span class="string">'嘻嘻'</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">id</span>: <span class="string">'zxc'</span>, <span class="attr">name</span>: <span class="string">'呵呵'</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">const</span> userListById = _.keyBy(userList, <span class="string">'id'</span>)</span><br><span class="line"><span class="comment">// userListById: &#123;</span></span><br><span class="line"><span class="comment">//   'qwe': &#123;id: 'qwe', name: '哈哈'&#125;,</span></span><br><span class="line"><span class="comment">//   'asd': &#123;id: 'asd', name: '嘻嘻'&#125;,</span></span><br><span class="line"><span class="comment">//   'zxc': &#123;id: 'zxc', name: '呵呵'&#125;,</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
-
           
         
       
