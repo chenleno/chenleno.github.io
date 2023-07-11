@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="挑战数据结构和算法前言 一个木桶能装的水量取决于最短的那块木板 —– 木桶效应面试时承认自己不擅长数据结构和算法大概是我最痛苦的回忆了，为了不再面试时唯唯诺诺，现实中我要重拳出击，数据结构和算法，我来了！  数据结构篇栈一种先进后出的数据结构，先进的靠近栈底，后进的靠近栈顶，有点类似弹匣的意思~ 123456789101112class stack &amp;#123;  constructor() &amp;#">
+<meta name="description" content="挑战数据结构和算法数据结构篇栈一种先进后出的数据结构，先进的靠近栈底，后进的靠近栈顶，有点类似弹匣的意思~ 123456789101112class stack &amp;#123;  constructor() &amp;#123;    this.items &#x3D; []  &amp;#125;  push(ele) &amp;#123; &#x2F;&#x2F; 入栈    return this.items.push(ele)  &amp;#125;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="挑战数据结构和算法">
 <meta property="og:url" content="http://yoursite.com/2020/05/06/%E6%8C%91%E6%88%98%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="chenleno&#39;s">
-<meta property="og:description" content="挑战数据结构和算法前言 一个木桶能装的水量取决于最短的那块木板 —– 木桶效应面试时承认自己不擅长数据结构和算法大概是我最痛苦的回忆了，为了不再面试时唯唯诺诺，现实中我要重拳出击，数据结构和算法，我来了！  数据结构篇栈一种先进后出的数据结构，先进的靠近栈底，后进的靠近栈顶，有点类似弹匣的意思~ 123456789101112class stack &amp;#123;  constructor() &amp;#">
+<meta property="og:description" content="挑战数据结构和算法数据结构篇栈一种先进后出的数据结构，先进的靠近栈底，后进的靠近栈顶，有点类似弹匣的意思~ 123456789101112class stack &amp;#123;  constructor() &amp;#123;    this.items &#x3D; []  &amp;#125;  push(ele) &amp;#123; &#x2F;&#x2F; 入栈    return this.items.push(ele)  &amp;#125;">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/6/26/e748673dbb5df2a93c3ee56b52a67849?imageView2/0/w/1280/h/960/ignore-error/1">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/6/26/69932d224190c9815ce8ebc9eca51a0e?imageView2/0/w/1280/h/960/ignore-error/1">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/6/24/6c56193b6d0e1eae9fe946ff55852eb5?imageView2/0/w/1280/h/960/ignore-error/1">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/6/24/3e24dff8ee385ec854fae09a0a1ed80d?imageView2/0/w/1280/h/960/ignore-error/1">
 <meta property="article:published_time" content="2020-05-06T14:42:27.000Z">
-<meta property="article:modified_time" content="2020-05-12T14:21:20.285Z">
+<meta property="article:modified_time" content="2023-07-11T07:05:22.381Z">
 <meta property="article:author" content="chenleno">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="数据结构">
@@ -347,10 +347,7 @@
       
 
       
-        <h1 id="挑战数据结构和算法"><a href="#挑战数据结构和算法" class="headerlink" title="挑战数据结构和算法"></a>挑战数据结构和算法</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>一个木桶能装的水量取决于最短的那块木板 —– 木桶效应<br>面试时承认自己不擅长数据结构和算法大概是我最痛苦的回忆了，为了不再面试时唯唯诺诺，现实中我要重拳出击，数据结构和算法，我来了！</p>
-</blockquote>
-<h2 id="数据结构篇"><a href="#数据结构篇" class="headerlink" title="数据结构篇"></a>数据结构篇</h2><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一种先进后出的数据结构，先进的靠近栈底，后进的靠近栈顶，有点类似弹匣的意思~</p>
+        <h1 id="挑战数据结构和算法"><a href="#挑战数据结构和算法" class="headerlink" title="挑战数据结构和算法"></a>挑战数据结构和算法</h1><h2 id="数据结构篇"><a href="#数据结构篇" class="headerlink" title="数据结构篇"></a>数据结构篇</h2><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一种先进后出的数据结构，先进的靠近栈底，后进的靠近栈顶，有点类似弹匣的意思~</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">stack</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.items = []</span><br><span class="line">  &#125;</span><br><span class="line">  push(ele) &#123; <span class="comment">// 入栈</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.items.push(ele)</span><br><span class="line">  &#125;</span><br><span class="line">  pop(ele) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.items.pop() <span class="comment">// 出栈</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一种先进先出的数据结构，有点类似水管~</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">queue</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.items = []</span><br><span class="line">  &#125;</span><br><span class="line">  enqueue(ele) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.items.push(ele)</span><br><span class="line">  &#125;</span><br><span class="line">  dequeue(ele) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.items.shift()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -539,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#挑战数据结构和算法"><span class="nav-number">1.</span> <span class="nav-text">挑战数据结构和算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构篇"><span class="nav-number">1.2.</span> <span class="nav-text">数据结构篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈"><span class="nav-number">1.2.1.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列"><span class="nav-number">1.2.2.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优先队列"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">优先队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">循环队列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表"><span class="nav-number">1.2.3.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环链表"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">循环链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向循环链表"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">双向循环链表</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#挑战数据结构和算法"><span class="nav-number">1.</span> <span class="nav-text">挑战数据结构和算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构篇"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构篇</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈"><span class="nav-number">1.1.1.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列"><span class="nav-number">1.1.2.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优先队列"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">优先队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环队列"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">循环队列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表"><span class="nav-number">1.1.3.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#双向链表"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">双向链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环链表"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">循环链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双向循环链表"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">双向循环链表</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -559,7 +556,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
