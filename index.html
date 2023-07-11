@@ -248,6 +248,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/07/11/nvm%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2023/07/11/nvm%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/" itemprop="url">nvm的安装及使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2023-07-11T15:09:06+08:00">
+                2023-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="nvm的安装及使用"><a href="#nvm的安装及使用" class="headerlink" title="nvm的安装及使用"></a>nvm的安装及使用</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>重新拾起吃灰的blog，发现执行<code>hexo d</code>时给了报错</p>
+<blockquote>
+<p>TypeError [ERR_INVALID_ARG_TYPE]: The “mode” argument must be integer. Received an instance of Object</p>
+</blockquote>
+<p>本人的hexo版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo: 4.2.0</span><br><span class="line">hexo-cli: 3.1.0</span><br><span class="line">os: Darwin 17.7.0 darwin x64</span><br><span class="line">node: 16.20.0</span><br></pre></td></tr></table></figure>
+
+<p>查询资料了解到是由于node版本过高导致，需要降级为低版本（13.x.x）才能使用。但是卸载重装这事也太low了，而且保不齐有其他的项目又需要高版本node。想起nvm这个大名鼎鼎的node管理工具，借此机会正好体验一下。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>查阅了多方资料，安装过程不尽相同。下面就只以本人的安装过程介绍。（MacOS系统，没有卸载原有的node）<br>首先附上官方文档地址<a href="https://github.com/nvm-sh/nvm/blob/master/README.md" target="_blank" rel="noopener">nvm</a></p>
+<p>MacOS下可以通过<code>curl</code>方便地安装nvm,只需要开启终端，输入以下命令即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;nvm-sh&#x2F;nvm&#x2F;v0.39.3&#x2F;install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>届时会出现一个进度说明，耐心等待安装完成即可</p>
+<p><a href="https://imgse.com/i/pCWNkND" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2023/07/11/pCWNkND.png" alt="pCWNkND.png"></a></p>
+<p>PS: 如果进度说明中各项都为0，只有<code>Time Spent</code>在增加，可能是终端请求资源地址不通，需要配置终端代理（科学上网）</p>
+<p>安装完成后，会出现如下所示的说明</p>
+<p><a href="https://imgse.com/i/pCWNaD0" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2023/07/11/pCWNaD0.png" alt="pCWNaD0.png"></a></p>
+<p>这时候如果你在控制台使用nvm，大概率是不行的，会提示<code>This is not the package you are looking for: please go to http://nvm.sh</code></p>
+<p>这是因为nvm命令还未被配置到环境变量中，这时候查看安装完成后的说明，作者已经告诉了我们处理方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 你可以选择关闭终端后重新打开来使用nvm，或者使用以下命令来立即应用</span><br><span class="line">&#x3D;&gt; Close and reopen your terminal to start using nvm or run the following to use it now:</span><br><span class="line"></span><br><span class="line">export NVM_DIR&#x3D;&quot;$HOME&#x2F;.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR&#x2F;nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR&#x2F;nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR&#x2F;bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR&#x2F;bash_completion&quot;  # This loads nvm bash_completion</span><br></pre></td></tr></table></figure>
+
+<p>这里我们试试命令的方式，终端中输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR&#x3D;&quot;$HOME&#x2F;.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR&#x2F;nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR&#x2F;nvm.sh&quot;  # This loads nvm</span><br><span class="line">[ -s &quot;$NVM_DIR&#x2F;bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR&#x2F;bash_completion&quot;</span><br></pre></td></tr></table></figure>
+
+<p>之后输入<code>nvm --version</code>，可以发现nvm命令已经可以使用</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>有了nvm我们自然要感受一下他的威力，这里我选择安装当前hexo所需的node版本13.14.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm i 13.14.0</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://imgse.com/i/pCWU8Z6" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2023/07/11/pCWU8Z6.png" alt="pCWU8Z6.png"></a></p>
+<p>可以看到顷刻间nvm就帮我们安装好了所需node版本，并且自动切换到了该版本，接下来试试部署命令<code>hexo d</code>，OK，完成部署！</p>
+<p>切换到其他node版本也很简单，首先我们可以输入<code>nvm list</code>查看所有当前已安装的node版本</p>
+<p><a href="https://imgse.com/i/pCWaAld" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2023/07/11/pCWaAld.png" alt="pCWaAld.png"></a></p>
+<p>切换到其他的node版本(例：v18.16.1)，只需要输入 <code>nvm use 18.16.1</code>即可</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/06/%E6%8C%91%E6%88%98%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1929,153 +2081,11 @@ View 通过事件绑定操作 Model<br>Model 通过数据绑定操作 View<br>�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/%E7%B4%A0%E6%8F%8F%E8%B5%AB%E6%9C%AC%E4%B9%8B%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/20/%E7%B4%A0%E6%8F%8F%E8%B5%AB%E6%9C%AC%E4%B9%8B%E4%BA%8C/" itemprop="url">素描赫本之二</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-20T10:25:24+08:00">
-                2020-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index">
-                    <span itemprop="name">杂谈</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="赫本之二"><a href="#赫本之二" class="headerlink" title="赫本之二"></a>赫本之二</h1><p><img src="https://s1.ax1x.com/2020/04/20/JMzpcT.md.jpg" alt="赫本"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -2121,7 +2131,7 @@ View 通过事件绑定操作 Model<br>Model 通过数据绑定操作 View<br>�
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

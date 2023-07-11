@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webpack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="webpack配置手记从零开始配置一个webpack工具，包含样式解析，代码混淆，代码压缩，打包优化，vue文件解析等功能点搭配项目使用风味更佳github: webpack-yes参考资料：2020年了,再不会webpack敲得代码就不香了 核心四个概念 入口 entry (指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始) 输出 output (告诉 webpack 在哪里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack配置手记">
+<meta property="og:url" content="http://yoursite.com/2020/04/03/webpack%E9%85%8D%E7%BD%AE%E6%89%8B%E8%AE%B0/index.html">
+<meta property="og:site_name" content="chenleno&#39;s">
+<meta property="og:description" content="webpack配置手记从零开始配置一个webpack工具，包含样式解析，代码混淆，代码压缩，打包优化，vue文件解析等功能点搭配项目使用风味更佳github: webpack-yes参考资料：2020年了,再不会webpack敲得代码就不香了 核心四个概念 入口 entry (指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始) 输出 output (告诉 webpack 在哪里">
+<meta property="article:published_time" content="2020-04-03T10:22:46.000Z">
+<meta property="article:modified_time" content="2020-04-03T10:31:40.732Z">
+<meta property="article:author" content="chenleno">
+<meta property="article:tag" content="webpack">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/03/webpack配置手记/"/>
+
+
+
+
+
+  <title>webpack配置手记 | chenleno's</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">chenleno's</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用脑用心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/webpack%E9%85%8D%E7%BD%AE%E6%89%8B%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack配置手记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T18:22:46+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="webpack配置手记"><a href="#webpack配置手记" class="headerlink" title="webpack配置手记"></a>webpack配置手记</h1><p>从零开始配置一个webpack工具，包含样式解析，代码混淆，代码压缩，打包优化，vue文件解析等功能点<br>搭配项目使用风味更佳<br><a href="https://github.com/chenleno/webpack-yes" target="_blank" rel="noopener">github: webpack-yes</a><br>参考资料：<br><a href="https://juejin.im/post/5de87444518825124c50cd36" target="_blank" rel="noopener">2020年了,再不会webpack敲得代码就不香了</a></p>
+<h2 id="核心四个概念"><a href="#核心四个概念" class="headerlink" title="核心四个概念"></a>核心四个概念</h2><ul>
+<li>入口 entry (指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始)</li>
+<li>输出 output (告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件)</li>
+<li>loader (让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。)loader 解析遵循 <strong>从右向左</strong> 原则</li>
+<li>插件 plugin (插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。)<h2 id="其他模块"><a href="#其他模块" class="headerlink" title="其他模块"></a>其他模块</h2></li>
+<li>resolve 设置模块如何被解析<ul>
+<li>alias 路径别名,直接告诉webpack去哪找文件，节省时间</li>
+<li>extensions 自动解析确定的扩展，导入文件时就可以不用带扩展了,优先级高的格式写前面</li>
+</ul>
+</li>
+<li>optimization 解析优化<ul>
+<li>minimize </li>
+<li>minimizer // 使用压缩工具覆盖默认压缩</li>
+<li>splitChunks // 代码分块策略</li>
+</ul>
+</li>
+<li>externals // 使用cdn等库时的配置<h2 id="常用loader"><a href="#常用loader" class="headerlink" title="常用loader"></a>常用loader</h2></li>
+<li>style-loader, css-loader, postcss-loader, less-loader… // 样式解析loader</li>
+<li>file-loader, url-loader // 文件处理loader</li>
+<li>bable-loader // js转译loader<ul>
+<li>babel/polyfill // 放在入口文件最上面，它运行于所有脚本文件之前</li>
+</ul>
+</li>
+</ul>
+<h2 id="常用plugin"><a href="#常用plugin" class="headerlink" title="常用plugin"></a>常用plugin</h2><ul>
+<li>html-webpack-plugin // 将打包后的js文件自动导入到目标html中</li>
+<li>clean-webpack-plugin // 每次打包前清除之前的打包文件</li>
+<li>mini-css-extract-plugin // 打包后拆分js 和 css</li>
+<li>webpack-dev-server // 热更新模块</li>
+<li>webpack-merge // 合并配置</li>
+<li>copy-webpack-plugin // 拷贝静态资源</li>
+<li>optimize-css-assets-webpack-plugin // 压缩css</li>
+<li>uglifyjs-webpack-plugin // 压缩js</li>
+</ul>
+<h2 id="VUE-相关"><a href="#VUE-相关" class="headerlink" title="VUE 相关"></a>VUE 相关</h2><ul>
+<li>vue-loader // 解析vue文件</li>
+<li>vue-template-compiler // 用于编译模板</li>
+</ul>
+<h2 id="优化相关"><a href="#优化相关" class="headerlink" title="优化相关"></a>优化相关</h2><ul>
+<li>happypack // 将解析loader的工作分发给每一个进程，执行完后再汇总</li>
+<li>webpack-parallel-uglify-plugin // 优化代码压缩时间 （和happypack功能类似）</li>
+<li>webpack.DllPlugin // 抽取第三方模块</li>
+<li>cache-loader // 用于缓存编译文件内容</li>
+<li>webpack-bundle-analyzer // 生成打包分析图</li>
+</ul>
+<h2 id="loader-编写原则"><a href="#loader-编写原则" class="headerlink" title="loader 编写原则"></a>loader 编写原则</h2><ul>
+<li>单一原则: 每个 Loader 只做一件事；</li>
+<li>链式调用: Webpack 会按顺序链式调用每个 Loader；</li>
+<li>统一原则: 遵循 Webpack 制定的设计规则和结构，输入与输出均为字符串，各个 Loader 完全独立，即插即用；</li>
+</ul>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><h3 id="output-libraryTarget"><a href="#output-libraryTarget" class="headerlink" title="output.libraryTarget"></a>output.libraryTarget</h3><p>此坑在编写工具库项目DIO时遇到，该项目基于webpack打包。但是在使用模块方式引入包文件时却无法获取到打包的内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @lenochen/dio</span></span><br><span class="line"><span class="comment">// index.js 工具库项目DIO打包入口</span></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> a</span><br><span class="line"></span><br><span class="line"><span class="comment">// usecase 使用DIO的另一个项目</span></span><br><span class="line"><span class="comment">// npm i @lenochen/dio</span></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'@lenochen/dio'</span></span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<p>经调查发现问题出在DIO项目webpack配置的output的参数上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @lenochen/dio</span></span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line">&#123;</span><br><span class="line">  ...,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'index.bundle.js'</span>,</span><br><span class="line">    path: <span class="string">'dist'</span>,</span><br><span class="line">    <span class="comment">// ++++</span></span><br><span class="line">    libraryTarget: <span class="string">'umd'</span> <span class="comment">// 增加此参数后，将你的library暴露为所有模块定义下都可以运行的方式</span></span><br><span class="line">    <span class="comment">// ++++</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>详细libraryTarget配置解析见<br><a href="https://webpack.docschina.org/configuration/output/#output-librarytarget" target="_blank" rel="noopener">output.libraryTarget</a></p>
+<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> vueLoaderPlugin = <span class="built_in">require</span>(<span class="string">'vue-loader/lib/plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> HappyPack = <span class="built_in">require</span>(<span class="string">'happypack'</span>)</span><br><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>)</span><br><span class="line"><span class="keyword">const</span> WebpackAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开辟一个线程池</span></span><br><span class="line"><span class="comment">// 拿到系统CPU的最大核数，happypack 将编译工作灌满所有进程</span></span><br><span class="line"><span class="keyword">const</span> happyPackThreadPool = HappyPack.ThreadPool(&#123; <span class="attr">size</span>: os.cpus().length &#125;)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  entry: [<span class="string">'babel/polyfill'</span>, ...],</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'../dist'</span>),</span><br><span class="line">    filename: <span class="string">'js/[name].[hash:8].js'</span>,</span><br><span class="line">    libraryTarget: <span class="string">'umd'</span></span><br><span class="line">  &#125;</span><br><span class="line">  ...,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    noParse: <span class="regexp">/jquery|lodash/</span> <span class="comment">// 不解析模块</span></span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(le|c)ss$/</span>,</span><br><span class="line">        use: [<span class="string">'cache-loader'</span>,</span><br><span class="line">          MiniCssExtractPlugin.loader, <span class="comment">// mini-css-extract-plugin loader 和 style-loader 冲突，故只保留一个</span></span><br><span class="line">          <span class="string">'css-loader'</span>, <span class="string">'less-loader'</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpe?g|png|gif)$/i</span>,</span><br><span class="line">        use: [&#123;</span><br><span class="line">          loader: <span class="string">'url-loader'</span>,</span><br><span class="line">          options: &#123;</span><br><span class="line">            limit: <span class="number">10240</span>,</span><br><span class="line">            fallback: &#123;</span><br><span class="line">              loader: <span class="string">'file-loader'</span>,</span><br><span class="line">              options: &#123;</span><br><span class="line">                name: <span class="string">'img/[name].[hash:8].[ext]'</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">          loader: <span class="string">'happypack/loader?id=happyJs'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">      <span class="string">'@'</span>: path.resolve(__dirname, <span class="string">'../src'</span>) <span class="comment">// 配置路径别名</span></span><br><span class="line">    &#125;,</span><br><span class="line">    extensions: [<span class="string">'.js'</span>, <span class="string">'.vue'</span>] <span class="comment">// 引用此类文件不用写后缀</span></span><br><span class="line">  &#125;,</span><br><span class="line">  devServer: &#123; <span class="comment">// 开启本地服务</span></span><br><span class="line">    port: <span class="string">'3000'</span>,</span><br><span class="line">    hot: <span class="literal">true</span>,</span><br><span class="line">    contentBase: <span class="string">'../dist'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">'./index.html'</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> CleanWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">'css/[name].[hash:8].css'</span>, <span class="comment">// 分离的css 文件名</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> vueLoaderPlugin(),</span><br><span class="line">    <span class="keyword">new</span> webpack.HotModuleReplacementPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">      id: <span class="string">'happyJs'</span>,</span><br><span class="line">      threadPool: happyPackThreadPool,</span><br><span class="line">      loaders: [...]</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> WebpackAnalyzerPlugin(&#123; <span class="comment">// 资源打包分析图</span></span><br><span class="line">      analyzerHost: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">      analyzerPort: <span class="number">8899</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    minimizer: [</span><br><span class="line">      <span class="keyword">new</span> UglifyPlugin(...)</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  externals: &#123;</span><br><span class="line">    <span class="string">'jquery'</span>: <span class="string">'jQuery'</span> <span class="comment">// 使通过cdn引入的jquery生效</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/%E4%BD%BF%E7%94%A8node%E7%BC%96%E5%86%99pdf%E5%AF%BC%E5%87%BA%E8%84%9A%E6%9C%AC%E5%8F%8A%E5%BF%83%E5%BE%97/" rel="next" title="使用node编写pdf导出脚本及心得">
+                <i class="fa fa-chevron-left"></i> 使用node编写pdf导出脚本及心得
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/JS%E4%B8%93%E6%A0%8F%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" rel="prev" title="JS专栏学习手记">
+                JS专栏学习手记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">chenleno</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack配置手记"><span class="nav-number">1.</span> <span class="nav-text">webpack配置手记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#核心四个概念"><span class="nav-number">1.1.</span> <span class="nav-text">核心四个概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他模块"><span class="nav-number">1.2.</span> <span class="nav-text">其他模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用loader"><span class="nav-number">1.3.</span> <span class="nav-text">常用loader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用plugin"><span class="nav-number">1.4.</span> <span class="nav-text">常用plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VUE-相关"><span class="nav-number">1.5.</span> <span class="nav-text">VUE 相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化相关"><span class="nav-number">1.6.</span> <span class="nav-text">优化相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loader-编写原则"><span class="nav-number">1.7.</span> <span class="nav-text">loader 编写原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑"><span class="nav-number">1.8.</span> <span class="nav-text">踩坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#output-libraryTarget"><span class="nav-number">1.8.1.</span> <span class="nav-text">output.libraryTarget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置示例"><span class="nav-number">1.9.</span> <span class="nav-text">配置示例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenleno</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

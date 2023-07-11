@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="node," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用Node编写pdf导出脚本项目心得背景这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野 项目介绍使用node编写命令行脚本，通过输入语句获取基本信息，核心是通过无头浏览器puppeteer自动访问网页，导出为pdf，重命名并保存到本地 核心模块 readline">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用node编写pdf导出脚本及心得">
+<meta property="og:url" content="http://yoursite.com/2020/04/03/%E4%BD%BF%E7%94%A8node%E7%BC%96%E5%86%99pdf%E5%AF%BC%E5%87%BA%E8%84%9A%E6%9C%AC%E5%8F%8A%E5%BF%83%E5%BE%97/index.html">
+<meta property="og:site_name" content="chenleno&#39;s">
+<meta property="og:description" content="使用Node编写pdf导出脚本项目心得背景这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野 项目介绍使用node编写命令行脚本，通过输入语句获取基本信息，核心是通过无头浏览器puppeteer自动访问网页，导出为pdf，重命名并保存到本地 核心模块 readline">
+<meta property="article:published_time" content="2020-04-03T08:45:33.000Z">
+<meta property="article:modified_time" content="2020-04-03T08:46:26.529Z">
+<meta property="article:author" content="chenleno">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/03/使用node编写pdf导出脚本及心得/"/>
+
+
+
+
+
+  <title>使用node编写pdf导出脚本及心得 | chenleno's</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">chenleno's</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">用脑用心</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/%E4%BD%BF%E7%94%A8node%E7%BC%96%E5%86%99pdf%E5%AF%BC%E5%87%BA%E8%84%9A%E6%9C%AC%E5%8F%8A%E5%BF%83%E5%BE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用node编写pdf导出脚本及心得</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T16:45:33+08:00">
+                2020-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用Node编写pdf导出脚本项目心得"><a href="#使用Node编写pdf导出脚本项目心得" class="headerlink" title="使用Node编写pdf导出脚本项目心得"></a>使用Node编写pdf导出脚本项目心得</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>这个项目是我入职后负责的第一个项目，需求是需要对学校孩子的测评报告进行批量导出，当时的我对于node编程还处于小白的状态，通过这个项目让我对于非前端的内容有了更深的认识，拓宽了视野</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>使用node编写命令行脚本，通过输入语句获取基本信息，核心是通过无头浏览器puppeteer自动访问网页，导出为pdf，重命名并保存到本地</p>
+<h2 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h2><ul>
+<li><a href="http://nodejs.cn/api/readline.html" target="_blank" rel="noopener">readline</a></li>
+<li><a href="https://github.com/GoogleChrome/puppeteer" target="_blank" rel="noopener">puppeteer</a><h2 id="流程分析"><a href="#流程分析" class="headerlink" title="流程分析"></a>流程分析</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">主入口</span><br><span class="line">||</span><br><span class="line">readline 模块，控制台获取基本信息（环境，token，学生id，模板id等）</span><br><span class="line">||</span><br><span class="line">puppeteer 启动无头浏览器，通过基本信息访问 对应页面</span><br><span class="line">||</span><br><span class="line">pdf 模块，pdf模块负责对页面进行打印操作，生成pdf文件，并存放至pdf文件夹中</span><br><span class="line">||</span><br><span class="line">结束</span><br></pre></td></tr></table></figure>
+此流程通过对业务步骤进行分层，将其区分为独立的功能模块，将来如有需求变动（如截图等），可以通过更换功能模块的方式进行复用<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">|-- config</span><br><span class="line">    |-- env.js <span class="comment">// 环境判断</span></span><br><span class="line">|-- <span class="built_in">module</span></span><br><span class="line">    |-- pdf.js  <span class="comment">// pdf 生成模块</span></span><br><span class="line">    |-- puppeteer.js <span class="comment">// 无头浏览器模块</span></span><br><span class="line">    |-- readline.js <span class="comment">// 命令行交互工具</span></span><br><span class="line">|-- utils</span><br><span class="line">    |-- fsUtil.js <span class="comment">// 目录生成工具</span></span><br><span class="line">|-- index.js <span class="comment">// 主入口</span></span><br></pre></td></tr></table></figure>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><h3 id="入口index"><a href="#入口index" class="headerlink" title="入口index"></a>入口index</h3>主入口只作为脚本执行的入口文件，无多余业务逻辑<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> openRL = <span class="built_in">require</span>(<span class="string">'./utils/readline'</span>)</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">require</span>.main === <span class="built_in">module</span>) &#123;</span><br><span class="line">    openRL()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="readline"><a href="#readline" class="headerlink" title="readline"></a>readline</h3>readline 模块通过命令行交互为后续逻辑提供数据，需要在此处定义数据格式和相关交互提示语<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">'readline'</span>)</span><br><span class="line"><span class="keyword">const</span> env = <span class="built_in">require</span>(<span class="string">'../config/env'</span>) <span class="comment">// 环境判断处理</span></span><br><span class="line"><span class="keyword">const</span> openBrowser = <span class="built_in">require</span>(<span class="string">'./puppeteer'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> userConfig = &#123;</span><br><span class="line">    token: <span class="string">''</span>, <span class="comment">// 用户token</span></span><br><span class="line">    env: <span class="string">'development'</span>, <span class="comment">// 浏览器访问环境，正式或测试</span></span><br><span class="line">    reportId: <span class="string">''</span>, <span class="comment">// 所需生成报告的类型</span></span><br><span class="line">    childId: <span class="string">'all'</span> <span class="comment">// 学生id, 不输入默认为all，否则为id数组</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+启动readline<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> openRL = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> rl = readline.createInterface(&#123; <span class="comment">// 创建readline实例</span></span><br><span class="line">        input: process.stdin, <span class="comment">// 监听的可读流</span></span><br><span class="line">        output: process.stdout, <span class="comment">// 写入readline的可写流</span></span><br><span class="line">        prompt: <span class="string">'敲回车开始&gt;'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 调用</span></span><br><span class="line">    rl.prompt() <span class="comment">// 控制台显示： '敲回车开始&gt;'</span></span><br><span class="line"></span><br><span class="line">    rl.on(<span class="string">'line'</span> , <span class="keyword">async</span> line =&gt; &#123; <span class="comment">// line事件，用户输入后按下回车时触发该事件</span></span><br><span class="line">        userConfig.env = <span class="keyword">await</span> getArgs(<span class="string">'请选择环境 (development/production),不输入默认为 development &gt; '</span>) || <span class="string">'development'</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'----'</span>)</span><br><span class="line">        userConfig.token = <span class="keyword">await</span> getArgs(<span class="string">'请输入token &gt; '</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'----'</span>)</span><br><span class="line">        userConfig.reportId = <span class="keyword">await</span> getArgs(<span class="string">'请输入报告ID &gt; '</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'----'</span>)</span><br><span class="line">        userConfig.childId = <span class="keyword">await</span> getArgs(<span class="string">'请输入childId,使用“,”隔开，不输入默认为all &gt; '</span>)  || <span class="string">'all'</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'----'</span>)</span><br><span class="line">        rl.close() <span class="comment">// 输入完成，rl实例结束</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getArgs 方法通过Promise将用户输入的值作为rl.question的返回值</span></span><br><span class="line">    <span class="keyword">const</span> getArgs = <span class="function"><span class="params">question</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        rl.question(question, resolve)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    rl.on(<span class="string">'close'</span>, <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">const</span> env_config = <span class="keyword">await</span> env(userConfig) <span class="comment">// env函数加工用户输入的数据</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'即将开始打印任务'</span>)</span><br><span class="line">            <span class="keyword">await</span> openBrowser(env_config)</span><br><span class="line">        &#125;<span class="keyword">catch</span> (err)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="string">`处理 envConfig 出错 <span class="subst">$&#123;err&#125;</span>`</span></span><br><span class="line">        &#125;</span><br><span class="line">        process.exit(<span class="number">0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+env 函数将用户输入的值结合对应环境生成实际数据传递给puppeteer<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> envConfig = <span class="function"><span class="keyword">function</span> (<span class="params">USER_CONFIG</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> isStable = USER_CONFIG.env === <span class="string">'production'</span></span><br><span class="line">        <span class="keyword">let</span> envConfig = USER_CONFIG</span><br><span class="line">        envConfig.childId = USER_CONFIG.childId === <span class="string">'all'</span> ? <span class="string">'all'</span> : USER_CONFIG.childId.split(<span class="string">','</span>).concat() <span class="comment">// 处理childId为数组</span></span><br><span class="line">        envConfig.host = isStable ? <span class="string">'正式域名'</span> : <span class="string">'测试域名'</span></span><br><span class="line">        envConfig.API_URL = isStable ? <span class="string">'正式apiUrl'</span> : <span class="string">'测试apiUrl'</span></span><br><span class="line">        resolve(envConfig)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="puppeteer"><a href="#puppeteer" class="headerlink" title="puppeteer"></a>puppeteer</h3>puppeteer 模块，启用浏览器，进行页面相关设置<br>node的puppeteer模块会安装一个chromium浏览器，通过该浏览器进行相关访问操作<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">'puppeteer'</span>)</span><br><span class="line"><span class="keyword">const</span> pdfService = <span class="built_in">require</span>(<span class="string">'./pdf'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> openBrowser = <span class="keyword">async</span>(userConfig) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch(&#123;<span class="attr">headless</span>: <span class="literal">true</span>&#125;)   <span class="comment">//用指定选项启动一个Chromium浏览器实例, 无头模式为可选项</span></span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage()                       <span class="comment">//创建一个页面.</span></span><br><span class="line">    <span class="comment">// 设置浏览器视窗为设备视窗大小</span></span><br><span class="line">    <span class="keyword">const</span> dimensions = <span class="keyword">await</span> page.evaluate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;              <span class="comment">// Get the "viewport" of the page, as reported by the page.</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            width: <span class="number">650</span>,</span><br><span class="line">            height: <span class="built_in">document</span>.documentElement.clientHeight,</span><br><span class="line">            deviceScaleFactor: <span class="built_in">window</span>.devicePixelRatio</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">await</span> page.setViewport(dimensions)</span><br><span class="line">    <span class="comment">// 执行pdf打印任务</span></span><br><span class="line">    <span class="keyword">await</span> pdfService(page , userConfig)</span><br><span class="line">    <span class="keyword">await</span> browser.close()                                      <span class="comment">//关闭已打开的页面，browser不能再使用。</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`browser 已关闭`</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="pdf模块"><a href="#pdf模块" class="headerlink" title="pdf模块"></a>pdf模块</h3>pdf模块为核心业务模块，负责将puppeteer访问的页面进行打印操作，并最终导出pdf文件</li>
+</ul>
+<p>脚本执行思路是：</p>
+<ol>
+<li>先检查当前脚本目录中是否存在存放生成pdf的文件夹，无则生成，有则取路径</li>
+<li>解析userConfig中的childId: 如果childId === ‘all’,查询报告接口，获取该类型下所有学生的id数组，否则直接取数组</li>
+<li>递归childIds数组，根据id访问对应页面并打印</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pdf 模块对外暴露的 service，接收page和userConfig, 处理后传递给业务函数</span></span><br><span class="line"><span class="keyword">const</span> pdfService = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">page , userConfig</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> user_ids = userConfig.childId === <span class="string">'all'</span> ? (<span class="keyword">await</span> getUserData(userConfig)).user_ids : userConfig.childId</span><br><span class="line">    <span class="keyword">const</span> pdfDirPath = path.join(path.resolve(__dirname , <span class="string">'..'</span>),<span class="string">'./pdf'</span>)</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">await</span> dirExists(pdfDirPath) <span class="comment">// 创建pdf文件夹</span></span><br><span class="line">    &#125;<span class="keyword">catch</span>(err) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">`创建文件夹失败 <span class="subst">$&#123;err&#125;</span>`</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> recurPdf(page , user_ids , userConfig) <span class="comment">// 递归生成pdf文件</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./utils/fsUtil.js</span></span><br><span class="line"><span class="comment">// 文件夹判断</span></span><br><span class="line"><span class="comment">// 在 pdfPath = `./pdf/$&#123;childName&#125;_$&#123;childId&#125;.pdf`下生成对应的文件，需要借助 fs 模块和 path 模块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStat</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        fs.stat(path, (err, stats) =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                resolve(<span class="literal">false</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                resolve(stats)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mkdir</span>(<span class="params">dir</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        fs.mkdir(dir, err =&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(err)&#123;</span><br><span class="line">                resolve(<span class="literal">false</span>)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                resolve(<span class="literal">true</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">dirExists</span>(<span class="params">dir</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> isExists = <span class="keyword">await</span> getStat(dir)</span><br><span class="line">    <span class="comment">//如果该路径且不是文件，返回true</span></span><br><span class="line">    <span class="keyword">if</span> (isExists &amp;&amp; isExists.isDirectory()) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isExists) &#123;     <span class="comment">//如果该路径存在但是文件，返回false</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果该路径不存在</span></span><br><span class="line">    <span class="keyword">let</span> tempDir = path.parse(dir).dir      <span class="comment">//拿到上级路径</span></span><br><span class="line">    <span class="comment">//递归判断，如果上级目录也不存在，则会代码会在此处继续循环执行，直到目录存在</span></span><br><span class="line">    <span class="keyword">let</span> status = <span class="keyword">await</span> dirExists(tempDir)</span><br><span class="line">    <span class="keyword">let</span> mkdirStatus</span><br><span class="line">    <span class="keyword">if</span> (status) &#123;</span><br><span class="line">        mkdirStatus = <span class="keyword">await</span> mkdir(dir)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> mkdirStatus</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归生成</span></span><br><span class="line"><span class="keyword">const</span> recurPdf = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">page , userId_arr , userConfig</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> childID = userId_arr.shift() <span class="comment">// 每次递归取头id</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">await</span> generatePdf(page , childID , userConfig)</span><br><span class="line">    &#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">`pdf生成过程出错，当前id=<span class="subst">$&#123;childID&#125;</span>, <span class="subst">$&#123;err&#125;</span>`</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(userId_arr.length !== <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">await</span> recurPdf(page , userId_arr , userConfig)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'userId_arr 已遍历完成, pdf 已生成完毕'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成pdf文件</span></span><br><span class="line"><span class="keyword">const</span> generatePdf = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">page , childId , userConfig</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> hostUrl = <span class="string">`<span class="subst">$&#123;userConfig.host&#125;</span>?reportId=<span class="subst">$&#123;userConfig.reportId&#125;</span>&amp;childId=<span class="subst">$&#123;childId&#125;</span>&amp;token=<span class="subst">$&#123;userConfig.token&#125;</span>`</span> <span class="comment">// 根据userConfig的数据访问对应的页面</span></span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`正在前往childId=<span class="subst">$&#123;childId&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">await</span> page.goto(hostUrl,&#123;<span class="attr">timeout</span>: <span class="number">50000</span>&#125;)                  <span class="comment">//到指定页面的网址.</span></span><br><span class="line">    &#125;<span class="keyword">catch</span>(err)&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="string">`浏览器访问childId=<span class="subst">$&#123;childId&#125;</span>出错 <span class="subst">$&#123;err&#125;</span>`</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">await</span> page.waitFor(<span class="number">15000</span>)                                       <span class="comment">//延时15000ms ，等待数据加载完成</span></span><br><span class="line">    <span class="keyword">const</span> domHandle = <span class="keyword">await</span> page.$(<span class="string">'.user span'</span>);</span><br><span class="line">    <span class="keyword">const</span> childName = <span class="keyword">await</span> page.evaluate(<span class="function"><span class="params">body</span> =&gt;</span> body.innerHTML, domHandle)          <span class="comment">// 根据页面中指定dom元素的值，获取孩子名字</span></span><br><span class="line">    <span class="keyword">let</span> pdfPath = <span class="string">`./pdf/<span class="subst">$&#123;childName&#125;</span>_<span class="subst">$&#123;childId&#125;</span>.pdf`</span>              <span class="comment">// pdf存放路径,pdf命名规则为: 名字_id.pdf</span></span><br><span class="line">    <span class="keyword">await</span> page.pdf(&#123;</span><br><span class="line">        path: pdfPath,</span><br><span class="line">        format: <span class="string">'A4'</span> ,</span><br><span class="line">        printBackground:<span class="literal">true</span>,</span><br><span class="line">        margin: &#123;</span><br><span class="line">            top: <span class="string">'18mm'</span>,</span><br><span class="line">            right: <span class="string">'20mm'</span>,</span><br><span class="line">            bottom: <span class="string">'18mm'</span>,</span><br><span class="line">            left: <span class="string">'20mm'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="经验总结"><a href="#经验总结" class="headerlink" title="经验总结"></a>经验总结</h2><ul>
+<li>关于Node<ul>
+<li>以前看Node，知道node是个运行环境，npm依赖node,构建工具依赖node，没有node就没有现在的大前端，没了…</li>
+<li>现在看Node,更多了node作为编程语言的一面，操作文件、硬件，从而带来无限的可能，感觉自己的舞台跳出了浏览器</li>
+</ul>
+</li>
+<li>关于项目结构<ul>
+<li>现在的项目结构相对于初版进行了解耦，根据职责不同划分为了不同的功能模块，考虑到了后期更换功能模块的可能，对于提升架构思维是一次非常好的尝试</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/03/vue%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E7%A0%94%E7%A9%B6/" rel="next" title="vue权限控制研究">
+                <i class="fa fa-chevron-left"></i> vue权限控制研究
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/webpack%E9%85%8D%E7%BD%AE%E6%89%8B%E8%AE%B0/" rel="prev" title="webpack配置手记">
+                webpack配置手记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">chenleno</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Node编写pdf导出脚本项目心得"><span class="nav-number">1.</span> <span class="nav-text">使用Node编写pdf导出脚本项目心得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">1.2.</span> <span class="nav-text">项目介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心模块"><span class="nav-number">1.3.</span> <span class="nav-text">核心模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程分析"><span class="nav-number">1.4.</span> <span class="nav-text">流程分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构"><span class="nav-number">1.5.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现"><span class="nav-number">1.6.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#入口index"><span class="nav-number">1.6.1.</span> <span class="nav-text">入口index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#readline"><span class="nav-number">1.6.2.</span> <span class="nav-text">readline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#puppeteer"><span class="nav-number">1.6.3.</span> <span class="nav-text">puppeteer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pdf模块"><span class="nav-number">1.6.4.</span> <span class="nav-text">pdf模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#经验总结"><span class="nav-number">1.7.</span> <span class="nav-text">经验总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenleno</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
