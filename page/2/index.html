@@ -248,6 +248,517 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/16/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact-app/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/16/%E4%BB%8E%E9%9B%B6%E6%90%AD%E5%BB%BAreact-app/" itemprop="url">从零搭建react app</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-16T15:01:03+08:00">
+                2020-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="从零搭建react-app"><a href="#从零搭建react-app" class="headerlink" title="从零搭建react app"></a>从零搭建react app</h1><h2 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h2><p>使用react开发项目一年有余，我也从一个react小白成长为了一名react开发者（笑）。期间基本是问题驱动学习，因为要学的太多所以指哪打哪，缺乏一个对react技术栈的系统归纳与总结。所以在疫情期间趁此机会从头搭建了一个基于react全家桶的仿后台管理项目，一套下来，感触多多，行文一篇，聊表初心。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>使用React开发的类后台管理app。<br>基于create-react-app脚手架构建项目，渐进引入react-router, react-redux, redux-thunk, antd等。<br>并在后期进行了 <strong>路由懒加载</strong>， <strong>redux懒加载</strong> 的功能实践。后续还会基于需求驱动加入webpack优化相关的内容。<br><a href="https://github.com/chenleno/react-app" target="_blank" rel="noopener">项目github: react-app</a></p>
+<h2 id="功能及结构说明"><a href="#功能及结构说明" class="headerlink" title="功能及结构说明"></a>功能及结构说明</h2><p>项目的基本功能包含一个登陆页面，登陆后主页面包含Header,SideBar和Content部分，对应显示 人员信息，侧边栏菜单和内容部分。<br>页面之间的跳转基于react-router,同时在登录后初始化 redux, store可以被任意页面引用。<br>User模块包含一个嵌套路由，用以跳转至用户详情。</p>
+<h3 id="结构信息"><a href="#结构信息" class="headerlink" title="结构信息"></a>结构信息</h3><pre><code>|-- index.js              // 项目主入口
+|-- App.jsx               // render App
+|-- components            // 公共组件
+|-- conf                  // 配置目录，存放API等
+|-- layout                // 布局
+|    |-- Header.jsx       // 头部导航
+|    |-- Sidebar.jsx      // 侧边导航
+|-- modules               // 业务模块
+|    |-- dashbard         // 工作台
+|    |-- login            // 登录页
+|    |-- setting          // 设置页
+|    |-- user             // 人员管理
+|    |    |-- detail      // 人员详情
+|-- reducers              // redux相关
+|-- utils                 // 工具函数
+|-- routers.js            // router集合
+|-- store.js              // redux store</code></pre><h2 id="搭建流程介绍"><a href="#搭建流程介绍" class="headerlink" title="搭建流程介绍"></a>搭建流程介绍</h2><h3 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h3><p>基础搭建部分可以参考官网实例和相关资料，如：<br><a href="https://segmentfault.com/a/1190000015301231" target="_blank" rel="noopener">通过create-react-app 从零搭建react环境</a></p>
+<ol>
+<li>安装 create-react-app 脚手架，按官网实例操作即可。</li>
+<li>尝试引入antd<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ yarn add antd</span><br><span class="line"><span class="comment">// app.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'antd'</span></span><br><span class="line">&lt;Button /&gt;...</span><br></pre></td></tr></table></figure>
+此时发现了问题，引入的antd组件样式没有生效。<br>解决： </li>
+</ol>
+<ul>
+<li>运行 npm run eject 命令，分离配置文件</li>
+<li>安装 babel-plugin-import （一个用于按需加载组件代码和样式的 babel 插件）</li>
+<li>修改package.json,添加如下代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123; ...,</span><br><span class="line">  <span class="string">"babel"</span>: &#123;</span><br><span class="line">    <span class="string">"presets"</span>: [</span><br><span class="line">      <span class="string">"react-app"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="string">"plugins"</span>: [</span><br><span class="line">      [<span class="string">"import"</span>, &#123; <span class="string">"libraryName"</span>: <span class="string">"antd"</span>, <span class="string">"libraryDirectory"</span>: <span class="string">"es"</span>, <span class="string">"style"</span>: <span class="string">"css"</span> &#125;]</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+现在就可以看到正常样式的antd组件了<h3 id="引入react-router"><a href="#引入react-router" class="headerlink" title="引入react-router"></a>引入react-router</h3><a href="https://reacttraining.com/react-router/web/example/basic" target="_blank" rel="noopener">react-router 4.x文档</a><br>安装新版react-router及react-router-dom<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-router react-router-dom</span><br></pre></td></tr></table></figure>
+项目安装的react-router是最新的5.x 版本，react-router 4x版本上下使用时有较大区别，主要体现在：</li>
+<li>旧版本的Router组件集成在react-router中，新版本则要导入 react-router-dom, 并且 组件还分为 <code>&lt;Browserrouter/&gt;</code>, <code>&lt;NativeRouter/&gt;</code>等.<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.x</span></span><br><span class="line"><span class="keyword">import</span> &#123; Router &#125; <span class="keyword">from</span> <span class="string">'react-router'</span></span><br><span class="line">&lt;Router&gt;...&lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 4.x</span></span><br><span class="line"><span class="regexp">import &#123; BrowserRouter, Route &#125; from 'react-router-dom'</span></span><br><span class="line"><span class="regexp">&lt;BrowserRouter&gt;...&lt;/</span>BrowserRouter&gt;</span><br></pre></td></tr></table></figure></li>
+<li>新版本react-router 采用<strong>组件化</strong>的方式设置路由，路由组件<Route/>就像react组件一样包裹在外层就可以</li>
+</ul>
+<ol>
+<li>首先在App最外层外包BrowserRouter<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; BrowserRouter &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'./App'</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;Route path=&#123;<span class="string">'/'</span>&#125; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">, </span></span><br><span class="line"><span class="regexp">document.getElementById('root'));</span></span><br></pre></td></tr></table></figure></li>
+<li>然后在App中注册路由及组件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; Route, Switch, Redirect &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">get</span> isLogin() &#123; <span class="comment">// 根据isLogin参数来判断登录状态，isLogin来源于redux和localStorage是否存有登录信息</span></span><br><span class="line">    <span class="keyword">return</span> localStorage.getItem(<span class="string">'profile'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;React.Fragment&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.isLogin ?</span><br><span class="line">          &lt;MainView &gt;</span><br><span class="line">            &lt;Header <span class="class"><span class="keyword">class</span>/&gt;</span></span><br><span class="line"><span class="class">            &lt;<span class="title">MainContent</span>&gt;</span></span><br><span class="line"><span class="class">              &lt;<span class="title">SideBar</span> <span class="title">className</span></span>=<span class="string">'sidebar'</span>/&gt;</span><br><span class="line">              &lt;Content&gt;</span><br><span class="line">                &lt;Switch&gt;</span><br><span class="line">                  &#123;<span class="comment">/* &lt;Redirect path=&#123;'/'&#125; to=&#123;'/dashboard'&#125;/&gt; */</span>&#125;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'/dashboard'</span>&#125; exact component=&#123;Dashboard&#125;/&gt;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'/user'</span>&#125; exact component=&#123;User&#125;/&gt;</span><br><span class="line">                  &lt;Route path=&#123;<span class="string">'*'</span>&#125; component=&#123;NotFoundPage&#125;/&gt;</span><br><span class="line">                &lt;<span class="regexp">/Switch&gt;</span></span><br><span class="line"><span class="regexp">              &lt;/</span>Content&gt;</span><br><span class="line">            &lt;<span class="regexp">/MainContent&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>MainView&gt; </span><br><span class="line">        : </span><br><span class="line">        &lt;React.Fragment&gt;</span><br><span class="line">          &lt;Route path=&#123;<span class="string">'/login'</span>&#125; render=&#123;() =&gt; <span class="xml"><span class="tag">&lt;<span class="name">Login</span> &#123;<span class="attr">...this.props</span>&#125;/&gt;</span></span>&#125;/&gt;</span><br><span class="line">          &lt;Redirect to=&#123;&#123; <span class="attr">pathname</span>: <span class="string">'/login'</span>, <span class="attr">from</span>: <span class="keyword">this</span>.props.location &#125;&#125; /&gt;</span><br><span class="line">        &lt;<span class="regexp">/React.Fragment&gt;</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>React.Fragment&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在使用层添加跳转逻辑即可<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sidebar.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; useHistory &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span> </span><br><span class="line"><span class="comment">// 新版react-router使用history替代旧版的router, 提供了hooks，可以用来获取history,params,location等</span></span><br><span class="line">  <span class="keyword">const</span> history = useHistory()</span><br><span class="line">&#123;</span><br><span class="line">  &lt;Menu.Item onClick=&#123;() =&gt; history.push(<span class="string">'/dashboard'</span>)&#125; key=<span class="string">"1"</span>&gt;dashboard&lt;<span class="regexp">/Menu.Item&gt;</span></span><br><span class="line"><span class="regexp">  &lt;Menu.Item onClick=&#123;() =&gt; history.push('/u</span>ser<span class="string">')&#125; key="2"&gt;setting&lt;/Menu.Item&gt;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="引入react-redux"><a href="#引入react-redux" class="headerlink" title="引入react-redux"></a>引入react-redux</h3><a href="https://cn.redux.js.org/" target="_blank" rel="noopener">redux文档</a><br>redux是一套数据管理方案，react-redux是该方案同react结合的具体实现。</li>
+<li>安装redux, react-redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux react-redux</span><br></pre></td></tr></table></figure></li>
+<li>各模块编写reducer<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">  profile: &#123;&#125;,</span><br><span class="line">  isLogin: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state = initState, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'LOGIN'</span>:</span><br><span class="line">      localStorage.setItem(<span class="string">'profile'</span>, action.data)</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...initState,</span><br><span class="line">        profile: action.data,</span><br><span class="line">        isLogin: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'LOGOUT'</span>:</span><br><span class="line">      localStorage.clear()</span><br><span class="line">      <span class="keyword">return</span> initState</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> initState</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> reducer</span><br><span class="line"><span class="comment">// reducers/index.js</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./login'</span></span><br><span class="line"><span class="keyword">import</span> user <span class="keyword">from</span> <span class="string">'./user'</span></span><br><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">const</span> rootReducers = combineReducers(&#123;</span><br><span class="line">  login,</span><br><span class="line">  user</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> rootReducers</span><br></pre></td></tr></table></figure></li>
+<li>创建store文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> rootReducers <span class="keyword">from</span> <span class="string">'./reducers/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br></pre></td></tr></table></figure></li>
+<li>在App最外层外包store,这样项目便受控于redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js </span></span><br><span class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line">&lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">  &lt;BrowserRouter&gt;</span><br><span class="line">    &lt;Route path=&#123;<span class="string">'/'</span>&#125; component=&#123;App&#125;/&gt;</span><br><span class="line">  &lt;<span class="regexp">/BrowserRouter&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>Provider&gt;</span><br></pre></td></tr></table></figure></li>
+<li>使用 connect 链接组件与redux<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">&#123; profile &#125;</span>) =&gt;</span> (&#123; profile &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> loginData = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; dispatch &#125; = props</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    $axios.post(<span class="string">'/api/xxx'</span>, &#123; <span class="attr">data</span>: loginData &#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'LOGIN'</span>,</span><br><span class="line">        data: resp</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      ...</span><br><span class="line">      &lt;Button onClick=&#123;() =&gt; handleClick()&#125;&gt;登录&lt;<span class="regexp">/Button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps)(Login)</span><br></pre></td></tr></table></figure>
+实际项目中会将dispatch(action) 进行进一步的抽象<h3 id="引入redux-thunk处理异步action"><a href="#引入redux-thunk处理异步action" class="headerlink" title="引入redux-thunk处理异步action"></a>引入redux-thunk处理异步action</h3><a href="https://zhuanlan.zhihu.com/p/85403048" target="_blank" rel="noopener">redux-thunk使用介绍</a><br>redux模型中，由事件源dispatch一个action,reducer捕获到对应的action之后进行处理，更新redux.state。此处的action必须是一个plain-object。而redux-thunk的作用就是允许我们dispatch一个function,这就给了我们很大的操作空间。</li>
+<li>安装redux-thunk<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux-thunk</span><br></pre></td></tr></table></figure></li>
+<li>store 中使用redux-thunk<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store.js</span></span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span></span><br><span class="line"><span class="keyword">import</span> &#123; applyMiddleWare &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers, </span><br><span class="line"><span class="comment">// redux-thunk是作为redux的中间件使用的</span></span><br><span class="line">  applyMiddleWare(thunk)</span><br><span class="line">)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li>编写action，并使用redux-thunk的特性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> login = <span class="function"><span class="params">data</span> =&gt;</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">  $axios.post(<span class="string">'/api/xxx'</span>, &#123; data &#125;).then(<span class="function"><span class="params">resp</span> =&gt;</span> &#123;</span><br><span class="line">    dispatch(&#123; <span class="attr">type</span>: <span class="string">'LOGIN'</span>, <span class="attr">data</span>: resp &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+这样就可以将异步逻辑封装在action中，上层无感知<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; login &#125; <span class="keyword">from</span> <span class="string">'reducers/login'</span></span><br><span class="line"><span class="keyword">const</span> loginData = &#123;&#125;</span><br><span class="line"><span class="keyword">const</span> Login = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; login &#125; = props</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">const</span> handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    login(loginData)</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(mapStateToProps, &#123;</span><br><span class="line">  login</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="项目优化"><a href="#项目优化" class="headerlink" title="项目优化"></a>项目优化</h2><h3 id="编写-httpMiddleWare-进一步封装异步action"><a href="#编写-httpMiddleWare-进一步封装异步action" class="headerlink" title="编写 httpMiddleWare 进一步封装异步action"></a>编写 httpMiddleWare 进一步封装异步action</h3><p>仅适用redux-thunk编写的action还无法满足我们的要求，比如他没有基于promise封装，不能单独拿来接收返回值等。因此我们需要编写一个我们自己的中间件来处理这些事。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 改写后的期望的action范式</span></span><br><span class="line"><span class="comment">// reducers/login.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> login = <span class="function"><span class="params">data</span> =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'LOGIN'</span>,</span><br><span class="line">  promise: <span class="function"><span class="params">client</span> =&gt;</span> client.post(<span class="string">'api/xxx'</span>, &#123; data &#125;),</span><br><span class="line">  args: data</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// login.jsx</span></span><br><span class="line"><span class="keyword">import</span> &#123; login &#125; <span class="keyword">from</span> <span class="string">'reducer/login'</span></span><br><span class="line">&#123;...</span><br><span class="line">  <span class="keyword">const</span> handleLogin = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> resp = <span class="keyword">await</span> <span class="keyword">this</span>.props.login(data) <span class="comment">// 可以接收到异步action的值</span></span><br><span class="line">  &#125;</span><br><span class="line">...&#125;</span><br></pre></td></tr></table></figure>
+<p>编写 httpMiddleWare.js 中间件,通讯模块基于axios</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// utils/httpMiddleWare.js</span></span><br><span class="line">  <span class="keyword">import</span> $axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line">  <span class="keyword">const</span> httpMiddleWare = <span class="function">(<span class="params">&#123; dispatch, getState &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!action) <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">      <span class="keyword">const</span> &#123; promise, type, args &#125; = action</span><br><span class="line">      <span class="comment">// promise参数传入的是一个 function </span></span><br><span class="line">      <span class="comment">// promise: client =&gt; client.post('api/xxx')</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> promise !== <span class="string">'function'</span>) <span class="keyword">return</span> next(action)</span><br><span class="line">      <span class="keyword">return</span> promise($axios).then(<span class="function">(<span class="params">&#123; data &#125;</span>) =&gt;</span> &#123; <span class="comment">// promise是函数则把$axios实例传进去构成promise查询</span></span><br><span class="line">        dispatch(&#123; type, data, arg &#125;) <span class="comment">// 接口返回的data对应action.data, 然后触发redux的dispatch(action)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(data) <span class="comment">// resolve结果并返回，外界可以直接拿到返回值</span></span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(data) <span class="comment">// 错误reject</span></span><br><span class="line">      &#125;) </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> httpMiddleWare</span><br><span class="line"><span class="comment">// store.js</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> httpMiddleWare <span class="keyword">from</span> <span class="string">'utils/httpMiddleWare'</span></span><br><span class="line"><span class="keyword">const</span> middleWares = [thunk, httpMiddleWare]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(rootReducers, </span><br><span class="line">  applyMiddleWare(...middleWares) <span class="comment">// 应用httpMiddleWare中间件</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="react-router-懒加载模块"><a href="#react-router-懒加载模块" class="headerlink" title="react-router 懒加载模块"></a>react-router 懒加载模块</h3><p><a href="https://blog.whezh.com/react-redux-code-splitting/" target="_blank" rel="noopener">react-router 4.x路由懒加载方案</a><br>react-router 懒加载在 4.x 以前只需要运用 <code>router.getComponent()</code> 方法范式即可，该范式可以在访问到当前路由时才加载路由文件。</p>
+<p>在4.x 之后由于取消了<code>router.getComponent()</code>方法，需要借助一个<code>AsyncComponent</code>组件和 webpack的 动态 <code>import()</code> 方法来实现</p>
+<ol>
+<li>编写一个AsyncComponet wrap组件（也可以直接使用 <a href="https://github.com/jamiebuilds/react-loadable" target="_blank" rel="noopener">react-loadble</a>这个库）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// component/AsyncComponent.js</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (loader) =&gt; &#123;</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">AsyncComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123;</span><br><span class="line">      component: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    componentWillMount() &#123;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">this</span>.state.component) &#123;</span><br><span class="line">        loader().then(<span class="function"><span class="params">module</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">this</span>.setState(&#123; <span class="attr">component</span>: <span class="built_in">module</span>.default &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">const</span> Comp = <span class="keyword">this</span>.state.component;</span><br><span class="line">      <span class="keyword">return</span> Comp ? <span class="xml"><span class="tag">&lt;<span class="name">Comp</span> &#123;<span class="attr">...this.props</span>&#125; /&gt;</span></span> : <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>loading<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> AsyncComponent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在路由组件导入处包装即可<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> AsyncComponent <span class="keyword">from</span> <span class="string">'components/AsyncComponent'</span></span><br><span class="line"><span class="keyword">const</span> Dashboard = AsyncComponent(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./Dashboard.jsx'</span>))</span><br><span class="line"><span class="keyword">const</span> Login = AsyncComponent(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./Login.jsx'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用处不变</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+之后打开控制台查看资源加载情况就可以看见文件是随路由分开加载的了。<br><img src="https://s1.ax1x.com/2020/04/16/JA0LLQ.jpg" alt="文件加载情况"><br>Tips:<br>新版React内部支持<code>React.lazy</code>和<code>Suspense</code>，可以完成同样的事<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; lazy, Suspense &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Dashboard = <span class="xml"><span class="tag">&lt;<span class="name">Suspense</span>&gt;</span>&#123;lazy(() =&gt; import('./Dashboard.jsx'))&#125;<span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 使用处不变</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="react-redux-懒加载redux模块"><a href="#react-redux-懒加载redux模块" class="headerlink" title="react-redux 懒加载redux模块"></a>react-redux 懒加载redux模块</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/08/QA%E5%BD%92%E6%A1%A3-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chenleno">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="chenleno's">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/04/08/QA%E5%BD%92%E6%A1%A3-md/" itemprop="url">QA归档.md</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-08T11:19:02+08:00">
+                2020-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/QA/" itemprop="url" rel="index">
+                    <span itemprop="name">QA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="QA归档"><a href="#QA归档" class="headerlink" title="QA归档"></a>QA归档</h1><p>归档总结常见的QA问题，问题驱动学习他不香吗~</p>
+<h2 id="React-fiber架构"><a href="#React-fiber架构" class="headerlink" title="React fiber架构"></a>React fiber架构</h2><p>fiber(协程)<br>react 执行数据更新需要递归遍历VDOM树，将需要变动的节点收集起来，然后同步更新他们，过程称为reconcilation（协调）。<br>在reconcilation期间，react会霸占浏览器资源，导致卡顿或掉帧。</p>
+<p>react通过fiber,让reconcilation变得可以中断，适时的让出cpu执行权，可以让浏览器及时响应用户，体验更好.</p>
+<p>确定是否有高优先级任务的api: requestIdleCallback<br>通过<strong>超时检查</strong>机制来确认，即确认一个超时时间，如果任务执行时间超过了，则暂停执行<br>为了避免任务被饿死，react定义了一个超时时间，低优先级可以慢慢等待，高优先级要立刻执行</p>
+<p>fiber另一种解读是（纤维）,这是一种数据结构或者说执行单元，react每次执行完一个执行单元，就会看看还有没有时间，如果没有时间了，就将执行权让出去<br>fiber将调用栈转换为链表结构，这样即使中断了也能在下一次执行时继续<br>fiber的协调阶段和提交阶段<br>协调阶段会找到所有节点变更，可以被中断<br>提交阶段会将找到的变更一次执行了，必须同步执行，不能被中断(不能中断是因为要保证任务只执行一次)</p>
+<p>fiber 的实现是非常复杂的东西。</p>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><p>参考资料：<br><a href="http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html" target="_blank" rel="noopener">阮一峰的宏任务微任务介绍</a></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/14/164974fb89da87c5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="js同步异步任务图"><br>宏任务和微任务都属于异步任务，它们都属于一个队列，主要区别于它们的执行顺序<br><img src="https://user-gold-cdn.xitu.io/2018/7/14/164974fa4b42e4af?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="宏任务微任务图"><br>执行描述</p>
+<ol>
+<li>主线程执行栈执行完了</li>
+<li>event loop 去查看微任务队列，如果有，就把它们全<strong>执行完</strong></li>
+<li>event loop 去查看宏任务队列，如果有，就拿出一个放到主线程执行栈执行</li>
+<li>重复123…</li>
+</ol>
+<p>总结:</p>
+<ul>
+<li>所有会进入的异步都是事件回调中的那部分代码（如：new Promise()在实例化的过程中是同步的，之后的then中注册的回调是异步的）</li>
+<li>所有同步任务执行完后才会去执行当前已注册的微任务，所有微任务都执行完后才会去执行一个新的宏任务</li>
+</ul>
+<h3 id="如何界定宏任务和微任务"><a href="#如何界定宏任务和微任务" class="headerlink" title="如何界定宏任务和微任务"></a>如何界定宏任务和微任务</h3><p>宏任务：</p>
+<ul>
+<li>I/O</li>
+<li>setTimeout, setInterval, setImmediate</li>
+<li>requestAnimationFrame<br>微任务：</li>
+<li>process.nextTick, promise.then, catch finally</li>
+</ul>
+<p><strong>process.nextTick追加在其他微任务之前</strong></p>
+<h3 id="node中的-event-loop和宏微任务之间的关系"><a href="#node中的-event-loop和宏微任务之间的关系" class="headerlink" title="node中的 event loop和宏微任务之间的关系"></a>node中的 event loop和宏微任务之间的关系</h3><p>node的event loop依赖libuv调度<br>node 事件循环的六个阶段</p>
+<ul>
+<li>timers (处理 setTimeout 和 setInterval的回调，是否执行根据当前时间是否满足回调条件)</li>
+<li>I/O callbacks (除了以下操作的回调，其他的都在这里执行)<ul>
+<li>setTimeout和setInterval</li>
+<li>setImmediate</li>
+<li>用于关闭请求的回调（如：socket.on(‘close’, …）</li>
+<li><strong>Tip:执行I/O回调时可能会遇到定时器到时了，但也必须执行完当前回调后才会去执行定时器的，这也是为什么有时候定时器回调执行时间会晚于定时时间的原因</strong></li>
+</ul>
+</li>
+<li>idle, prepare (libuv内部调用，可以忽略)</li>
+<li>poll (轮询时间，用于等待还未返回的I/O事件或定时器)</li>
+<li>check (执行setImmediate回调)</li>
+<li>close callbacks （执行关闭请求的回调，如：socket.on(‘close’, …)）<br>每个阶段都有一个先进先出的回调函数队列，只有一个阶段的回调函数队列清空了，该执行的回调函数都执行了，事件循环才会进入下一个阶段<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 思考题</span></span><br><span class="line">fs.readFile(<span class="string">'test.js'</span>, () =&gt; &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'timeout'</span>))</span><br><span class="line">  setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'immediate'</span>))</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 该代码一定会先输出 immediate, 后输出timeout</span></span><br><span class="line"><span class="comment">// 解析：</span></span><br><span class="line"><span class="comment">// 第一轮loop, 解析到I/O操作，在poll状态等待I/O执行完毕，I/O执行完毕，进行第二轮loop</span></span><br><span class="line"><span class="comment">// 第二轮loop, 在 I/O阶段执行回调，检测到setTimeout和setImmediate, 在check阶段执行 setImmediate的回调，输出"immediate",进入第三轮</span></span><br><span class="line"><span class="comment">// 第三轮loop, 在timer处处理setTimeout的回调，输出"timeout"</span></span><br></pre></td></tr></table></figure>
+<h2 id="代码不写-会导致的问题"><a href="#代码不写-会导致的问题" class="headerlink" title="代码不写;会导致的问题"></a>代码不写;会导致的问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 乱序方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shuffle</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=arr.length;i;i--) &#123;</span><br><span class="line">    <span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i)</span><br><span class="line">    [arr[i<span class="number">-1</span>], arr[j]] = [arr[j], arr[i<span class="number">-1</span>]]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line">shuffle([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line"><span class="comment">// Uncaught ReferenceError: Cannot access 'j' before initialization</span></span><br></pre></td></tr></table></figure>
+代码执行会报错，变量j进入了临时死区报错<br>经分析，问题出在这里<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i) </span><br><span class="line">[arr[i<span class="number">-1</span>], arr[j]] = [arr[j], arr[i<span class="number">-1</span>]] <span class="comment">// 新行以 ( [ / + - * % , . 开始,会与上一行未加;的代码拼在一起解析</span></span><br></pre></td></tr></table></figure>
+因此需要在<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i); <span class="comment">// 需要在这里加个;</span></span><br></pre></td></tr></table></figure>
+真坑爹，原本以为js加不加;只是代码风格问题，没想到这里也有坑，真是学到了学到了…<h2 id="session-cookie和token"><a href="#session-cookie和token" class="headerlink" title="session, cookie和token"></a>session, cookie和token</h2>session和cookie都是为了弥补http协议的无状态性<h3 id="session"><a href="#session" class="headerlink" title="session"></a>session</h3>客户端访问服务端时，服务端在内存上开辟一块空间，这个对象便是session对象</li>
+</ul>
+<ol>
+<li>服务端第一次收到请求，创建session对象，并生成一个sessionId</li>
+<li>通过响应头的set-cookie: JSESSIONID=xxxx,向客户端发送要求设置cookie的响应</li>
+<li>客户端收到响应后，在本机客户端设置了一个JSESSIONID=xxx的cookie信息，过期时间为会话结束</li>
+<li>接下来客户端向同一个站点发送请求，请求头上都会带上该cookie信息，服务端通过读取cookie信息得到本次请求的sessionId<br><img src="https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2020%2F0405%2F19c183f7p00q8b9mk001md200u000aog015w00ew.png&thumbnail=690x2147483647&quality=75&type=png" alt="set-cookie要求"><br>session的缺点：<br>假如只有a服务器存储了session,负载均衡转发到b服务器，b服务器无法访问到a的sessionId,会导致session失效<h3 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h3>他是服务器发到浏览器的一小块数据，浏览器进行存储，并与下一个请求一起发送到服务器，cookie通常用来判断两个请求是否来源于同一个浏览器<br>cookie有两种类型，分别是<strong>session cookie</strong>和<strong>persistant cookie</strong></li>
+</ol>
+<ul>
+<li>session cookie<ul>
+<li>不会写入磁盘，没有过期时间，会在会话结束后删除</li>
+</ul>
+</li>
+<li>persistant cookie<ul>
+<li>会写入磁盘，有expires或者max-age过期时间，并在到期后删除<br>cookie的http-only属性指定该cookie是否可以通过客户端脚本访问,为true时可能导致cookie被窃取<br>cookie的domain和path属性指定该cookie应该发送给哪些url<br>cookie的SameSite属性可以让cookie在跨站请求时不被发送，从而阻止跨站请求伪造攻击（CSRF）<br>SameSite的三个值</li>
+</ul>
+</li>
+<li>strict (仅允许一方请求携带 Cookie，即浏览器将只发送相同站点请求的 Cookie，即当前网页 URL 与请求目标 URL 完全一致。)</li>
+<li>lax (允许部分第三方请求携带 Cookie)</li>
+<li>none (无论是否跨站都会携带cookie)</li>
+</ul>
+<h3 id="token"><a href="#token" class="headerlink" title="token"></a>token</h3><p>token 和session cookie就是用来保证用户在不同页面间切换，保存登录信息的机制<br>token 由三部分组成</p>
+<ul>
+<li>uid 用户唯一身份标识</li>
+<li>time 时间戳</li>
+<li>sign + [固定参数]<br>token认证流程</li>
+</ul>
+<ol>
+<li>用户登录，成功后服务器返回token给客户端</li>
+<li>客户端收到数据后保存在客户端</li>
+<li>客户端再次访问服务器，token放在header中</li>
+<li>服务器校验，校验成功返回数据，不成功返回错误码</li>
+</ol>
+<p>token可以抵抗csrf,session+cookie不行<br>客户端登录将身份信息发给服务端，服务端把信息加密（token）传给客户端，客户端将token存放于localStorage中，客户端每次访问都传递token给服务端，服务端解密token获取用户身份，这种方法叫做jwt(JSON web token)</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>session存放于服务端，可以理解为一个状态列表，拥有一个唯一识别符合sessionId，通常存放于cookie中。服务端收到cookie后解析出sessionId,再去session列表中查找，找到相应session。依赖cookie</li>
+<li>cookie类似一个令牌，拥有sessionId,存放于客户端，浏览器通常会自动添加</li>
+<li>token也类似一个令牌，无状态，用户信息被加密到token中，服务端收到后解密就可以知道哪个用户，需要手动添加</li>
+<li>jwt只是一个跨域认证方案<h2 id="网络层问题"><a href="#网络层问题" class="headerlink" title="网络层问题"></a>网络层问题</h2><h3 id="TCP-三次握手四次挥手"><a href="#TCP-三次握手四次挥手" class="headerlink" title="TCP 三次握手四次挥手"></a>TCP 三次握手四次挥手</h3></li>
+<li>TCP三次握手（建立连接前，客户端和服务端需要握手来确认对方）<ul>
+<li>客户端发送syn(同步序列序号)请求，进入syn_send状态，等待确认</li>
+<li>服务端接收并确认syn后，发送syn+ack包，进入syn_recv状态</li>
+<li>客户端收到syn+ack包后，发送ack包，双方进入established状态</li>
+</ul>
+</li>
+<li>TCP四次挥手<ul>
+<li>客户端 – FIN –&gt; 服务端，FIN-WAIT</li>
+<li>服务端 – ACK –&gt; 客户端，CLOSE-WAIT</li>
+<li>服务端 – ACK,FIN –&gt; 客户端，LAST-ACK</li>
+<li>客户端 – ACK –&gt; 服务端，CLOSE<h2 id="hybrid-App-webView和native交互总结"><a href="#hybrid-App-webView和native交互总结" class="headerlink" title="hybrid App webView和native交互总结"></a>hybrid App webView和native交互总结</h2>hybrid app 就是在原生app的某个页面中放置了一个webView,用来展示web页面。web页面可以通过某种方式和原生app交互。webView相当于一个微型浏览器，内部有window等全局对象。web端和app端约定好事件名和数据格式，通过挂载在window上的方法来进行通信。<h3 id="理论上的"><a href="#理论上的" class="headerlink" title="理论上的"></a>理论上的</h3>前端开发web页面生成静态文件上传到server端并打成zip包，包有hash值。客户端打开app时检查包是否有更新并下载解压。在WebView访问时直接访问本地file文件。</li>
+</ul>
+</li>
+</ul>
+<p>首先确定scheme协议：’custom://xxx’</p>
+<blockquote>
+<p>scheme 协议能让app端定位到具体跳转页面，功能等，依赖app端约定</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// web端</span></span><br><span class="line"><span class="keyword">const</span> scheme = <span class="string">'custom://xxx/details?id=111&amp;callback=__callback__'</span></span><br><span class="line">&lt;a href=<span class="string">`<span class="subst">$&#123;scheme&#125;</span>`</span>&gt;&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">(</span></span><br><span class="line"><span class="regexp">  function _invoke(action, data, callback) &#123;</span></span><br><span class="line"><span class="regexp">    let scheme = 'custom:/</span><span class="regexp">/xxx' + action + '?'</span></span><br><span class="line"><span class="regexp">    for(let i in data) &#123;</span></span><br><span class="line"><span class="regexp">      if (data.hasOwnProperty(i)) &#123;</span></span><br><span class="line"><span class="regexp">        scheme += i + '=' + data[i] + '&amp;'</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">    let callbackName = ''</span></span><br><span class="line"><span class="regexp">    if (callback &amp;&amp; typeof callback === 'function') &#123;</span></span><br><span class="line"><span class="regexp">      callbackName = action + +new Date()</span></span><br><span class="line"><span class="regexp">      window[callbackName] = callback</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">    scheme += `callback=$&#123;callbackName&#125;`</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">  window.evoke = &#123;</span></span><br><span class="line"><span class="regexp">    share: function(data, callback) &#123;</span></span><br><span class="line"><span class="regexp">      _invoke('share', data, callback)</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">)()</span></span><br></pre></td></tr></table></figure>
+<h3 id="项目中的"><a href="#项目中的" class="headerlink" title="项目中的"></a>项目中的</h3><p>项目中看起来并没有打包zip文件，都是app访问对应的web页面。由app端和web端一起约定事件，scheme协议没有对外暴露。<br>首先确定交互事件api</p>
+<ul>
+<li>ios: <code>window.webkit.messageHandlers.NativeApi.postMessage({ method: actionName, ...(params || {}) })</code></li>
+<li>android: <code>window.Native[actionName](JSON.stringfy(params))</code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">callNativeApi</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">const</span> ua = navigator.userAgent</span><br><span class="line">    <span class="keyword">this</span>.callbackBucket = &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> （/android/i.test(ua)）&#123;</span><br><span class="line">      <span class="keyword">this</span>.platform = <span class="string">'android'</span></span><br><span class="line">    &#125;...</span><br><span class="line">    <span class="built_in">window</span>.callBackHandler = <span class="keyword">this</span>.callBackHandler.bind(<span class="keyword">this</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  callNative(actionName, params) &#123;</span><br><span class="line">    <span class="keyword">if</span>(params.callback &amp;&amp; <span class="keyword">typeof</span> params.callback === <span class="string">'funciton'</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> actionId = +<span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">      <span class="keyword">this</span>.callbackBucket[actionId] = params.callback</span><br><span class="line">      params.actionId = actionId</span><br><span class="line">      <span class="keyword">delete</span> params.callback</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.platform === <span class="string">'ios'</span>) &#123;</span><br><span class="line">      <span class="built_in">window</span>.webkit.messageHandler.NativeApi.postMessage(&#123; <span class="attr">method</span>: actionName, ...(params || &#123;&#125;) &#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.platform === <span class="string">'android'</span>) &#123;</span><br><span class="line">      <span class="built_in">window</span>.Native[actioName](<span class="built_in">JSON</span>.stringify(params))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  callBackHandler(arg) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; actionId, data &#125; = arg</span><br><span class="line">    <span class="keyword">this</span>.callbackBucket[actionId](data)</span><br><span class="line">    <span class="keyword">delete</span> <span class="keyword">this</span>.callbackBucket[actionId]</span><br><span class="line">  &#125;</span><br><span class="line">  jumpToUrl(url) &#123;</span><br><span class="line">    <span class="keyword">this</span>.callNative(<span class="string">'jumpToUrl'</span>, &#123; url &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> callNativeApi()</span><br><span class="line"><span class="comment">// 用例</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">import</span> NativeApiCallable <span class="keyword">from</span> <span class="string">'./nativeApi'</span></span><br><span class="line">NativeApiCallable.jumpToUrl(<span class="string">'xxx'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="vdom相关问题"><a href="#vdom相关问题" class="headerlink" title="vdom相关问题"></a>vdom相关问题</h2>vdom就是用js模拟dom,dom变化的对比，放到js层来做<br><a href="https://github.com/snabbdom/snabbdom" target="_blank" rel="noopener">snabbdom</a><h3 id="核心api"><a href="#核心api" class="headerlink" title="核心api"></a>核心api</h3></li>
+<li>h(tag, props, children) 生成vnode节点</li>
+<li>dispatch()<ul>
+<li>dispatch(container, vnode) 将vnode塞进真实dom节点</li>
+<li>dispatch(vnode, newVnode) 比对新旧vnode<h3 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h3>不考虑边界情况</li>
+</ul>
+</li>
+<li>createElement(vnode)<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">vnode</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> tag = vnode.tage</span><br><span class="line">  <span class="keyword">const</span> attrs = vnode.attrs</span><br><span class="line">  <span class="keyword">const</span> children = vnode.children</span><br><span class="line">  <span class="keyword">const</span> elem = <span class="built_in">document</span>.createElement(tag)</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> attrs) &#123;</span><br><span class="line">    <span class="keyword">if</span> (attrs.hasOwnProperty(i)) &#123;</span><br><span class="line">      elem.setAttribute(i, attrs[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  children.forEach(<span class="function"><span class="params">child</span> =&gt;</span> &#123;</span><br><span class="line">    elem.appendChild(createElement(child))</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> elem</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>updateChildren(vnode, newVnode)<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateChildren</span>(<span class="params">vnode, newVnode</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> children = vnode.children</span><br><span class="line">  <span class="keyword">const</span> newChildren = newVnode.children</span><br><span class="line">  children.forEach(<span class="function">(<span class="params">child, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newChlid = newChildren[index]</span><br><span class="line">    <span class="keyword">if</span> (newChlid === <span class="literal">null</span> ) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (child.tag === newChild.tag) &#123;</span><br><span class="line">      updateChildren(child, newChild)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      replace(child, newChild)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="理解MVVM"><a href="#理解MVVM" class="headerlink" title="理解MVVM"></a>理解MVVM</h2>以VUE为例<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">View ==== ViewModel ==== Model</span><br><span class="line"> ||           ||          ||</span><br><span class="line">DOM           VUE      plain object</span><br></pre></td></tr></table></figure>
+View 通过事件绑定操作 Model<br>Model 通过数据绑定操作 View<br>三要素： 响应式，模板引擎，渲染<h3 id="渲染render"><a href="#渲染render" class="headerlink" title="渲染render"></a>渲染render</h3>render 返回vnode<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">with</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> _c(...) <span class="comment">// _c()同h(),返回的是vnode</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="updateComponent"><a href="#updateComponent" class="headerlink" title="updateComponent"></a>updateComponent</h3>set 中 执行updateComponent, 这一步是异步的<br>updateComponent中执行 patch<br>页面首次渲染时执行<code>updateComponent(container, vnode)</code><br>页面有更新时执行<code>updateComopnent(vnode, newVnode)</code><h3 id="VUE实现流程"><a href="#VUE实现流程" class="headerlink" title="VUE实现流程"></a>VUE实现流程</h3></li>
+</ul>
+<ol>
+<li>解析模板成render函数</li>
+<li>响应式开始监听(被访问到的变量)</li>
+<li>首次渲染，显示页面，绑定依赖</li>
+<li>data中被监听的属性变化，触发rerender<h4 id="和-react-对比"><a href="#和-react-对比" class="headerlink" title="和 react 对比"></a>和 react 对比</h4></li>
+<li>初次渲染 <code>ReactDOM.render(&lt;App/&gt;, container)</code></li>
+<li>会触发<code>patch(container, vnode)</code></li>
+<li>setState rerender的时候</li>
+<li>会触发<code>patch(vnode, newVnode)</code><h4 id="setState的异步"><a href="#setState的异步" class="headerlink" title="setState的异步"></a>setState的异步</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setState(&#123; <span class="attr">list</span>: data &#125;, () =&gt; &#123;</span><br><span class="line">  <span class="keyword">this</span>.renderComponent()  <span class="comment">// renderComponent 继承自 React.Component</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// Component</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  renderComponent() &#123;</span><br><span class="line">    <span class="keyword">const</span> prevVnode = <span class="keyword">this</span>._vnode</span><br><span class="line">    <span class="keyword">const</span> newVnode = <span class="keyword">this</span>.render()</span><br><span class="line">    patch(prevVnode, newVnode)</span><br><span class="line">    <span class="keyword">this</span>._vnode = newVnode</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(List, &#123;<span class="attr">data</span>: <span class="keyword">this</span>.state.list&#125;)</span><br><span class="line"><span class="keyword">var</span> list = <span class="keyword">new</span> List(&#123; <span class="attr">data</span>: <span class="keyword">this</span>.state.list &#125;)</span><br><span class="line"><span class="keyword">var</span> vnode = list.render()</span><br></pre></td></tr></table></figure>
+
+<h2 id="前端路由原理"><a href="#前端路由原理" class="headerlink" title="前端路由原理"></a>前端路由原理</h2><ul>
+<li><p>hash (hashchange函数)</p>
+</li>
+<li><p>history (pushState, replaceState这两个方法改变url的path部分不会引起刷新)</p>
+<ul>
+<li>popState 只有在浏览器前进后退时才会使用<h2 id="浏览器缓存策略"><a href="#浏览器缓存策略" class="headerlink" title="浏览器缓存策略"></a>浏览器缓存策略</h2><blockquote>
+<p>浏览器每次发起请求，都会先在浏览器缓存中查询结果和缓存表示<br>浏览器每次拿到返回的请求结果都会将该结果和标识存入浏览器缓存中</p>
+</blockquote>
+<h3 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h3>缓存格式由response响应报头中的<code>cache-control</code>和<code>expires</code>控制<br>cache-control 的值：</li>
+</ul>
+</li>
+<li><p>public: 所有内容都可被缓存（包括客户端和代理服务器）</p>
+</li>
+<li><p>private: 只有客户端可以缓存（默认值）</p>
+</li>
+<li><p>no-cache: 客户端缓存内容，但是否使用由协商缓存结果决定</p>
+</li>
+<li><p>no-store: 所有内容都不会被缓存</p>
+</li>
+<li><p>max-age=xxx: 缓存内容在xxx s后失效（是一个相对值）<br>expires 是一个绝对值</p>
+</li>
+<li><p>memory-cache：存在内存中，读取快无需编译，关闭浏览器就会清空</p>
+</li>
+<li><p>disk-cache：存在硬盘中，读取慢需要编译<br>浏览器会将js和图片等文件解析后存在内存中，css文件则会存在硬盘中</p>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>强制缓存失效后，浏览器带着缓存标识请求服务器，服务器检查标识，若资源未改变，则返回304 not modified,浏览器继续使用该缓存。如果变化了，则返回200，浏览器使用返回的新资源</p>
+</li>
+</ul>
+<p>总结：</p>
+<blockquote>
+<p>强制缓存优先于协商缓存进行，若强制缓存(Expires和Cache-Control)生效则直接使用缓存，若不生效则进行协商缓存(Last-Modified / If-Modified-Since和Etag / If-None-Match)，协商缓存由服务器决定是否使用缓存，若协商缓存失效，那么代表该请求的缓存失效，重新获取请求结果，再存入浏览器缓存中；生效则返回304，继续使用缓存</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/VUE%E5%A4%8D%E5%81%A5%E6%8C%87%E5%8D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1629,371 +2140,6 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/04/TS%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/04/TS%E5%AD%A6%E4%B9%A0%E6%89%8B%E8%AE%B0/" itemprop="url">TS学习手记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-04T15:18:47+08:00">
-                2020-04-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h1><p>TypeScript作为今年的重点学习对象，在此记录学习过程和总结。<br>参考资料：<br><a href="https://github.com/xcatliu/typescript-tutorial" target="_blank" rel="noopener">从JS到TS</a></p>
-<h2 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h2><ul>
-<li>string</li>
-<li>number</li>
-<li>boolean</li>
-<li>underfined</li>
-<li>null</li>
-<li>any</li>
-<li>symbol<h2 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口 interface"></a>接口 interface</h2>interface 常用来描述一个对象有哪些类型的属性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface Ifoo &#123;</span><br><span class="line">  name: string</span><br><span class="line">  age?: number</span><br><span class="line">  sayHello(props: string | number): <span class="keyword">void</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>: <span class="title">Ifoo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型 "></a>泛型 <T></h2><blockquote>
-<p>在定义函数或者接口或者类时，不预先定义具体的类型，而是在使用时再定义的一种特性<br>比如一个函数接收的参数即可能是字符串数组也可能是数字数组时</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface Ibar&lt;T&gt; &#123;</span><br><span class="line">  props: T[]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> bar: Ibar&lt;string | number&gt; = <span class="function"><span class="params">props</span> =&gt;</span> <span class="built_in">console</span>.log(props)</span><br></pre></td></tr></table></figure>
-<h2 id="类型断言"><a href="#类型断言" class="headerlink" title="类型断言"></a>类型断言</h2><blockquote>
-<p>可以用来手动指定一个类型的值<br>常用在，当ts不知道某个值的类型，而却要使用这种类型的值才有的方法的时候</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">props: string | []</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(props <span class="keyword">as</span> [].map(<span class="function"><span class="params">i</span> =&gt;</span> <span class="built_in">console</span>.log(i)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-两种写法：</li>
-<li>值 as 类型 (tsx中只能用这种)</li>
-<li>&lt;类型&gt;值<h2 id="声明文件x-d-ts"><a href="#声明文件x-d-ts" class="headerlink" title="声明文件x.d.ts"></a>声明文件x.d.ts</h2>想要在别的项目上开发时，也拥有方法，校验提示，就需要在项目内编写声明文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// xxx.d.ts</span></span><br><span class="line">declare namespace &lt;object&gt; &#123;</span><br><span class="line">  a: string</span><br><span class="line">  b: string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-使用webpack打包时，package.json 中要指明 types 属性的入口，该属性用于引入声明文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;...</span><br><span class="line">  types: <span class="string">'dist/index.d.ts'</span></span><br><span class="line">...&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="type-定义类型别名和字符串字面量约束"><a href="#type-定义类型别名和字符串字面量约束" class="headerlink" title="type 定义类型别名和字符串字面量约束"></a>type 定义类型别名和字符串字面量约束</h2>可以用type 来定义类型别名<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type Tstring = string</span><br><span class="line"><span class="keyword">const</span> a: Tstring = <span class="string">'hhh'</span></span><br></pre></td></tr></table></figure>
-也可以定义字符串约束<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type Tstring = <span class="string">'click'</span> | <span class="string">'dbclick'</span> | <span class="string">'move'</span></span><br><span class="line"><span class="keyword">const</span> b: Tstring = <span class="string">'hhh'</span> <span class="comment">// 错，b只能是约束中的一种</span></span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/03/webpack%E9%85%8D%E7%BD%AE%E6%89%8B%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="chenleno">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="chenleno's">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/04/03/webpack%E9%85%8D%E7%BD%AE%E6%89%8B%E8%AE%B0/" itemprop="url">webpack配置手记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-03T18:22:46+08:00">
-                2020-04-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="webpack配置手记"><a href="#webpack配置手记" class="headerlink" title="webpack配置手记"></a>webpack配置手记</h1><p>从零开始配置一个webpack工具，包含样式解析，代码混淆，代码压缩，打包优化，vue文件解析等功能点<br>搭配项目使用风味更佳<br><a href="https://github.com/chenleno/webpack-yes" target="_blank" rel="noopener">github: webpack-yes</a><br>参考资料：<br><a href="https://juejin.im/post/5de87444518825124c50cd36" target="_blank" rel="noopener">2020年了,再不会webpack敲得代码就不香了</a></p>
-<h2 id="核心四个概念"><a href="#核心四个概念" class="headerlink" title="核心四个概念"></a>核心四个概念</h2><ul>
-<li>入口 entry (指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始)</li>
-<li>输出 output (告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件)</li>
-<li>loader (让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。)loader 解析遵循 <strong>从右向左</strong> 原则</li>
-<li>插件 plugin (插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。)<h2 id="其他模块"><a href="#其他模块" class="headerlink" title="其他模块"></a>其他模块</h2></li>
-<li>resolve 设置模块如何被解析<ul>
-<li>alias 路径别名,直接告诉webpack去哪找文件，节省时间</li>
-<li>extensions 自动解析确定的扩展，导入文件时就可以不用带扩展了,优先级高的格式写前面</li>
-</ul>
-</li>
-<li>optimization 解析优化<ul>
-<li>minimize </li>
-<li>minimizer // 使用压缩工具覆盖默认压缩</li>
-<li>splitChunks // 代码分块策略</li>
-</ul>
-</li>
-<li>externals // 使用cdn等库时的配置<h2 id="常用loader"><a href="#常用loader" class="headerlink" title="常用loader"></a>常用loader</h2></li>
-<li>style-loader, css-loader, postcss-loader, less-loader… // 样式解析loader</li>
-<li>file-loader, url-loader // 文件处理loader</li>
-<li>bable-loader // js转译loader<ul>
-<li>babel/polyfill // 放在入口文件最上面，它运行于所有脚本文件之前</li>
-</ul>
-</li>
-</ul>
-<h2 id="常用plugin"><a href="#常用plugin" class="headerlink" title="常用plugin"></a>常用plugin</h2><ul>
-<li>html-webpack-plugin // 将打包后的js文件自动导入到目标html中</li>
-<li>clean-webpack-plugin // 每次打包前清除之前的打包文件</li>
-<li>mini-css-extract-plugin // 打包后拆分js 和 css</li>
-<li>webpack-dev-server // 热更新模块</li>
-<li>webpack-merge // 合并配置</li>
-<li>copy-webpack-plugin // 拷贝静态资源</li>
-<li>optimize-css-assets-webpack-plugin // 压缩css</li>
-<li>uglifyjs-webpack-plugin // 压缩js</li>
-</ul>
-<h2 id="VUE-相关"><a href="#VUE-相关" class="headerlink" title="VUE 相关"></a>VUE 相关</h2><ul>
-<li>vue-loader // 解析vue文件</li>
-<li>vue-template-compiler // 用于编译模板</li>
-</ul>
-<h2 id="优化相关"><a href="#优化相关" class="headerlink" title="优化相关"></a>优化相关</h2><ul>
-<li>happypack // 将解析loader的工作分发给每一个进程，执行完后再汇总</li>
-<li>webpack-parallel-uglify-plugin // 优化代码压缩时间 （和happypack功能类似）</li>
-<li>webpack.DllPlugin // 抽取第三方模块</li>
-<li>cache-loader // 用于缓存编译文件内容</li>
-<li>webpack-bundle-analyzer // 生成打包分析图</li>
-</ul>
-<h2 id="loader-编写原则"><a href="#loader-编写原则" class="headerlink" title="loader 编写原则"></a>loader 编写原则</h2><ul>
-<li>单一原则: 每个 Loader 只做一件事；</li>
-<li>链式调用: Webpack 会按顺序链式调用每个 Loader；</li>
-<li>统一原则: 遵循 Webpack 制定的设计规则和结构，输入与输出均为字符串，各个 Loader 完全独立，即插即用；</li>
-</ul>
-<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><h3 id="output-libraryTarget"><a href="#output-libraryTarget" class="headerlink" title="output.libraryTarget"></a>output.libraryTarget</h3><p>此坑在编写工具库项目DIO时遇到，该项目基于webpack打包。但是在使用模块方式引入包文件时却无法获取到打包的内容。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @lenochen/dio</span></span><br><span class="line"><span class="comment">// index.js 工具库项目DIO打包入口</span></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> a</span><br><span class="line"></span><br><span class="line"><span class="comment">// usecase 使用DIO的另一个项目</span></span><br><span class="line"><span class="comment">// npm i @lenochen/dio</span></span><br><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'@lenochen/dio'</span></span><br><span class="line"><span class="built_in">console</span>.log(a) <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-<p>经调查发现问题出在DIO项目webpack配置的output的参数上</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @lenochen/dio</span></span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line">&#123;</span><br><span class="line">  ...,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'index.bundle.js'</span>,</span><br><span class="line">    path: <span class="string">'dist'</span>,</span><br><span class="line">    <span class="comment">// ++++</span></span><br><span class="line">    libraryTarget: <span class="string">'umd'</span> <span class="comment">// 增加此参数后，将你的library暴露为所有模块定义下都可以运行的方式</span></span><br><span class="line">    <span class="comment">// ++++</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>详细libraryTarget配置解析见<br><a href="https://webpack.docschina.org/configuration/output/#output-librarytarget" target="_blank" rel="noopener">output.libraryTarget</a></p>
-<h2 id="配置示例"><a href="#配置示例" class="headerlink" title="配置示例"></a>配置示例</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> MiniCssExtractPlugin = <span class="built_in">require</span>(<span class="string">'mini-css-extract-plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> vueLoaderPlugin = <span class="built_in">require</span>(<span class="string">'vue-loader/lib/plugin'</span>)</span><br><span class="line"><span class="keyword">const</span> HappyPack = <span class="built_in">require</span>(<span class="string">'happypack'</span>)</span><br><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>)</span><br><span class="line"><span class="keyword">const</span> WebpackAnalyzerPlugin = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>).BundleAnalyzerPlugin</span><br><span class="line"></span><br><span class="line"><span class="comment">// 开辟一个线程池</span></span><br><span class="line"><span class="comment">// 拿到系统CPU的最大核数，happypack 将编译工作灌满所有进程</span></span><br><span class="line"><span class="keyword">const</span> happyPackThreadPool = HappyPack.ThreadPool(&#123; <span class="attr">size</span>: os.cpus().length &#125;)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  entry: [<span class="string">'babel/polyfill'</span>, ...],</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'../dist'</span>),</span><br><span class="line">    filename: <span class="string">'js/[name].[hash:8].js'</span>,</span><br><span class="line">    libraryTarget: <span class="string">'umd'</span></span><br><span class="line">  &#125;</span><br><span class="line">  ...,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    noParse: <span class="regexp">/jquery|lodash/</span> <span class="comment">// 不解析模块</span></span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.(le|c)ss$/</span>,</span><br><span class="line">        use: [<span class="string">'cache-loader'</span>,</span><br><span class="line">          MiniCssExtractPlugin.loader, <span class="comment">// mini-css-extract-plugin loader 和 style-loader 冲突，故只保留一个</span></span><br><span class="line">          <span class="string">'css-loader'</span>, <span class="string">'less-loader'</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        test: <span class="regexp">/\.(jpe?g|png|gif)$/i</span>,</span><br><span class="line">        use: [&#123;</span><br><span class="line">          loader: <span class="string">'url-loader'</span>,</span><br><span class="line">          options: &#123;</span><br><span class="line">            limit: <span class="number">10240</span>,</span><br><span class="line">            fallback: &#123;</span><br><span class="line">              loader: <span class="string">'file-loader'</span>,</span><br><span class="line">              options: &#123;</span><br><span class="line">                name: <span class="string">'img/[name].[hash:8].[ext]'</span></span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">          loader: <span class="string">'happypack/loader?id=happyJs'</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">      <span class="string">'@'</span>: path.resolve(__dirname, <span class="string">'../src'</span>) <span class="comment">// 配置路径别名</span></span><br><span class="line">    &#125;,</span><br><span class="line">    extensions: [<span class="string">'.js'</span>, <span class="string">'.vue'</span>] <span class="comment">// 引用此类文件不用写后缀</span></span><br><span class="line">  &#125;,</span><br><span class="line">  devServer: &#123; <span class="comment">// 开启本地服务</span></span><br><span class="line">    port: <span class="string">'3000'</span>,</span><br><span class="line">    hot: <span class="literal">true</span>,</span><br><span class="line">    contentBase: <span class="string">'../dist'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">      template: <span class="string">'./index.html'</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> CleanWebpackPlugin(),</span><br><span class="line">    <span class="keyword">new</span> MiniCssExtractPlugin(&#123;</span><br><span class="line">      filename: <span class="string">'css/[name].[hash:8].css'</span>, <span class="comment">// 分离的css 文件名</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> vueLoaderPlugin(),</span><br><span class="line">    <span class="keyword">new</span> webpack.HotModuleReplacementPlugin(),</span><br><span class="line">    <span class="keyword">new</span> HappyPack(&#123;</span><br><span class="line">      id: <span class="string">'happyJs'</span>,</span><br><span class="line">      threadPool: happyPackThreadPool,</span><br><span class="line">      loaders: [...]</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> WebpackAnalyzerPlugin(&#123; <span class="comment">// 资源打包分析图</span></span><br><span class="line">      analyzerHost: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">      analyzerPort: <span class="number">8899</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  optimization: &#123;</span><br><span class="line">    minimizer: [</span><br><span class="line">      <span class="keyword">new</span> UglifyPlugin(...)</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  externals: &#123;</span><br><span class="line">    <span class="string">'jquery'</span>: <span class="string">'jQuery'</span> <span class="comment">// 使通过cdn引入的jquery生效</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2044,7 +2190,7 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2066,7 +2212,7 @@ let 声明在循环内的行为是专门定义的,不一定与let不提升有关
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
